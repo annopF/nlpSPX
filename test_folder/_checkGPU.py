@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow.python.client import device_lib
 import torch
 
-
+print("GPU device info:")
 
 print("------------------------------------------------ PyTorch")
 print("PyTorch GPU status: ",torch.cuda.is_available())
@@ -15,3 +15,6 @@ print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')),"\n")
 print("GPU name: ",tf.test.gpu_device_name())
 
 edit on master (test fast forward)
+print("end of info")
+
+edit-gpu-config
