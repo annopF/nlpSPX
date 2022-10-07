@@ -8,7 +8,7 @@ batch_size = 32
 epochs = 2
 
 # Labels in our dataset.
-labels = ["contradiction", "entailment", "neutral"]
+labels = ["contradict", "entail", "neutral"]
 
 train = pd.read_csv("F:/Work Folder/KMUTT/SeniorProject/dataset/SNLI_Corpus/snli_1.0_train.csv", nrows=100000)
 valid = pd.read_csv("F:/Work Folder/KMUTT/SeniorProject/dataset/SNLI_Corpus/snli_1.0_dev.csv")
