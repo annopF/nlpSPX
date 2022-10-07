@@ -15,6 +15,8 @@ def sim(sentence1, sentence2):
     #Compute cosine-similarities
     cosine_scores = util.cos_sim(embeddings1, embeddings2)
 
+    print("status")
+
     return cosine_scores
 
 
