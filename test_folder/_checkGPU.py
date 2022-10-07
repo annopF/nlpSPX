@@ -13,3 +13,5 @@ print("Tensorflow GPU status: ", tf.test.is_built_with_cuda)
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')),"\n")
 
 print("GPU name: ",tf.test.gpu_device_name())
+
+edit on master (test fast forward)
