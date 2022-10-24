@@ -7,9 +7,9 @@ from semanticSim import sim
 print("---------------------------------------------------- start")
 startTime = time.time()
 logging.set_verbosity_error()
-inputText = "the weather is good today."
-repeatWord = "good"
-print("john")
+inputText = "iphone 4 has a good camera system."
+repeatWord = "system"
+
 
 #choose model:
 model1 = "bert-base-uncased"
@@ -19,7 +19,8 @@ maskedText = inputText.replace(repeatWord,"[MASK]")
 print("original sentence:", maskedText)
 concatText = inputText+" "+maskedText
 
-model = pipeline("fill-mask", model = model2, top_k=20) 
+model = pipeline("fill-mask", model = model1, top_k=10,targets=None )
+print("model:: ", model)
 
 result = model(concatText)
 

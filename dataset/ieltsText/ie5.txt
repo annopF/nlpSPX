@@ -1,0 +1,7 @@
+The pie charts give information about the production of electricity sources over the years between 2003 and 2005 in 4 different countries.
+Overall, most common electricity sources are fossil fuel and hydro power for Vietnam, India produced most of its electricity from fossil fuel, for Morocco, the main electricity source was hydro power. 
+The majority of power supply were manufactured from hydro power and nuclear power unlike other counries.
+Among for countries, four fifths of Indian electricity depended on fossil fuel, while this source was the least common in Sweden and Morocco, which accounted only 4 and 5 per cent. 
+Hydro power was mostly used in Morocco(95 per cent), Sweden and Vietnam where about half of their electricity production was produced from hydro power(Sweden 52%, Vietnam 44%). 
+While in India hydro power was one of the rarely used electricity source compared to other countries.
+Nuclear power was the lion's share in Sweden where 44 per cent of electricity production was responsible by nuclear power, in India was the least one (4%)
