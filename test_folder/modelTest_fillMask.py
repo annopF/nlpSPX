@@ -7,27 +7,28 @@ from semanticSim import sim
 print("---------------------------------------------------- start")
 startTime = time.time()
 logging.set_verbosity_error()
-inputText = "iphone 4 has a good camera system."
-repeatWord = "system"
+inputText = """i like apple juice because it is <mask> tasty"""
 
+repeatWord = "very"
+maskedText = inputText.replace(repeatWord,"[MASK]")
+fakeText = "nice good wonderful powerful solid  ."
+textPlus = """civilization art experience skill people accomplishment"""
 
 #choose model:
-model1 = "bert-base-uncased"
+model1 = "roberta-base"
 model2 = "bert-large-cased-whole-word-masking"
 
-maskedText = inputText.replace(repeatWord,"[MASK]")
 print("original sentence:", maskedText)
-concatText = inputText+" "+maskedText
+concatText = inputText
 
 model = pipeline("fill-mask", model = model1, top_k=10,targets=None )
 print("model:: ", model)
 
-result = model(concatText)
+result = model(inputText)
 
 for i in range(len(result)):
     replacedText = inputText.replace(repeatWord,result[i]["token_str"])
-    print ("replaced text: ", replacedText)
 
-    print(result[i]["token_str"], sim(inputText,replacedText))
+    print(result[i]["token_str"])
 
 print("---------------------------------------------------- elapsed time: ", time.time()- startTime)
