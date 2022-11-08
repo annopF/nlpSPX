@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 
 print (stopwords)
 
-text0 = open("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/sampleText.txt",encoding="UTF-8").read()
+text0 = open("F:/Work Folder/KMUTT/NLP/codingAssNLP/simpleTest.txt",encoding="UTF-8").read() 
 
 text2 = "rer weor sd aw eiafj saoiefj  sao df a8ief sdi adkjfoa fas8d fsifa sod 8adjf0a dia da sd0 fje0a9 sdifj apsd pf adf"
 text = "I do not like green eggs and ham, I do not like them Sam I am!"
@@ -15,7 +15,7 @@ text = "I do not like green eggs and ham, I do not like them Sam I am!"
 
 bigram_measures = nltk.collocations.BigramAssocMeasures()
 
-tokens = nltk.wordpunct_tokenize(text0)
+tokens = nltk.word_tokenize(text0)
 finder = BigramCollocationFinder.from_words(tokens)
 scored = finder.score_ngrams(bigram_measures.raw_freq)
 print(sorted(bigram for bigram, score in scored))
