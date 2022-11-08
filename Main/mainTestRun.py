@@ -2,27 +2,30 @@ from tokenizer import *
 from ngram import *
 from util import *
 
-input = open("F:/Work Folder/KMUTT/NLP/codingAssNLP/simpletext.txt",encoding="UTF-8").read() 
+#change data to sampletext to get a longer text
+input = open("F:/Work Folder/KMUTT/NLP/codingAssNLP/sampletext.txt",encoding="UTF-8").read() 
 
 #tokenize text
-tok = selectTokenizer("spaX",input)
+tok = selectTokenizer("regxUltra",input)
 print("***tok*** ",tok)
 
-#clean fullstop and apostrophe for now (more in the future)
-clean = cleanToken(tok)
-print("***CLEAN*** ",clean)
+
 
 #get unigram bigram trigram from text
-unigram(clean)
+unigram(20,tok)
 print("------------------------------")
-bigram("nb",None,clean)
+bigram("nb",None,tok)
 print("------------------------------")
 
-trigram("nb",None,clean)
+trigram("nb",None,tok)
 
-#Named engitiy recognition
+""" #Named engitiy recognition
 tok2 = selectTokenizer("spaBasic_Doc",input)
 
 for item in tok2:
     if item.ent_type_:
         print(item, item.ent_type_)
+print("--------------------------------------------")
+for item in tok:
+    if item.ent_type_:
+        print(item, item.ent_type_) """

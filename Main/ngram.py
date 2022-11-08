@@ -7,7 +7,6 @@ from tokenizer import tokenizerX, selectTokenizer
 
 #global
 
-exclude = ["is","am","are","was","were",".","the","a","an","to","this","that","there"]
 repeat = {}
 
 bigram_measures = nltk.collocations.BigramAssocMeasures()
@@ -45,15 +44,14 @@ def trigram(mode, num, tok):
         showList(nbest)
 
 
-def unigram(tok):
+def unigram(max,tok):
     repeat = {}
     for word in tok:
-        if word not in exclude:
-            if word not in repeat:
-                repeat[word]=0
-            repeat[word]+=1
+        if word not in repeat:
+            repeat[word]=0
+        repeat[word]+=1
     
     res = [(a,b) for a,b in repeat.items()]
     res_list = sorted(res,key=lambda x:x[1], reverse=True)
-    showList(res_list[0:10])
+    showList(res_list[0:max])
 

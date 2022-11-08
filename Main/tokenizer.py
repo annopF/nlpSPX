@@ -29,31 +29,50 @@ def tokenizerX(input):
     doc = nlp(input)
     return doc
 
+def tokenizerXUltra (input):
+    
+    #regex = r"[A-Z]\.?(\w+\.){1,}|(\w+-)+\w+|\w+('s|'t|'ve|'re|'ll|'d)|[A-Za-z0-9]+" #regex V1.0
+    regex = r"\W?\d+\.?\d+|[A-Z]\.?(\w+\.){1,}|(\w+-)+\w+|\w+('s|'t|'ve|'re|'ll|'d)|[\w\d]+" #regex V1.1 (support for decimal and $sign)
+
+    matches = re.finditer(regex, input, re.MULTILINE)
+
+    return [ match.group() for matchNum, match in enumerate(matches, start=1)]
 
 def selectTokenizer(name, input):
     match name:
         case "w": 
             print("-------------------------------------------------using word tokenizer")
             return (nltk.word_tokenize(input))
+
         case "wsp": 
             print("-------------------------------------------------using whitesapce tokenizer")
             return (input.split())
+
         case "pun":
             print("-------------------------------------------------using punctuation tokenizer")
             return (nltk.wordpunct_tokenize(input))
-        case "reg":
-            print("-------------------------------------------------using regex tokenizer")
-            return (nltk.regexp_tokenize(input,"\w+"))
+
         case "spaBasic":
-            print("-------------------------------------------------using spacy tokenizer")
+            print("-------------------------------------------------using spacyBasic tokenizer")
             nlp = spacy.load("en_core_web_trf")
             return([x.text for x in nlp(input)])
+
         case "spaBasic_Doc":
-            print("-------------------------------------------------using spacy tokenizer")
+            print("-------------------------------------------------using spacyBasic_Doc tokenizer")
             nlp = spacy.load("en_core_web_trf")
             return nlp(input)
         
         case "spaX":
+            print("-------------------------------------------------using spaX tokenizer")
+
             return([x.text for x in tokenizerX(input)])
-    
-        
+
+        case "regxBasic":
+            print("-------------------------------------------------using regex tokenizer")
+            return (nltk.regexp_tokenize(input,"\w+"))
+
+        case "regxUltra":
+            print("-------------------------------------------------using regxUltra tokenizer")
+
+            return(tokenizerXUltra(input))
+
