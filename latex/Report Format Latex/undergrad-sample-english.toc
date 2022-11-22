@@ -1,0 +1,42 @@
+\selectlanguage *{english}
+\contentsline {chapterx}{\mdseries ABSTRACT}{ii}{Doc-Start}%
+\contentsline {chapterx}{\mdseries THAI ABSTRACT}{iii}{Doc-Start}%
+\contentsline {chapterx}{\mdseries ACKNOWLEDGMENTS}{iv}{Doc-Start}%
+\contentsline {chapterx}{\mdseries CONTENTS}{v}{Doc-Start}%
+\contentsline {chapterx}{\mdseries LIST OF TABLES}{vi}{Doc-Start}%
+\contentsline {chapterx}{\mdseries LIST OF FIGURES}{vii}{Doc-Start}%
+\contentsline {chapterx}{\mdseries LIST OF SYMBOLS}{viii}{Doc-Start}%
+\contentsline {chapterx}{\mdseries LIST OF TECHNICAL VOCABULARY AND ABBREVATIONS}{ix}{Doc-Start}%
+\contentsline {chapterxx}{\mdseries \bf CHAPTER}{1}{chapter.1}%
+\contentsline {chapter}{\normalsize \bf \MakeUppercase {{\numberline {1.}\hskip -0.5em Introduction}}}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Motivations}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Problem Statements}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Objectives}{2}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Scope of Work}{2}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Project Schedule}{2}{section.1.6}%
+\contentsline {chapter}{\normalsize \bf \MakeUppercase {{\numberline {2.}\hskip -0.5em Background Theory and Related Work}}}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Recommender Systems}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Text Processing Algorithms}{3}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Algorithm I}{3}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Algorithm II}{4}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Development Tools}{4}{section.2.3}%
+\contentsline {chapter}{\normalsize \bf \MakeUppercase {{\numberline {3.}\hskip -0.5em Proposed Work}}}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}System Architecture}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}System Specifications and Requirements}{5}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Hardware Module 1}{5}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Component 1}{5}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Logical Circuit Diagram}{5}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Hardware Module 2}{5}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Component 1}{5}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Component 2}{5}{subsection.3.4.2}%
+\contentsline {section}{\numberline {3.5}Path Finding Algorithm}{5}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Database Design}{5}{section.3.6}%
+\contentsline {section}{\numberline {3.7}GUI Design}{5}{section.3.7}%
+\contentsline {chapter}{\normalsize \bf \MakeUppercase {{\numberline {4.}\hskip -0.5em Implementation Results}}}{6}{chapter.4}%
+\contentsline {chapter}{\normalsize \bf \MakeUppercase {{\numberline {5.}\hskip -0.5em Conclusions}}}{7}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Problems and Solutions}{7}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Future Works}{7}{section.5.2}%
+\contentsline {chapter}{\mdseries \bf \MakeUppercase {Appendix}}{8}{section.5.2}%
+\contentsline {apdx}{A\hskip 1em First appendix title}{9}{section.5.2}%
+\contentsline {apdx}{B\hskip 1em Second appendix title}{11}{equation.1.2.5}%
