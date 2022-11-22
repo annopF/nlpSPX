@@ -20,26 +20,26 @@
 % The ones that are optional can be left blank. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % First line of title
-\def\disstitleone{Project/Indep study title line 1}   
+\def\disstitleone{Writing Aid to Avoid Repetitions}   
 % Second line of title
-\def\disstitletwo{Project/Indep title line 2 (optional)}   
+%\def\disstitletwo{Project/Indep title line 2 (optional)}   
 % Your first name and lastname
-\def\dissauthor{Mr./Ms. Firstname1 Lastname1}   % 1st member
+\def\dissauthor{Mr.Annop Pornsawatdipak}   % 1st member
 %%% Put other group member names here ..
-\def\dissauthortwo{Mr./Ms. Firstname2 Lastname2}   % 2nd member (optional)
+\def\dissauthortwo{Mr.Thanapatr Amnuaywit}   % 2nd member (optional)
 \def\dissauthorthree{Mr./Ms. Firstname3 Lastname3}   % 3rd member (optional)
 
 
 % The degree that you're persuing..
 \def\dissdegree{Bachelor of Engineering} % Name of the degree
 \def\dissdegreeabrev{B.Eng} % Abbreviation of the degree
-\def\dissyear{202x}                   % Year of submission
-\def\thaidissyear{256x}               % Year of submission (B.E.)
+\def\dissyear{2022}                   % Year of submission
+\def\thaidissyear{2565}               % Year of submission (B.E.)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Your project and independent study committee..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\dissadvisor{Assoc.Prof. My main advisor name , Ph.D.}  % Advisor
+\def\dissadvisor{Assoc.Prof. Nuttanart Muansuwan Facundes, Ph.D.}  % Advisor
 %%% Leave it empty if you have no Co-advisor
 \def\disscoadvisor{Assoc.Prof. My Co-advisor name, Ph.D.}  % Co-advisor
 \def\disscommitteetwo{Asst.Prof. Committee2, Ph.D.}  % 3rd committee member (optional)
@@ -61,13 +61,13 @@
 \def\appendixnames{Appendix} %%% Appendices or Appendix
 
 \def\thaiworktype{ปริญญานิพนธ์} %  Project or research project % 
-\def\thaidisstitleone{หัวข้อปริญญานิพนธ์บรรทัดแรก}
-\def\thaidisstitletwo{หัวข้อปริญญานิพนธ์บรรทัดสอง}
-\def\thaidissauthor{นายสมศักดิ์ คอมพิวเตอร์}
-\def\thaidissauthortwo{นางสาวสมศรี คอมพิวเตอร์2} %Optional
+\def\thaidisstitleone{โปรแกรมช่วยเขียนโดยหลีกเลี่ยงคำซ้ำ}
+%\def\thaidisstitletwo{หัวข้อปริญญานิพนธ์บรรทัดสอง}
+\def\thaidissauthor{นายอรรณพ พรสัวสดิภักดิ์}
+\def\thaidissauthortwo{นายธนภัทร อำนวยวิทย์} %Optional
 \def\thaidissauthorthree{นางสาวสมปอง คอมพิวเตอร์3} %Optional
 
-\def\thaidissadvisor{รศ.ดร.ที่ปรึกษา วิทยานิพนธ์}
+\def\thaidissadvisor{ผศ.ดร.ณัฐนาถ เหมือนสุวรรณ}
 %% Leave this empty if you have no co-advisor
 \def\thaidisscoadvisor{รศ.ดร.ที่ปรึกษา วิทยานิพนธ์ร่วม} %Optional
 \def\thaidissdegree{วิศวกรรมศาสตรบัณฑิต}
@@ -128,23 +128,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \abstract
 
-In a multihop ad hoc network, the interference among nodes is
-  reduced to maximize the throughput by using a smallest transmission
-  range that still preserve the network connectivity. However, most
-  existing works on transmission range control focus on the
-  connectivity but lack of results on the throughput performance. This
-  paper analyzes the per-node saturated throughput of an IEEE 802.11b
-  multihop ad hoc network with a uniform transmission range. Compared
-  to simulation, our model can accurately predict the per-node
-  throughput.  The results show that the maximum achievable per-node
-  throughput can be as low as 11\% of the channel capacity in a normal
-  set of $\alpha$ operating parameters independent of node density. However, if
-  the network connectivity is considered, the obtainable throughput
-  will reduce by as many as 43\% of the maximum throughput. 
+The computer-assisted writing aims to help improve the quality of a piece of text with the help of computer. Most of the tools focus on fixing grammatical accuracy and misspelled words, only few of them offer repetition detectors. In this project we will be creating a program to keep track of the words and phrases frequency. Moreover, our program will suggest alternative words that fits in original context, thus, the writer can replace the word marked as repetitive with a new suggested word instead. Our proposed solutions consisted of two main parts, the detector, and the suggestor. In the first part, the program tries to detect only relevant repetitions and filter out very specific words or very trivial words. Next, the suggestor module will generate multiple substitution candidates by feeding the sentence into the Transformer model. The transformer model such as BERT is trained with Masked Language Modelling, which we can use to predict the mask position, in this case the target word to replace. The generated candidates are verified using SentenceBERT and similarity score to ensure each of them won’t alter the meaning of the original sentence. 
 
 \begin{flushleft}
 \begin{tabular*}{\textwidth}{@{}lp{0.8\textwidth}}
-\textbf{Keywords}: & Multihop ad hoc networks / Topology control / Single-Hop Throughput
+\textbf{Keywords}: & Overused word detector / repetitive word detector / BERT / NLP
 \end{tabular*}
 \end{flushleft}
 \endabstract
@@ -159,15 +147,13 @@ In a multihop ad hoc network, the interference among nodes is
 \thaifont
 \thaiabstract
 
-การวิจัยครั้งนี้มีวัตถุประสงค์  เพื่อศึกษาความพึงพอใจในการให้บริการงานทั่วไปของสานักวิชา พื้นฐานและภาษา เพื่อเปรียบเทียบระดับความพึงพอใจต่อการให้บริการงาน ทั่วไปของสานักวิชาพื้นฐานและภาษา ของนักศึกษาที่มาใช้บริการสานักวิชาพื้นฐานและภาษา สถาบัน เทคโนโลยีไทย-ญี่ปุ่น จาแนกตามเพศ คณะ และชั้นปีที่ศึกษา เพื่อศึกษาปัญหาและข้อเสนอแนะของ นักศึกษามาเป็นแนวทางในการพัฒนาและปรับปรุงการให้บริการของสานักวิชาพื้นฐานและภาษา
-เนื่องจากในยุคสมัยนี้โลกเราได้เข้าสู่ยุคของข้อมูลมหัต (Big data) ซึ่งบริษัทต่าง ๆก็เริ่มขับเคลื่อนธุรกิจด้วยข้อมูลแล้ว  โดยธุรกิจที่มีข้อมูลขนาดใหญ่อย่างที่เห็นง่ายๆเลยก็จะเป็น เว็บไซต์ที่เปิดบริการให้ขายของออนไลน์ ซึ่งในเว็บไซต์นั้นก็จะมีข้อมูลสินค้ามากมายและ สิ่งที่เราได้พบคือรายละเอียดสินค้าหลายๆอย่างไม่มีความสอดคล้องกับรูปภาพสินค้าหรือไม่ชัดเจนพอและ เนื่องด้วยข้อมูลที่มีขนาดใหญ่เกินกว่าที่จะจัดการด้วยแรงงานคนได้และ ยังไม่มีเครื่องมือใด ๆ ในการตรวจจับคำผิดเหล่านี้ได้ เราจึงทำโครงงานนี้ขึ้นมาเพื่อที่จะแก้ไขปัญหาเหล่านี้\par
-ทางเราจึงคิดที่จะทำระบบปัญญาประดิษฐ์หรือ AI มาแก้ไขปัญหาในส่วนนี้ โดยทำ Image captioning ที่ใช้ Convolutional neural network และ Long short-term memory ซึ่งทางคณะผู้จัดทำก็จะมีการเปรียบเทียบกับสถาปัตยกรรมของโมเดลอื่น ๆ เพื่อสร้างโมเดลที่มีประสิทธิภาพมากที่สุด ซึ่งถ้าโครงงานนี้ประสบความสำเร็จจะสามารถตรวจสอบคุณภาพของคำอธิบายสินค้าในเว็บไซต์ขายสินค้าออนไลน์ ทำให้คุณภาพและภาพลักษณ์ต่อสังคมของเว็บไซต์นั้นดูดีขึ้นได้ และนอกจากนี้โครงงานนี้ยังสามารถเป็นพื้นฐานให้แก่ผู้ที่สนใจในการทำ image captioning ที่เป็นภาษาไทยและนำไปประยุกต์ใช้กับงานของตนได้อีกด้วย 
+การเขียนโดยใช้คอมพิวเตอร์เป็นตัวช่วยมีจุดมุ่งหมายเพื่อช่วยปรับปรุงคุณภาพของข้อความโดยใช้คอมพิวเตอร์เข้ามาช่วยเหลือ เครื่องมือส่วนใหญ่มุ่งเน้นไปที่การแก้ไขความถูกต้องทางไวยากรณ์และคำที่สะกดผิด มีเพียงไม่กี่เครื่องมือเท่านั้นที่มีระบบตรวจจับคำซ้ำ ในโครงการนี้ เราจะสร้างเครื่องมือเพื่อติดตามความถี่ของคำและวลี นอกจากนี้ โปรแกรมของเราจะแนะนำคำทดแทนที่เหมาะกับบริบทเดิม ดังนั้น ผู้เขียนสามารถแทนที่คำที่ถูกทำเครื่องหมายว่าซ้ำด้วยคำใหม่ที่แนะนำแทน แนวทางที่เรานำเสนอประกอบด้วยสองส่วนหลัก ได้แก่ ตัวตรวจจับ และตัวแนะนำ ในส่วนแรก โปรแกรมจะพยายามตรวจหาเฉพาะคำซ้ำที่เกี่ยวข้องและกรองคำเฉพาะหรือคำที่ไม่สำคัญออก ถัดไป โมดูลผู้แนะนำจะสร้างชุดคำทางเลือกสำหรับทดแทน โดยป้อนประโยคลงในโมเดล Transformer โมเดลทรานสฟอร์เมอร์ เช่น BERT ได้รับการฝึกฝนด้วย Masked Language Modeling ซึ่งเราสามารถใช้มันเพื่อทำนายตำแหน่งของมาสก์ ในกรณีนี้ คำเป้าหมายที่จะแทนที่ คำทดแทนที่สร้างขึ้นจะได้รับการตรวจสอบโดยใช้ SentenceBERT และคะแนนความคล้ายคลึงกันเพื่อให้แน่ใจว่าแต่ละคำจะไม่เปลี่ยนความหมายของประโยคเดิม
 
 \begin{flushleft}
 \begin{tabular*}{\textwidth}{@{}lp{0.8\textwidth}}
  & \\
 
-\textbf{คำสำคัญ}: & การชุบเคลือบด้วยไฟฟ้า / การชุบเคลือบผิวเหล็ก /  เคลือบผิวรังสี
+\textbf{คำสำคัญ}: & การตรวจจับคำที่ใช้บ่อย / การตรวจจับคำซ้ำ / BERT / NLP
 \end{tabular*}
 \end{flushleft}
 \endabstract
