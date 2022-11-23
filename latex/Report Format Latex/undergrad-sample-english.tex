@@ -27,7 +27,7 @@
 \def\dissauthor{Mr.Annop Pornsawatdipak}   % 1st member
 %%% Put other group member names here ..
 \def\dissauthortwo{Mr.Thanapatr Amnuaywit}   % 2nd member (optional)
-\def\dissauthorthree{Mr./Ms. Firstname3 Lastname3}   % 3rd member (optional)
+\def\dissauthorthree{}   % 3rd member (optional)
 
 
 % The degree that you're persuing..
@@ -41,7 +41,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\dissadvisor{Assoc.Prof. Nuttanart Muansuwan Facundes, Ph.D.}  % Advisor
 %%% Leave it empty if you have no Co-advisor
-\def\disscoadvisor{Assoc.Prof. My Co-advisor name, Ph.D.}  % Co-advisor
+\def\disscoadvisor{}  % Co-advisor
 \def\disscommitteetwo{Asst.Prof. Committee2, Ph.D.}  % 3rd committee member (optional)
 \def\disscommitteethree{Asst.Prof. Committee3, Ph.D.}   % 4th committee member (optional) 
 \def\disscommitteefour{}    % 5th committee member (optional) 
@@ -65,11 +65,11 @@
 %\def\thaidisstitletwo{หัวข้อปริญญานิพนธ์บรรทัดสอง}
 \def\thaidissauthor{นายอรรณพ พรสัวสดิภักดิ์}
 \def\thaidissauthortwo{นายธนภัทร อำนวยวิทย์} %Optional
-\def\thaidissauthorthree{นางสาวสมปอง คอมพิวเตอร์3} %Optional
+\def\thaidissauthorthree{} %Optional
 
 \def\thaidissadvisor{ผศ.ดร.ณัฐนาถ เหมือนสุวรรณ}
 %% Leave this empty if you have no co-advisor
-\def\thaidisscoadvisor{รศ.ดร.ที่ปรึกษา วิทยานิพนธ์ร่วม} %Optional
+\def\thaidisscoadvisor{} %Optional
 \def\thaidissdegree{วิศวกรรมศาสตรบัณฑิต}
 
 % Change the line spacing here...
@@ -179,26 +179,26 @@ Acknowledge your advisors and thanks your friends here..
 %%%%%%%%%%%%%%%%%%%%% List of symbols page %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % You have to add this manually..
-\listofsymbols
-\begin{flushleft}
-\begin{tabular}{@{}p{0.07\textwidth}p{0.7\textwidth}p{0.1\textwidth}}
-\textbf{SYMBOL}  & & \textbf{UNIT} \\[0.2cm]
-$\alpha$ & Test variable\hfill & m$^2$ \\
-$\lambda$ & Interarival rate\hfill &  jobs/second\\
-$\mu$ & Service rate\hfill & jobs/second\\
-\end{tabular}
-\end{flushleft}
+%\listofsymbols
+%\begin{flushleft}
+%\begin{tabular}{@{}p{0.07\textwidth}p{0.7\textwidth}p{0.1\textwidth}}
+%\textbf{SYMBOL}  & & \textbf{UNIT} \\[0.2cm]
+%$\alpha$ & Test variable\hfill & m$^2$ \\
+%$\lambda$ & Interarival rate\hfill &  jobs/second\\
+%$\mu$ & Service rate\hfill & jobs/second\\
+%\end{tabular}
+%\end{flushleft}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%% List of vocabs & terms %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % You also have to add this manually..
-\listofvocab
-\begin{flushleft}
-\begin{tabular}{@{}p{1in}@{=\extracolsep{0.5in}}l}
-ABC & Adaptive Bandwidth Control \\
-MANET & Mobile Ad Hoc Network 
-\end{tabular}
-\end{flushleft}
+%\listofvocab
+%\begin{flushleft}
+%\begin{tabular}{@{}p{1in}@{=\extracolsep{0.5in}}l}
+%ABC & Adaptive Bandwidth Control \\
+%MANET & Mobile Ad Hoc Network 
+%\end{tabular}
+%\end{flushleft}
 
 %\setlength{\parskip}{1.2mm}
 
@@ -418,11 +418,6 @@ According to the article, A simple BERT-Based Approach for Lexical Simplication 
 \subsection{BERT}
 Based on Bidirectional Encoder Representations from Transformer (aka. BERT), A machine learning-based approach purposed by Google AI Language (Horev, 2018). It achieved superior performance by reading the entire sequence of words at once, instead of left to right or right to left like most of the previous works. This allows the model to learn the context of words using clues from their surroundings. BERT has been trained using 2 objectives in mind. The first is called next-sentence prediction where it tries to predict whether the given sentence will follow the previous sentence or not. Next, the masked language model where the random part of the corpus is masked and the model tries to fill in the gap. This research has become one of the best-performing approaches in the NLP world. Despite that, the model itself is inefficient and slow to run due to the complexity, so in this project, we decided to use another model named Roberta. At its core, Roberta is similar to BERT but without the Next sentence prediction objective, which noticeably improves the execution speed compared to the original BERT.
 
-
-\url{http://www.cpe.kmutt.ac.th}
-Explain theory, algorithms, protocols, or existing research works and tools related to your work. \cite{santi05b} \cite{bworld,hypersense}
-
-
 \begin{figure}[!h]\centering
 \setlength{\fboxrule}{0.2mm} % can define this in the preamble
 \setlength{\fboxsep}{1cm}
@@ -431,7 +426,15 @@ Explain theory, algorithms, protocols, or existing research works and tools rela
 \end{figure}
 
 
-\chapter{CHAPTER 3 DESIGN AND 	METHODOLOGY}
+\chapter{CHAPTER 3 DESIGN AND METHODOLOGY}
+
+\section{System Architecture}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp3/SysArch.png}
+\caption{System Architecture of an application}\label{fig:sysarch}
+\end{figure}
+
+Figure \ref{fig:sysarch} shows an application architecture in a diagram. The system is a standalone program, There’s basically just user interaction with the application side, and some general process of repetition search and word suggestion logic. After the user inputs text by typing and/or importing from other sources by copy and paste the text into the application text input area. The program will read those texts and start a repetition search by counting word occurrences.  After searching, the text data will be sent to another software’s part which is the word suggestion part, working along with a trained text model. And return matched words excluded from the exclusion list given from the user, that can be replaced with those repetition whether it has or not.
 
 \section{Feature Lists}
 
@@ -445,10 +448,10 @@ Explain theory, algorithms, protocols, or existing research works and tools rela
 	When a user clicks on any repetition words found, a list of similar or the word that can be replaced will be shown on the UI for the user to make a decision.
 \subsection{Word exception list}
 	In case that user doesn’t want this specific word to be detected as a repetition whether in this document or others. They can select the word as an exception. And this list of exceptions can be decided to use in other documents, use for individual words, or not used at all.
-\subsection{Use case Diagram and Sequence Diagram}
+\section{Use case Diagram and Sequence Diagram}
 
-\subsection{Components and Modules}
-\subsection{User Interface}
+\section{Components and Modules}
+\section{User Interface}
 \subsubsection{Input area}
 Allow user to input the text either by typing out or copy-and-paste the text.
 The words that are marked as overused will be highlighted.
@@ -459,7 +462,7 @@ The side panel will be used to show additional details such as alternative words
 	The writer can either type out the text or copy and paste from somewhere else. The latter can cause problems during tokenization. One example is the apostrophe, the tokenizer expects straight quotes, if the curly variant is used, it will lead to a wrong result. The text normalizer performs token transformation to turn all the input into a compatible form supported by the tokenizer.
 
 
-\subsection{Tokenizer}
+\section{Tokenizer}
 Tokenizer is a task to break input text into individual components known as tokens. This is a critical step and is done before any further analysis can take place. The token can be in a form of a word or sub-word depending on the desired goal. In this project, we need several tokenizers to achieve the goal.
 \subsubsection{Regex Tokenizer}
 Using regular expression to match the specified pattern of the input text and then separate them into a token. Currently, the regular expression supports the following cases: 
@@ -478,10 +481,10 @@ The default tokenizer shipped with the package outputs a specific format of toke
 This is a special kind of tokenizer used for BERT family tokenizer. Instead of breaking down the text into words level, this breaks down the individual word to a sub-word level. For example, Internationalization → inter \#national \#\#iz\#\#ation. The reason is to overcome the out-of-vocabulary problem. This approach is called workpiece tokenization. Each token will be converted to embedding specific to the transformer architecture. 
 Note that this approach is used only in the suggestor module, not anywhere else.
 
-\subsection{Cleaner}
+\section{Cleaner}
 This module will be used after the text has been tokenized by the tokenizer module. At this point, the tokenized text still contains stop words, for example, I, You, So, It’s, To, As, etc. These words are very common and will appear very frequently in any text regardless of the writer’s ability. Thus, counting those into the repetition list will not provide much benefit for the writer in terms of helping them avoid repetitions.
 
-\subsection{Detector}
+\section{Detector}
 The role of this module is to count all the occurrences of words in the text. There are single-word or unigrams, two-word phrases or bigrams, and three-word phrases or trigrams. In NLP, this is known as ngrams. 
 \subsubsection{Unigram counter}
 Detect a single word occurrence in the text by counting, the common words will be filtered to keep only the meaningful words. 
@@ -489,7 +492,7 @@ Detect a single word occurrence in the text by counting, the common words will b
 Detect a 2-word occurrence in the text using NLTK bigram collocation package, the quality of bigram is evaluated using association score.
 \subsubsection{Trigram counter}
 Detect a 3-word occurrence in the text using NLTK bigram collocation package, the quality of trigram is evaluated using association score.
-\subsection{Suggestor}
+\section{Suggestor}
 The word suggestor is used to suggest an alternative word that can be substituted in the original sentence without changing the meaning of the text. 
 \subsection{Candidate generation}
 
@@ -499,60 +502,26 @@ The word suggestor is used to suggest an alternative word that can be substitute
 
 Not all generated candidates are a suitable substitution. Although most of them fit in the context well, it changes the meaning of the original sentence entirely. The validation process contains scoring criteria based on semantic similarity between both sentences, and lexical relationships extracted from wordnet. A higher score will advance the rank, the lower score will be filtered out if it falls below the threshold.
 
-
-\begin{table}[!h]
-\centering
-\caption{test table x1}\label{tbl:symbols}
-\begin{tabular}{@{}p{0.07\textwidth}|p{0.7\textwidth}p{0.1\textwidth}}\hline
-\multicolumn{2}{l}{\textbf{SYMBOL}}  & \textbf{UNIT} \\ \hline 
-$\alpha$ & Test variable\hfill & m$^2$ \\
-$\lambda$ & Interarrival rate\hfill &  jobs/second\\
-$\mu$ & Service rate\hfill & jobs/second \\ \hline
-\end{tabular}
-%\begin{tabular}{c|c} \hline
-% $\alpha$ & $\beta$ \\ \hline
-% $\delta$ & $\mu$ \\ \hline
-%\end{tabular}
-\end{table}
-
-\section{System Specifications and Requirements}
-
-\section{Hardware Module 1}
-\subsection{Component 1}
-\subsection{Logical Circuit Diagram}
-
-\section{Hardware Module 2}
-\subsection{Component 1}
-\subsection{Component 2}
-
-\section{Path Finding Algorithm}
-
-\section{Database Design}
-
-\section{GUI Design}
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Experiments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Implementation Results}
+\chapter{Work Progress}
 
 You can title this chapter as \textbf{Preliminary Results} or \textbf{Work Progress} for the progress reports. Present implementation or experimental results here and discuss them.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Conclusions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusions}
-
-This chapter is optional for proposal and progress reports but 
-is required for the final report.
-
-\section{Problems and Solutions}
-State your problems and how you fixed them.
-
-\section{Future Works}
-What could be done in the future to make your projects better.
+%\chapter{Conclusions}
+%
+%This chapter is optional for proposal and progress reports but 
+%is required for the final report.
+%
+%\section{Problems and Solutions}
+%State your problems and how you fixed them.
+%
+%\section{Future Works}
+%What could be done in the future to make your projects better.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -578,102 +547,10 @@ What could be done in the future to make your projects better.
 \appendix{First appendix title}
 \noindent{\large\bf Put appropriate topic here} \\
 
-This is where you put hardware circuit diagrams, detailed experimental data in tables or source codes, etc.. \\ \bigskip
-
-
-
-This appendix describes two static allocation methods for fGn (or fBm)
-traffic. Here, $\lambda$ and $C$ are respectively the traffic arrival
-rate and the service rate per dimensionless time step. Their unit are
-converted to a physical time unit by multiplying the step size
-$\Delta$. For a fBm self-similar traffic source,
-Norros~\cite{norros95} provides its EB as
-\begin{equation}\label{eq:norros}
-  C = \lambda + (\kappa(H)\sqrt{-2\ln\epsilon})^{1/H}a^{1/(2H)}x^{-(1-H)/H}\lambda^{1/(2H)}
-\end{equation}
-where $\kappa(H) = H^H(1-H)^{(1-H)}$. Simplicity in the calculation is
-the attractive feature of (\ref{eq:norros}).
-
-The MVA technique developed in~\cite{kim01} so far provides the most
-accurate estimation of the loss probability compared to previous
-bandwidth allocation techniques according to simulation results.
-Consider a discrete-time queueing system with constant service rate
-$C$ and input process $\lambda_n$ with $\mathbb{E}\{\lambda_n\} =
-\lambda$ and $\mathrm{Var}\{\lambda_n\} = \sigma^2$.  Define $X_n \equiv
-\sum_{k=1}^n \lambda_k - Cn$.  The loss probability due to the MVA
-approach is given by
-\begin{equation}\label{eq:loss_mva}
-  \varepsilon \approx \alpha e^{-m_x/2}
-\end{equation}
-where
-\begin{equation}\label{eq:mx}
-m_x = \min_{n \geq 0} \frac{((C-\lambda)n + B)^2}{\mathrm{Var}\{X_n\}} =
-\frac{((C-\lambda)n^\ast + B)^2}{\mathrm{Var}\{X_{n^{\ast}}\}}
-\end{equation} 
-and 
-\begin{equation}\label{eq:alpha}
-  \alpha =
-  \frac{1}{\lambda\sqrt{2\pi\sigma^2}}\exp\left(\frac{(C-\lambda)^2}{2\sigma^2}\right)
-  \int_C^\infty (r-C)\exp\left(\frac{(r-\lambda)^2}{2\sigma^2}\right)\, dr
-\end{equation}
-For a given $\varepsilon$, we numerically solve for $C$ that satisfies
-(\ref{eq:loss_mva}). Any search algorithm can be used to do the task.
-Here, the bisection method is used.  
-
-Next, we show how $\mathrm{Var}\{X_n\}$ can be determined.  Let
-$C_{\lambda}(l)$ be the autocovariance function of $\lambda_n$.  The
-MVA technique basically approximates the input process $\lambda_n$
-with a Gaussian process, which allows $\mathrm{Var}\{X_n\}$ to be
-represented by the autocovariance function.  In particular, the
-variance of $X_n$ can be expressed in terms of $C_{\lambda}(l)$ as
-\begin{equation}
-  \mathrm{Var}\{X_n\} = nC_{\lambda}(0) + 2\sum_{l=1}^{n-1} (n-l)C_{\lambda}(l)
-\end{equation} 
-Therefore, $C_{\lambda}(l)$ must be known in the MVA technique, either
-by assuming specific traffic models or by off-line analysis in case of
-traces.  In most practical situations, $C_{\lambda}(l)$ will not be
-known in advance, and an on-line measurement algorithm developed
-in~\cite{eun01} is required to jointly determine both $n^\ast$ and
-$m_x$. For fGn traffic, $\mathrm{Var}\{X_n\}$ is equal to $\sigma^2
-n^{2H}$, where $\sigma^2 = \mathrm{Var}\{\lambda_n\}$, and we can find
-the $n^\ast$ that minimizes (\ref{eq:mx}) directly. Although $\lambda$
-can be easily measured, it is not the case for $\sigma^2$ and $H$.
-Consequently, the MVA technique suffers from the need of prior
-knowledge traffic parameters.
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%% The 2nd appendix %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix{Second appendix title}
 \noindent{\large\bf Put appropriate topic here} \\
-
-Next, we show how $\mathrm{Var}\{X_n\}$ can be determined.  Let
-$C_{\lambda}(l)$ be the autocovariance function of $\lambda_n$.  The
-MVA technique basically approximates the input process $\lambda_n$
-with a Gaussian process, which allows $\mathrm{Var}\{X_n\}$ to be
-represented by the autocovariance function.  In particular, the
-variance of $X_n$ can be expressed in terms of $C_{\lambda}(l)$ as
-\begin{equation}
-  \mathrm{Var}\{X_n\} = nC_{\lambda}(0) + 2\sum_{l=1}^{n-1} (n-l)C_{\lambda}(l)
-\end{equation} 
-
-\noindent{\large\bf Add more topic as you need} \\
-
-Therefore, $C_{\lambda}(l)$ must be known in the MVA technique, either
-by assuming specific traffic models or by off-line analysis in case of
-traces.  In most practical situations, $C_{\lambda}(l)$ will not be
-known in advance, and an on-line measurement algorithm developed
-in~\cite{eun01} is required to jointly determine both $n^\ast$ and
-$m_x$. For fGn traffic, $\mathrm{Var}\{X_n\}$ is equal to $\sigma^2
-n^{2H}$, where $\sigma^2 = \mathrm{Var}\{\lambda_n\}$, and we can find
-the $n^\ast$ that minimizes (\ref{eq:mx}) directly. Although $\lambda$
-can be easily measured, it is not the case for $\sigma^2$ and $H$.
-Consequently, the MVA technique suffers from the need of prior
-knowledge traffic parameters. 
-
-
-
-
 
 \end{document}
