@@ -527,13 +527,24 @@ The side panel will be used to show additional details such as alternative words
 Tokenizer is a task to break input text into individual components known as tokens. This is a critical step and is done before any further analysis can take place. The token can be in a form of a word or sub-word depending on the desired goal. In this project, we need several tokenizers to achieve the goal.
 \subsubsection{Regex Tokenizer}
 Using regular expression to match the specified pattern of the input text and then separate them into a token. Currently, the regular expression supports the following cases: 
+
+
 Word matching: apple, banana, pencil
+
+
 word with hyphen: plant-based, state-of-the-art, cloud
-USD currency: $120, 1$
+
+
+USD currency: \$120, 1\$
+
+
 abbreviation: U.S.D., N.D.
+
+
 initials containing up to 3 characters: Mr. Mrs. Ph.D.
 
-	Unlike most out-of-the-box tokenizers which are designed to behave in a specific way, although it is easier to use, altering its behavior is nearly impossible. Some tokenizers break apart the contraction (don’t → do n’t) which is not a desirable result for our project. Instead, all contractions must remain as a single token. This is where the regex tokenizer comes in, it is very flexible and can be extended to cover most patterns the way we intended. However, one downside is the performance, some matcher uses greedy search behavior which can increase the execution speed, especially for a long text.  After weighing the pros and cons, we decided to go with a regex-based tokenizer due to its flexibility.
+\setlength\parindent{24pt}
+ Unlike most out-of-the-box tokenizers which are designed to behave in a specific way, although it is easier to use, altering its behavior is nearly impossible. Some tokenizers break apart the contraction (don’t → do n’t) which is not a desirable result for our project. Instead, all contractions must remain as a single token. This is where the regex tokenizer comes in, it is very flexible and can be extended to cover most patterns the way we intended. However, one downside is the performance, some matcher uses greedy search behavior which can increase the execution speed, especially for a long text.  After weighing the pros and cons, we decided to go with a regex-based tokenizer due to its flexibility.
 
 \subsubsection{Spacy tokenizer}
 The default tokenizer shipped with the package outputs a specific format of tokens that are different from our tokenizer, for example, don’t → do and n’t. In Spacy, there are many models out of the box which we can use to perform various NLP tasks namely NER and POS, but all of them expect the token to be in this particular format. Therefore, with our regexp-based tokenizer, the output tokens are not in the right format, thus, performance suffered significantly. This is why we need to use the default Spacy tokenizer instead.
