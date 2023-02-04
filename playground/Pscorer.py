@@ -12,7 +12,7 @@ data = json.load(raw)
 #OUTPUT Type: dict(unsorted), Shape: {"word0: 0.66", "word1": 0.89}
 #DESC: Get input list, substitute <mask>, and calculate sentenece similarity.
 #      This function convert input list to dictionary -> {"word":score}
-def sentenceSimilarity(maskedSentence, inputList, selectedModel):
+def sentenceSimilarity(maskedSentence, inputList, selectedModel, log):
     
     def choosenModel(selectedModel):
         match selectedModel:
@@ -36,8 +36,8 @@ def sentenceSimilarity(maskedSentence, inputList, selectedModel):
         cosine_scores = util.cos_sim(embeddings[0], embeddings[i])
         #score.append([word, cosine_scores.flatten().tolist()])
         score[word]=cosine_scores.flatten().tolist()[0]
-        print("#",i," ", sentenceList[0], " <--> ", sentenceList[i], cosine_scores)
-    end = time.time()
+        if log == 1:
+            print("#",i," ", sentenceList[0], " <--> ", sentenceList[i], cosine_scores)
     return (score)
     #sorted(score, key=lambda x:x[1], reverse=True)
 
@@ -46,18 +46,18 @@ def sentenceSimilarity(maskedSentence, inputList, selectedModel):
 #OUTPUT Type: dict Shape: {"word0: 0.66", "word1": 0.89}
 #DESC: Add score to the dict from sentenceSimilarity().
 #      Score is the in_degree of each node(word in the input dict).
-def crossSimilarity(inputList, G):
+def crossSimilarity(inputList, G, maskedSentence, modelName, log):
 
-
+        
     def coSyn(inputList):
-        print("check inputLIst ", inputList)
         for word in inputList:
             res = []
+            G.add_node(word)
             for key, value in data.items():
                 if key == word:
                     for (key1, value1) in value.items():
-                        if type(value1) != str and value1 > 0 and key1 in inputList and key1 != None:
-                            if G.has_edge(key, key1) and G.has_edge(key, key1):
+                        if type(value1) != str and key1 in inputList and key1 != None:
+                            if G.has_edge(key, key1) and G.has_edge(key1, key):
                                 return()
                             else:
                                 G.add_edge(key,key1,weight=value1)
@@ -67,27 +67,52 @@ def crossSimilarity(inputList, G):
             print(word,res)
             coSyn(res)
 
-
-
-    coSyn(inputList)
-
-    rank = []
-    for node in inputList:
-        link = G.in_degree(node)
-        if type(link) == int:
-            rank.append([node,link])
-
-    out = sorted(rank, key=lambda x: x[1], reverse=True)
-    print("oyut",out)
-    for item in out:
-        word = item[0]
-        score = item[1]
-        for key, val in inputList.items():
-            if key == word:
-                inputList[word]+= score
-
-    print("*****CHECK ",inputList)
     
-    return(inputList)
+    def updateScore(fromSentenceSim, nodeData):
+
+        for word, score in fromSentenceSim.items():
+            if word in nodeData:
+                
+                edgeScoreIn = nodeData[word][0] #nodeData shape {"word":[score_indegree, score_outdegree]}
+                edgeScoreOut = nodeData[word][1]
+                fromSentenceSim[word] = [["total=",score],["OG=",score],["in_deg=",0],["out_deg=",0]]
+
+                if (type(edgeScoreIn) == float or type(edgeScoreIn) == int) and (type(edgeScoreOut) == float or type(edgeScoreOut) == int):
+
+                    fromSentenceSim[word] = [["total=",score],["OG=",score],["in_deg=",edgeScoreIn],["out_deg=",edgeScoreOut]]
+                    fromSentenceSim[word][0][1] += edgeScoreIn
+                    fromSentenceSim[word][0][1] += edgeScoreOut
+
+
+                fromSentenceSim[word]
+
+        return (fromSentenceSim)
+
+    def calNodeWeight(inputList):
+
+        nodeData = {}
+        for word in inputList:
+            inDeg = G.in_degree(word, weight="weight")
+            outDeg = G.out_degree(word, weight="weight")
+            nodeData[word] = [inDeg, outDeg]
+            
+        return (nodeData)
+
+    
+    def calNodeDegree(inputList):
+        nodeData = {}
+        for word in inputList:
+            inDeg = G.in_degree(word)
+            outDeg = G.out_degree(word)
+            nodeData[word] = (inDeg, outDeg)
+           
+        return (nodeData)
+    
+    pre = sentenceSimilarity(maskedSentence, inputList, modelName, log)
+    coSyn(pre)
+
+    result = calNodeWeight(inputList)
+
+    return( updateScore(pre, result))
 
         

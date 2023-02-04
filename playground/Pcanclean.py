@@ -21,7 +21,6 @@ def removeMorph(morphList):
       out.append([word][0][0])
       show.append([word])
       
-  print("************SHOW")
   for i in show:
     print(i)
   return (cleanDup(out))
@@ -52,7 +51,6 @@ def deepCleanX(wordList):
         out.remove(item)
 
 
-    print("----------OUT ",out)        
     return (cleanDup(out))
    
 

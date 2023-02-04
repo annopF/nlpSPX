@@ -39,9 +39,7 @@ def getMorphSingle(inputList):
         res = [token.morph for token in nlp(tokens)]
         out.append([tokens,str(res)])
 
-    print("*********DEBUG MORPH SINGLE w/o removeDup")
-    for i in out:
-        print(i)
+    
     return (out)
 
 def getAntonym(word):
