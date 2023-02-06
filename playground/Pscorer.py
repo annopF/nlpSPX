@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 raw = open("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/words_map.json")
 data = json.load(raw)
-
+G = nx.DiGraph()
 #INPUT Type: list, Shape: ["word0","word1","word2"]
 #OUTPUT Type: dict(unsorted), Shape: {"word0: 0.66", "word1": 0.89}
 #DESC: Get input list, substitute <mask>, and calculate sentenece similarity.
@@ -35,39 +35,51 @@ def sentenceSimilarity(maskedSentence, inputList, selectedModel, log):
     for i, word in enumerate(inputList):
         cosine_scores = util.cos_sim(embeddings[0], embeddings[i])
         #score.append([word, cosine_scores.flatten().tolist()])
-        score[word]=cosine_scores.flatten().tolist()[0]
+        score[word]=round(cosine_scores.flatten().tolist()[0],4)
         if log == 1:
             print("#",i," ", sentenceList[0], " <--> ", sentenceList[i], cosine_scores)
     return (score)
     #sorted(score, key=lambda x:x[1], reverse=True)
 
+#search through the list for any shared words 
+#REVISED VERSION, FIXED infinite loop, FIXED recursion level issues 
+def coSyn(inputList):
+
+    inputListOG = inputList
+    print("INPUT LIST:", inputList)
+
+    for word in inputList:
+        #print("--> WORD:", word)
+        res = []
+
+        G.add_node(word)
+        for key, value in data.items():
+            #print("  --> KEY:", key, "VALUE:", value)
+            if key == word:
+                for (key1, value1) in value.items():
+                    #print("     --> KEY1: ", key1, "VALUE1:", value1)
+                    if G.has_edge(key,key1):
+                        return()
+
+                    elif type(value1) != str and key1 in inputListOG and key1 != None:
+                        G.add_edge(key,key1,weight=value1)
+                        #print("      --> ADDED:", key, key1, value1)
+                        res.append(key1)
+
+                        
+            
+                        
+                        
+            
+    #print("--------------end recursion--------------")
+    return(coSyn(res))
 
 #INPUT Type: dict, Shape: {"word0: 0.66", "word1": 0.89}
 #OUTPUT Type: dict Shape: {"word0: 0.66", "word1": 0.89}
 #DESC: Add score to the dict from sentenceSimilarity().
 #      Score is the in_degree of each node(word in the input dict).
-def crossSimilarity(inputList, G, maskedSentence, modelName, log):
+def crossSimilarity(inputList, maskedSentence, modelName, log):
 
-        
-    def coSyn(inputList):
-        for word in inputList:
-            res = []
-            G.add_node(word)
-            for key, value in data.items():
-                if key == word:
-                    for (key1, value1) in value.items():
-                        if type(value1) != str and key1 in inputList and key1 != None:
-                            if G.has_edge(key, key1) and G.has_edge(key1, key):
-                                return()
-                            else:
-                                G.add_edge(key,key1,weight=value1)
-                                res.append(key1)
-
-
-            print(word,res)
-            coSyn(res)
-
-    
     def updateScore(fromSentenceSim, nodeData):
 
         for word, score in fromSentenceSim.items():
@@ -111,8 +123,18 @@ def crossSimilarity(inputList, G, maskedSentence, modelName, log):
     pre = sentenceSimilarity(maskedSentence, inputList, modelName, log)
     coSyn(pre)
 
-    result = calNodeWeight(inputList)
+    result = calNodeDegree(inputList)
+    edgeLabel = nx.get_edge_attributes(G,"weight")
+    nx.draw_networkx(G, pos=nx.shell_layout(G),node_size=1000, font_size=7, font_color="white")
 
+    nx.draw_networkx_edge_labels(G, pos=nx.circular_layout(G),edge_labels=edgeLabel, font_size=7, font_color="black")
+    plt.axis("off")
+
+    print("debug graph nodes")
+    for i in G.nodes():
+        print(i)
+    plt.show() 
+    G.clear()
     return( updateScore(pre, result))
 
         

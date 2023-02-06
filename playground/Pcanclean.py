@@ -21,8 +21,7 @@ def removeMorph(morphList):
       out.append([word][0][0])
       show.append([word])
       
-  for i in show:
-    print(i)
+
   return (cleanDup(out))
 
 

@@ -2,34 +2,42 @@ import time
 import pandas as pd
 
 pd.set_option('display.max_colwidth', None)
-pd.set_option('display.max_rows', 200)
+pd.set_option('display.max_rows', 500)
+
 
 
 start = time.time()
 print("importing modules...")
+print("-----importing netowrkx...")
 import networkx as nx
+print("-----importing transformers...")
 from transformers import pipeline 
+print("-----importing PtestFillMask...")
 from PtestFillMask import *
+print("-----importing Pcanclean...")
 from Pcanclean import *
+print("-----importing Pscorer...")
 from Pscorer import *
+print("-----importing PgetMorph...")
 from PgetMorph import *
+print("-----importing Putil...")
 from Putil import *
 end = time.time()
-print("(Import) Elapsed time: ", end - start, "DELTA=",8.1634-(end-start))
+print("(Import) Elapsed time: ", end - start, "DELTA T=", 8.1634-(end-start))
 
 
 
-start = time.time()
+start1 = time.time()
 print("Loading classifier...")
 classifier = pipeline("fill-mask", model = "roberta-base", top_k=50, batch_size = 8, framework="pt", device = -1)
+end1 = time.time()
 
-end = time.time()
-print("(Classifier) Elapsed time: ", end - start)
-testData = [["Our approach is correct but my professor said it is not correct","Our approach is <mask> but my professor said it is not correct","correct"],
+print("(Classifier) Elapsed time: ", end - start, "DELTA T=", 15-(end-start))
+testData = [["Our project is about the application of machine translation","Our <mask> is about the application of machine translation","project"],
+            ["The software is optimized for low-powered devices such as smartphone","The <mask> is optimized for low-powered devices such as smartphone","software"],
+            ["Our approach is correct but my professor said it is not correct","Our approach is <mask> but my professor said it is not correct","correct"],
             ["The mask detecting software is optimized for surgical mask only","The <mask> detecting software is optimized for surgical mask only","mask"],
             ["Sodium Hydroxide is very sensitive to sunlight","Sodium Hydroxide is very <mask> to sunlight","sensitive"],
-            ["The software is optimized for low-powered devices such as smartphone","The <mask> is optimized for low-powered devices such as smartphone","software"],
-            ["Our project is about the application of machine translation","Our <mask> is about the application of machine translation","project"],
             ["Background removal is getting better with the help of artificial intelligence","Background <mask> is getting better with the help of artificial intelligence","removal"],
             ["This processor is made by Samsung Semiconductor","This <mask> is made by Samsung Semiconductor","processor"],
             ["I drive Tesla model X to London, but my friend drive MG XS","I <mask> Tesla model X to London, but my friend drive MG XS","drive"],
@@ -45,11 +53,10 @@ testData = [["Our approach is correct but my professor said it is not correct","
             ]
 
 for item in testData:
-    G = nx.DiGraph()
 
     sentence = item[0]
     if sentence == "x":
-        print("Terminated")
+        print("'EOL REACHED' Terminated")
         break
     else:
         maskedSentence = item[1]
@@ -67,14 +74,14 @@ for item in testData:
         cleanedMorph = removeMorph(morph)
         deepClean = deepCleanX(cleanedMorph)
 
-        
+        print("DEEPCLEAN X", deepClean)
         
         sentenceSim_score_roberta = sentenceSimilarity(maskedSentence, deepClean, selectedModel="roberta", log=0)
         sentenceSim_score_disroberta = sentenceSimilarity(maskedSentence, deepClean, selectedModel="disroberta", log=0)
 
         sentenceSim_score_lmv6 = sentenceSimilarity(maskedSentence, deepClean, selectedModel="lmv6",log= 0)
     
-        coSyn_score = crossSimilarity(deepClean,G,maskedSentence, modelName="lmv6", log=0)
+        coSyn_score = crossSimilarity(deepClean, maskedSentence, modelName="lmv6", log=0)
 
         
 
@@ -86,19 +93,11 @@ for item in testData:
 
         print(df)
 
-        edgeLabel = nx.get_edge_attributes(G,"weight")
-        nx.draw_networkx(G, pos=nx.shell_layout(G),node_size=1000, font_size=7, font_color="white")
+        
 
-        nx.draw_networkx_edge_labels(G, pos=nx.circular_layout(G),edge_labels=edgeLabel, font_size=7, font_color="black")
-        plt.axis("off")
-        attr = G.node_attr_dict_factory()
-        print(attr)
+        print("input sentence: ",sentence)
 
-        """ 
-        for item in G.edges():
-            print(item)
-            print("----------->",item,G.get_edge_data(item[0], item[1])) """
-        plt.show()
-
-        G.clear()
+        
+       
+        command = input("hit enter to continue ")
         
