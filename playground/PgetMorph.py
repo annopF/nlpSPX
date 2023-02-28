@@ -10,16 +10,14 @@ def getMorph(maskedSentence, candidateList):
 
     morphList = []
 
-    for word in candidateList:
+    for item in candidateList:
+        word = item[0]
         doc = nlp(maskedSentence.replace("<mask>", word))
         for token in doc:
             if str(token) == word:
 
-                morphList.append([word,str(token.tag_)])
-    
-   
-    for i in morphList:
-        print(i)
+                morphList.append([item,str(token.tag_)])
+    print(morphList)
     return (morphList)
 
 def getMorphB(maskedSentence, candidateList):
@@ -30,7 +28,7 @@ def getMorphB(maskedSentence, candidateList):
             if token[0] == word:
                 morphList.append([word,token[1]])
     
-    print(morphList)
+    #print(morphList)
     return(morphList)
         
 def getMorphSingle(inputList):
@@ -60,6 +58,15 @@ def getRelatedForm(word):
                 forms.append(str(lm.derivationally_related_forms()[0].name()))
     return (cleanDup(forms))
 
+def getPertainym(word):
+    pertains = []
+    for item in wordnet.synsets(word):
+        for lm in item.lemmas():
+            if lm.derivationally_related_forms():
+                pertains.append(str(lm.derivationally_related_forms()[0].name()))
+    return (cleanDup(pertains))
+
+
 def lemmatizer(input):
 
     doc = nlp(input)
@@ -83,4 +90,6 @@ def getInflect(word):
 
     
     return (cleanDup(final))
+
+
 

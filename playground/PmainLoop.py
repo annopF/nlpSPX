@@ -1,103 +1,124 @@
 import time
 import pandas as pd
-
+import ranky as rk
 pd.set_option('display.max_colwidth', None)
-pd.set_option('display.max_rows', 500)
-
-
-
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('expand_frame_repr', False)
 start = time.time()
-print("importing modules...")
-print("-----importing netowrkx...")
 import networkx as nx
-print("-----importing transformers...")
 from transformers import pipeline 
-print("-----importing PtestFillMask...")
+from transformers import RobertaForMaskedLM, RobertaTokenizer
+import sentence_transformers
+from sentence_transformers import CrossEncoder
 from PtestFillMask import *
-print("-----importing Pcanclean...")
 from Pcanclean import *
-print("-----importing Pscorer...")
 from Pscorer import *
-print("-----importing PgetMorph...")
 from PgetMorph import *
-print("-----importing Putil...")
 from Putil import *
 end = time.time()
 print("(Import) Elapsed time: ", end - start, "DELTA T=", 8.1634-(end-start))
 
+print("preparing SentenceTransformers")
+lmv6  = SentenceTransformer("sentence-transformers/stsb-roberta-base-v2", device = "cpu")
+mnli  = SentenceTransformer("textattack/roberta-base-MNLI", device = "cpu")
+dbt = CrossEncoder('cross-encoder/nli-roberta-base', device="cpu")
 
+def rankAll(a,b,c,d):
+
+    print(a)
+    dick = dict.fromkeys([x[0] for x in a])
+
+    print(dick)
+  
+    temp = []
+
+    for word in dick:
+        #for i,(a,b,c) in enumerate(zip(roberta,mnli,distil)):
+        temp.append([word, [[x[0] for x in a].index(word), 
+                            [x[0] for x in b].index(word), 
+                            [x[0] for x in c].index(word), 
+                            [x[0] for x in d].index(word)]])
+
+    print(temp)
+    for word in dick:
+        for item in temp:
+            if item[0] == word:
+                dick[word] = item[1]
+
+
+    df = pd.DataFrame.from_dict(dick, orient="index")
+    out = rk.borda(df, reverse=True, axis=1)
+    out.to_dict()
+
+    return(sorted([[key, value] for key, value in out.items()], key=lambda x: x[1], reverse=False)) # !REVERSE MUST BE FALSE!
 
 start1 = time.time()
 print("Loading classifier...")
-classifier = pipeline("fill-mask", model = "roberta-base", top_k=50, batch_size = 8, framework="pt", device = -1)
+
+Cmodel = RobertaForMaskedLM.from_pretrained("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/rbtaX3_500k")
+Ctokenizer = RobertaTokenizer.from_pretrained("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/rbtaX3_500k")
+classifier = pipeline("fill-mask", model = Cmodel, tokenizer=Ctokenizer, top_k=70, framework="pt", device = -1)
 end1 = time.time()
 
 print("(Classifier) Elapsed time: ", end - start, "DELTA T=", 15-(end-start))
-testData = [["Our project is about the application of machine translation","Our <mask> is about the application of machine translation","project"],
-            ["The software is optimized for low-powered devices such as smartphone","The <mask> is optimized for low-powered devices such as smartphone","software"],
-            ["Our approach is correct but my professor said it is not correct","Our approach is <mask> but my professor said it is not correct","correct"],
-            ["The mask detecting software is optimized for surgical mask only","The <mask> detecting software is optimized for surgical mask only","mask"],
-            ["Sodium Hydroxide is very sensitive to sunlight","Sodium Hydroxide is very <mask> to sunlight","sensitive"],
-            ["Background removal is getting better with the help of artificial intelligence","Background <mask> is getting better with the help of artificial intelligence","removal"],
-            ["This processor is made by Samsung Semiconductor","This <mask> is made by Samsung Semiconductor","processor"],
-            ["I drive Tesla model X to London, but my friend drive MG XS","I <mask> Tesla model X to London, but my friend drive MG XS","drive"],
-            ["This research is intended to help teachers in the classroom","This research is <mask> to help teachers in the classroom","intended"],
-            ["I made this pasta with tuna cream sauce","I <mask> this pasta with tuna cream sauce","made"],
-            ["Mr. John said our work need to be fixed","Mr. John <mask> our work need to be fixed","said"],
-            ["Water pollution is one of the most studied topics","Water pollution is one of the most <mask> topics","studied"],
-            ["Most of the professional grade software is not available online","Most of the professional grade software is not <mask> online","available"],
-            ["Apple M2 Pro allows professional video editor to export faster","Apple M2 Pro allows <mask> video editor to export faster","professional"],
-            ["Microsoft sponsored OpenAI which allows them to make Chat GPT project","Microsoft <mask> OpenAI which allows them to make Chat GPT project","sponsored"],
+testData = [["Apple, Inc. is founded by Steve Job.", "Apple, Inc. is <mask> by Steve Job.", "founded"],
+            ["Apple, Inc. is founded by Steve Job.", "Apple Inc is <mask> by Steve Job", "founded"],
             ["x"]
-
             ]
 
-for item in testData:
+choice = int(input("choose mode: 1-from list, 0-manual"))
+if choice == 0:
+    inp = str(input("type sentence with <mask>"))
 
-    sentence = item[0]
-    if sentence == "x":
-        print("'EOL REACHED' Terminated")
-        break
-    else:
-        maskedSentence = item[1]
-        word = item[2]
+else:
+    for i,item in enumerate(testData):
         
-        candidate = getCandidate(sentence, maskedSentence, classifier)
-        print(candidate)
+        sentence = item[0]
 
-        if word not in candidate:
-            candidate.insert(0, word)
-        
+        if sentence == "x":
+            print("'EOL REACHED' Terminated")
+            break
+        else:
+            maskedSentence = item[1]
+            word = item[2]
+            
+            candidate = getCandidate(sentence, maskedSentence, classifier, word)
+            print("--------------------------------------")
+            print(candidate)
+            morphed = getMorph(maskedSentence, candidate)
 
-        removedDup = cleanDup(candidate)
-        morph = getMorph(maskedSentence, candidate)
-        cleanedMorph = removeMorph(morph)
-        deepClean = deepCleanX(cleanedMorph)
 
-        print("DEEPCLEAN X", deepClean)
-        
-        sentenceSim_score_roberta = sentenceSimilarity(maskedSentence, deepClean, selectedModel="roberta", log=0)
-        sentenceSim_score_disroberta = sentenceSimilarity(maskedSentence, deepClean, selectedModel="disroberta", log=0)
+            removedMorph = removeMorph(morphed) 
+            deepClean = deepCleanX(removedMorph)  
 
-        sentenceSim_score_lmv6 = sentenceSimilarity(maskedSentence, deepClean, selectedModel="lmv6",log= 0)
-    
-        coSyn_score = crossSimilarity(deepClean, maskedSentence, modelName="lmv6", log=0)
+            morph = getMorph(maskedSentence, candidate)
+            cleanedMorph = removeMorph(morph)
+            deepCleans = deepCleanX(cleanedMorph)
+            deepClean = [x[0] for x in deepCleans]
 
-        
 
-        data = {"SentenceTransformer Roberta":sorted([[key,value] for key, value in sentenceSim_score_roberta.items()], key= lambda x: x[1], reverse=True),
-                "SentenceTransformer Roberta_distil":sorted([[key,value] for key, value in sentenceSim_score_disroberta.items()], key= lambda x: x[1], reverse=True),
-                "SentenceTransformer lmv6":sorted([[key,value] for key, value in  sentenceSim_score_lmv6.items()], key=lambda x: x[1], reverse=True),
-                "Co-Synonym":sorted([[key,value] for key, value in coSyn_score.items()], key=lambda x: x[1][0], reverse=True)}
-        df = pd.DataFrame(data)
 
-        print(df)
+            #print("DEEPCLEAN X", deepClean)
+            ST_outputMNLI = sentenceSimilarity(maskedSentence, deepClean, model=mnli,mode=0)
 
-        
 
-        print("input sentence: ",sentence)
 
-        
-       
-        command = input("hit enter to continue ")
-        
+            ST_outputLMV6 = sentenceSimilarity(maskedSentence, deepClean, model=lmv6,mode=0)
+
+
+            
+            entail = entailment(maskedSentence, deepClean, model1=mnli, model2=dbt)
+            rerank = rankAll(deepCleans,ST_outputMNLI,ST_outputLMV6,entail)
+          
+            limit = 15
+            data = {
+                    "OG rank": deepCleans[:limit],
+                    "ST MNLI": ST_outputMNLI[:limit],
+                    "ST LMV6": ST_outputLMV6[:limit],
+                    "Entailment_score": entail[:limit],
+                    "rerank": rerank[:limit]}          
+            df = pd.DataFrame(data)
+            print(df) 
+            print("SEN:",sentence,"WORD:",word)
+            print("------------------------------------------------------------------------------------------------------------------------------------------------------------")        

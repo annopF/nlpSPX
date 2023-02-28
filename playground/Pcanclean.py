@@ -8,7 +8,7 @@ from Levenshtein import ratio
 #return: ["safely",]
 
   
-
+#[[["word":0.88],"VBD"],[["word":0.88],"VBD"]....]
 def removeMorph(morphList):
   out = []
   show = []
@@ -17,17 +17,19 @@ def removeMorph(morphList):
     originalForm = morphList[0][1]
     candidateForm = morphList[i][1]
 
+
     if originalForm == candidateForm:
-      out.append([word][0][0])
+      out.append(word[0])
       show.append([word])
       
-
-  return (cleanDup(out))
+  print(show)
+  return (out)
 
 
 def deepCleanX(wordList):
     from PgetMorph import getAntonym, getRelatedForm
-    word = wordList[0]
+    word = wordList[0][0]
+    print("-----WORD-----",word)
     antonyms = getAntonym(word)
     print("ANTONYM ", antonyms)
     relatedForm = getRelatedForm(word)
@@ -36,20 +38,20 @@ def deepCleanX(wordList):
 
     out = [] 
     for item in wordList:
-      if item not in antonyms:
+      if item[0] not in antonyms:
+
         out.append(item)
 
   
     for item in wordList:
-      if ratio(word,item) > 0.876 and item !=word and item in out:
-        print("Lev ratio ",item)
+      if ratio(word,item[0]) >= 0.8 and item[0] !=word and item in out:
         out.remove(item)   
     
-    for item in derivedForm:
-      if item in out:
+    for item in wordList:
+      if item[0] in out:
         out.remove(item)
 
-
+   
     return (cleanDup(out))
    
 
