@@ -9,7 +9,7 @@ def readtext(filepath):
         if i == 0:
             text = currentpage
         else:
-            text = "------------------------------\n".join([text, currentpage])
+            text = "\n------------------------------\n".join([text, currentpage])
         # text = f"{text, currentpage}"
     # page = reader.pages[0]
     # text = page.extract_text()

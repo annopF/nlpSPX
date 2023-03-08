@@ -5,8 +5,8 @@ from spacy.matcher import Matcher
 from tokenizer import selectTokenizer
 from ngram import bigram, trigram, unigram
 import re
-from Putil import nicePrint
-
+# from Putil import nicePrint
+import niceprint
 
 
 def getPackage():
@@ -48,7 +48,8 @@ def getPackage():
         return(sent)
 
     #change file path here
-    filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f14.pdf"
+    # filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f14.pdf"
+    filePath = "C:/Users/thana/Documents/GitHub/nlpSPX/UIdraft/textdata/never.pdf"
     text = tt.process(filePath)
     texts = text.decode("utf8")
     nlp = spacy.load("en_core_web_lg")
@@ -80,7 +81,8 @@ def getPackage():
 
             print("-------------------------------------------------------------------")
             print("---> sentence #",idx)
-            nicePrint(xWord,str(sen),0)
+            # nicePrint(xWord,str(sen),0)
+            niceprint(xWord,str(sen),0)
             print("\r")
             if len(i[-1]) > 1:
                 print(i[-1])
@@ -100,9 +102,10 @@ def getPackage():
 s = getPackage()
 
 print("***************************************************************************************************")
-for i in s:
-    nicePrint("<mask>",i[1][0],1)
-    print("\n")
+# for i in s:
+#     # nicePrint("<mask>",i[1][0],1)
+#     niceprint("<mask>",i[1][0],1)
+#     print("\n")
 
 
     
