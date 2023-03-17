@@ -17,28 +17,11 @@ def getMorph(maskedSentence, candidateList):
             if str(token) == word:
 
                 morphList.append([item,str(token.tag_)])
-    print(morphList)
+
+    #print("---------******--------",morphList)
     return (morphList)
 
-def getMorphB(maskedSentence, candidateList):
-    morphList = []
-    for word in candidateList:
-        doc = pos_tag(word_tokenize(maskedSentence.replace("<mask>",word)))
-        for token in doc:
-            if token[0] == word:
-                morphList.append([word,token[1]])
-    
-    #print(morphList)
-    return(morphList)
         
-def getMorphSingle(inputList):
-    out = []
-    for tokens in inputList:
-        res = [token.morph for token in nlp(tokens)]
-        out.append([tokens,str(res)])
-
-    
-    return (out)
 
 def getAntonym(word):
 
@@ -81,7 +64,6 @@ def getInflect(word):
     for key, value in res.items():
         for item in value:
             out.append([item, key])
-    print ("INFLECTED: ",out)
    
     for item in out:
         target = item[0]

@@ -25,35 +25,28 @@ def removeMorph(maskedSentence, candidateList):
       out.append(word[0])
       show.append([word])
       
-  print(show)
+  #print(show)
   return (out)
-
 
 def deepCleanX(wordList):
     from PgetMorph import getAntonym, getRelatedForm
     word = wordList[0][0]
-    print("-----WORD-----",word)
+    #print("-----WORD-----",word)
     antonyms = getAntonym(word)
-    print("ANTONYM ", antonyms)
+    #print("ANTONYM ", antonyms)
     relatedForm = getRelatedForm(word)
-    print("RELATED FORM ", relatedForm)
+    #print("RELATED FORM ", relatedForm)
     derivedForm = getInflect(word)
-
+    #print("-------*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*-------",wordList)
     out = [] 
-    for item in wordList:
-      if item[0] not in antonyms:
 
+    for item in wordList:
+      a = item[0]
+      if a not in antonyms and ratio(word,a) < 0.8 and a not in relatedForm and a not in derivedForm:
         out.append(item)
 
-  
-    for item in wordList:
-      if ratio(word,item[0]) >= 0.8 and item[0] !=word and item in out:
-        out.remove(item)   
-    
-    for item in wordList:
-      if item[0] in out:
-        out.remove(item)
-
+   
+    out.insert(0,wordList[0])
    
     return (cleanDup(out))
    

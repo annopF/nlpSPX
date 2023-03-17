@@ -2,99 +2,143 @@ import spacy
 import textract as tt
 from tokenizer import selectTokenizer
 from ngram import *
-from Putil import nicePrint
+from Putil import nicePrint, isStopword
 
 
 
-def getPackage():
+    
+#change file path here
+def generateText(mode):
+    if mode == 1:
+        filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f15.pdf"
+        text = tt.process(filePath)
+        texts = text.decode("utf8")
+        return(texts)
+    else:
+        sentence = """
+        I don't like Apple iPhone very much due to its price, but I don't like Apple iPhone more. 
+        This apple iphone is awesome. 
+        Tim like macbook pro but don't like Apple iPhone. 
+        Steve job also don't like Apple iPhone. 
+        Bill gate really don't like Apple product but like Samsung."""
+        return(sentence)
+    
+    
 
-    def findWord(word):
-        sent = []
-        targetIdx = []
-        for sentId, sentence in enumerate(doc.sents):
-            piece = (selectTokenizer("wsp", str(sentence)))
-
+def findWord(ug_list, bg_list, tg_list):
+   
+   for sentId, sentence in enumerate(doc.sents):
+        piece = (selectTokenizer("wsp", str(sentence))).returnList()
+        for bg in bg_list:
+            #print("---> bg1=",bg.gram1, "bg2=",bg.gram2)
+                        
             for i,target in enumerate(piece):
-                if target.lower() == word.lower():
-                    targetIdx.append(i)
-                    
-            
-            start = sentence.start
-            end = sentence.end
-            if len(targetIdx) != 0:
-                sent.append(sentenceObj(piece, sentId, start, end, targetIdx))
-                targetIdx = []
+                if piece[i].lower() == bg.gram2.lower() and piece[i-1].lower() == bg.gram1.lower():
+                    #print("sentence",sentence, "#POS ", i-1, i, "#SentID ",sentId)
+                    bg.sentenceObj.append(sentenceX(sentId,i-1, i, None))
 
-        return(sent)
-    
+        for tg in tg_list:
+            #print("---> bg1=",bg.gram1, "bg2=",bg.gram2)
+            for i,target in enumerate(piece):
+                if piece[i].lower() == tg.gram3.lower() and piece[i-1].lower() == tg.gram2.lower() and piece[i-2].lower() == tg.gram1.lower():
+                    #print("sentence",sentence, "#POS ", i-1, i, "#SentID ",sentId)
+                    tg.sentenceObj.append(sentenceX(sentId,i-2,i-1, i))
 
-    #change file path here
-    def generateText(mode):
-        if mode == 1:
-            filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f13.pdf"
-            text = tt.process(filePath)
-            texts = text.decode("utf8")
-            return(texts)
-        else:
-            sentence = "I don't like apple because I hate banana. john chao rai I like banana due tol. I like apple becasue john chao rai i don't like banana. I like apple john chao rai becasue like apple of john chao rai iphone I like, I like. hate banana, hate banana I am sam, I am donny, I am danny I am cracker I am dark"
-            return(sentence)
-
-    texts = generateText(0)
-    #texts = open(filePath, encoding="UTF-8").read()
-
-
-    doc = nlp(texts.replace("\n"," ").replace("\r",""))
-
-
-    #doc = nlp("i could do that and could do cake could do this but couldn't do that")
+        for ug in ug_list:
+            #print("---> bg1=",bg.gram1, "bg2=",bg.gram2)            
+            for i,target in enumerate(piece):
+                if piece[i].lower() == ug.gram1.lower():
+                    #print("sentence",sentence, "#POS ", i-1, i, "#SentID ",sentId)
+                    ug.sentenceObj.append(sentenceX(sentId,i,None,None))
 
 
 
-    tok = selectTokenizer("regxUltra", str(doc))
+nlp = spacy.load("en_core_web_lg")
+texts = generateText(0)
+#texts = open(filePath, encoding="UTF-8").read()
 
-    gram = createNgram(30, tok)
-    bg = gram.bigram()
 
-    for i in bg:
-        print (i.gram1, i.gram2, i.count)
+doc = nlp(texts.replace("\n"," ").replace("\r",""))
 
-    xWord = input("Enter word to search for: ")
+tok = selectTokenizer("wsp", texts)
 
-    allMatch = findWord(xWord)
+gram = createNgram(80, tok.returnList())
+ug = gram.unigram()
+bg = gram.bigram()
+tg = gram.trigram()
 
+
+
+findWord(ug, bg, tg)
+
+def reCon(xg, sentObj):
+    senOG = list(doc.sents)[sentObj.getSentId()]
+
+    res = []
+    for i in senOG:
+        if i.ent_type_ != "":
+            res.append(str(i))
+    print("\nEntity/Stopword in this sentence:",res)
+
+
+    out = []
+    for i in range(xg.type):
+        if not isStopword(xg.getGram(i+1)):
+            if xg.getGram(i+1) not in res:
+                out.append([str(senOG).strip(),selectTokenizer("wsp",str(senOG)).replaceAt(sentObj.geti(i+1),None),xg.getGram(i+1)])
+
+    for i in out:
+        print(i)
+    print("---------------------------------------------------------")
+    return (out)
+
+def runParse(mode):
     package = []
-
-    for idx,senObj in enumerate(allMatch):
-       
-        if senObj.piece != None:
-            sen = list(doc.sents)[senObj.sentId]
-
-            print("-------------------------------------------------------------------")
-            print("---> sentence #",idx)
-            # nicePrint(xWord,str(sen),0)
-            nicePrint(xWord,str(sen),0)
-            print("\r")
-            if len(senObj.targetIdx) > 1:
-                print(senObj.targetIdx)
-                print("more than one mask found")
-                pos = int(input("Choose which word to mask: "))
-                senObj.piece[pos] = "<mask>"
-                print("-----> new sentence: "," ".join(senObj.piece))
-            else:
-                senObj.piece[senObj.targetIdx[0]] = "<mask>"
-
-            package.append([str(sen)," ".join(senObj.piece),xWord])
+    if mode == 0:
+        exit()
+    elif mode == 1:
+        print("--/\--/\--/\--/\--/\--/\-- MOST REPEATED WORDS --/\--/\--/\--/\--/\--/\--")
+        for i in ug:
+            print(i.gram1, i.count)
+        
+        select = input("enter unigram to search (CaSe SeNsItIvE):")
 
 
-    return(package)
+        for IDX,i in enumerate(ug):
+            if i.gram1 == select:
+                for j in i.sentenceObj:
+                    package.append(reCon(i,j))
+
+        return(y for x in package for y in x)
+
+    elif mode == 2:
+        print("--/\--/\--/\--/\--/\--/\-- MOST REPEATED WORDS --/\--/\--/\--/\--/\--/\--")
+        for i in bg:
+            print(i.gram1, i.gram2, i.count)
+        
+        select = input("enter bigram to search (CaSe SeNsItIvE):")
+        a = select.split()
 
 
-s = getPackage()
-
-print("***************************************************************************************************")
-for i in s:
-    nicePrint("<mask>",i[1][0],1)
-    print("\n")
-
-
+        for IDX,i in enumerate(bg):
+            if i.gram1 == a[0] and i.gram2 == a[1]:
+                for j in i.sentenceObj:
+                    package.append(reCon(i,j))
+        return(y for x in package for y in x)
     
+    elif mode == 3:
+        print("--/\--/\--/\--/\--/\--/\-- MOST REPEATED WORDS --/\--/\--/\--/\--/\--/\--")
+        for i in tg:
+            print(i.gram1, i.gram2, i.gram3, i.count)
+        
+        select = input("enter trigram to search (CaSe SeNsItIvE):")
+        a = select.split()
+
+
+        for IDX,i in enumerate(tg):
+            if i.gram1 == a[0] and i.gram2 == a[1] and i.gram3 == a[2]:
+                for j in i.sentenceObj:
+                    package.append(reCon(i,j))
+        return(y for x in package for y in x)
+
+

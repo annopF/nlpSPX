@@ -44,7 +44,7 @@ def sentenceSimilarity(maskedSentence, inputList, model, mode):
             #print("#",i," ", sentenceList[0], " <--> ", sentenceList[i], cosine_scores)
 
     end = time.time()
-    print("elapsed time:", end - start)
+    #print("Pscorer-sentenceSimilarity-> elapsed time:", end - start)
     if mode ==1:
         return (score)
     elif mode ==0:
