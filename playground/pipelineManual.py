@@ -26,7 +26,7 @@ def testTorch(sentence,target):
 
     print("tgar token id ",target_token_id)
     print("masked target id ", target_token_id)
-    print("mask token <mask>  ", tokenizer.mask_token_id)
+    print("mask token [MASK]  ", tokenizer.mask_token_id)
     #print("lm model ",lm_model)
     #print("raw_model ", raw_model)
     print("input embed ", torch.Tensor.size(input_embeds))

@@ -9,7 +9,10 @@ from Levenshtein import ratio
 
   
 #[[["word":0.88],"VBD"],[["word":0.88],"VBD"]....]
-def removeMorph(morphList):
+def removeMorph(maskedSentence, candidateList):
+
+  morphList = getMorph(maskedSentence, candidateList)
+
   out = []
   show = []
 

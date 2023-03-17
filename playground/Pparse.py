@@ -1,12 +1,9 @@
 import spacy
 import textract as tt
-from termcolor import colored, cprint
-from spacy.matcher import Matcher
 from tokenizer import selectTokenizer
-from ngram import bigram, trigram, unigram
-import re
-# from Putil import nicePrint
-import niceprint
+from ngram import *
+from Putil import nicePrint
+
 
 
 def getPackage():
@@ -25,34 +22,25 @@ def getPackage():
             start = sentence.start
             end = sentence.end
             if len(targetIdx) != 0:
-                sent.append([piece,start, end, sentId,targetIdx])
+                sent.append(sentenceObj(piece, sentId, start, end, targetIdx))
                 targetIdx = []
 
         return(sent)
     
-    def findWordM2(word):
-        sent = []
-        targetIdx = []
-        for sentId, sentence in enumerate(doc.sents):
-            for token in sentence:
-                if str(token).lower() == word.lower():
-                    targetIdx.append(i)
-                    
-            
-            start = sentence.start
-            end = sentence.end
-            if len(targetIdx) != 0:
-                sent.append([piece,start, end, sentId,targetIdx])
-                targetIdx = []
-
-        return(sent)
 
     #change file path here
-    # filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f14.pdf"
-    filePath = "C:/Users/thana/Documents/GitHub/nlpSPX/UIdraft/textdata/never.pdf"
-    text = tt.process(filePath)
-    texts = text.decode("utf8")
-    nlp = spacy.load("en_core_web_lg")
+    def generateText(mode):
+        if mode == 1:
+            filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f13.pdf"
+            text = tt.process(filePath)
+            texts = text.decode("utf8")
+            return(texts)
+        else:
+            sentence = "I don't like apple because I hate banana. john chao rai I like banana due tol. I like apple becasue john chao rai i don't like banana. I like apple john chao rai becasue like apple of john chao rai iphone I like, I like. hate banana, hate banana I am sam, I am donny, I am danny I am cracker I am dark"
+            return(sentence)
+
+    texts = generateText(0)
+    #texts = open(filePath, encoding="UTF-8").read()
 
 
     doc = nlp(texts.replace("\n"," ").replace("\r",""))
@@ -63,37 +51,39 @@ def getPackage():
 
 
     tok = selectTokenizer("regxUltra", str(doc))
-    ngram = unigram(10, tok)
 
-    for i in ngram:
-        print (i)
+    gram = createNgram(30, tok)
+    bg = gram.bigram()
+
+    for i in bg:
+        print (i.gram1, i.gram2, i.count)
 
     xWord = input("Enter word to search for: ")
 
-    res = findWord(xWord)
+    allMatch = findWord(xWord)
 
     package = []
 
-    for idx,i in enumerate(res):
+    for idx,senObj in enumerate(allMatch):
        
-        if i[0] != None:
-            sen = list(doc.sents)[i[3]]
+        if senObj.piece != None:
+            sen = list(doc.sents)[senObj.sentId]
 
             print("-------------------------------------------------------------------")
             print("---> sentence #",idx)
             # nicePrint(xWord,str(sen),0)
-            niceprint(xWord,str(sen),0)
+            nicePrint(xWord,str(sen),0)
             print("\r")
-            if len(i[-1]) > 1:
-                print(i[-1])
-                print("shit! more than one mask found fuck u")
+            if len(senObj.targetIdx) > 1:
+                print(senObj.targetIdx)
+                print("more than one mask found")
                 pos = int(input("Choose which word to mask: "))
-                i[0][pos] = "<mask>"
-                print("-----> new sentence: "," ".join(i[0]))
+                senObj.piece[pos] = "<mask>"
+                print("-----> new sentence: "," ".join(senObj.piece))
             else:
-                i[0][i[-1][0]] = "<mask>"
+                senObj.piece[senObj.targetIdx[0]] = "<mask>"
 
-            package.append([[sen],[" ".join(i[0])],xWord])
+            package.append([str(sen)," ".join(senObj.piece),xWord])
 
 
     return(package)
@@ -102,10 +92,9 @@ def getPackage():
 s = getPackage()
 
 print("***************************************************************************************************")
-# for i in s:
-#     # nicePrint("<mask>",i[1][0],1)
-#     niceprint("<mask>",i[1][0],1)
-#     print("\n")
+for i in s:
+    nicePrint("<mask>",i[1][0],1)
+    print("\n")
 
 
     

@@ -1,14 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import re
+from termcolor import cprint
 
-def cleanToken(token):
-    stopword = ["Is","Am","Are","Was","Were","I","You","The","A","An","Of","Then","to"
-    ,"As","That","It","My","This","There","So","Me","They","Do","Does","Did","Be","These",
-    "Not","At","Have","Has","Had","Her","Or",""]
-    stopwordLow = [x.lower() for x in stopword]
+
+stopword = ['ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there', 'about', 'once', 'during', 'out', 
+                'very', 'having', 'with', 'they', 'own', 'an', 'be', 'some', 'for', 'do', 'its', 'yours', 'such', 'into', 
+                'of', 'most', 'itself', 'other', 'off', 'is', 's', 'am', 'or', 'who', 'as', 'from', 'him', 'each', 'the', 
+                'themselves', 'until', 'below', 'are', 'we', 'these', 'your', 'his', 'through', 'don', 'nor', 'me', 'were', 
+                'her', 'more', 'himself', 'this', 'down', 'should', 'our', 'their', 'while', 'above', 'both', 'up', 'to', 'ours', 
+                'had', 'she', 'all', 'no', 'when', 'at', 'any', 'before', 'them', 'same', 'and', 'been', 'have', 'in', 'will', 'on', 
+                'does', 'yourselves', 'then', 'that', 'because', 'what', 'over', 'why', 'so', 'can', 'did', 'not', 'now', 'under', 'he', 
+                'you', 'herself', 'has', 'just', 'where', 'too', 'only', 'myself', 'which', 'those', 'i', 'after', 'few', 'whom', 't', 
+                'being', 'if', 'theirs', 'my', 'against', 'a', 'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than',
+                "can't","couldn't" "don't", "doesn't","isn't","won't","aren't","weren't","wouldn't","wasn't","shouldn't",""]
     
-    return [x for x in token if x not in stopword and x not in stopwordLow]
-
+def cleanToken(token):
+    
+    return [x for x in token if x.lower() not in stopword and x not in stopword]
+def isStopword(token):
+    if token.lower() in stopword:
+        return (1)
+    else:
+        return (0)
+    
 def levDistance(str1,str2):
 
     array = [[0]*(len(str2)+1) for i in range(len(str1)+1)]
@@ -30,7 +45,13 @@ def levDistance(str1,str2):
     return (array[-1][-1])
 
 def cleanDup(inputList):
-  return list(dict.fromkeys([x.lower().strip() for x in inputList]))
+    out  =[]
+
+    for item in inputList:
+        if item not in out:
+            out.append(item)
+
+    return out
 
 def plotFreq(word_count,vocab):
 
@@ -49,3 +70,45 @@ def plotFreq(word_count,vocab):
 
 
     plt.show()
+
+
+#highlight selected words in the text and print out nicely
+
+#INPUT arg1: word = word to highlight
+#      arg2: sen = sentence containing the words to highlight
+#      arg3: mode: 0=when use with normal word, 1=when use with <mask>
+def nicePrint(word, sen, mode):
+    li = []
+
+    if mode == 0:
+        for m in re.finditer(fr"(?i)\b{word}\b",sen): #use literal string inplace of r" " --> {var}
+            start = m.start()
+            end = m.end()
+            li.append([start,end])
+    elif mode == 1:
+        for m in re.finditer(r"<mask>",sen): #use literal string inplace of r" " --> {var}
+            start = m.start()
+            end = m.end()
+            li.append([start,end])
+
+  
+    idx=0
+    liCounter = 0
+    while idx < len(sen):  
+       
+        
+        if len(li) == 0:
+            return
+        else:
+            if idx == li[liCounter][0]-1:
+                print("", end=" ")
+                cprint(word, "green",end="")
+                idx+=(li[liCounter][1]-li[liCounter][0])+1
+                if liCounter != len(li)-1:
+                    liCounter+=1
+
+            else:
+                print(sen[idx], end="")
+                idx+=1
+
+        
