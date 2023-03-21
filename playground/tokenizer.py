@@ -5,10 +5,29 @@ from nltk.collocations import *
 from nltk.tokenize import *
 from nltk import *
 
+class tok():
+    def __init__(self,token):
+        self.token = token
 
+    def replaceAt(self,idx, new):
+        temp = self.token
+
+        for i in range(len(temp)):
+
+            if i == idx:
+                if new != None:
+                    temp[i] = new
+                else:
+                    temp[i] = "<mask>"
+                
+                return(" ".join(temp))
+    
+    def returnList(self):
+        return(self.token)
+    
 #using pure regex tokenizer (use www.regex101.com to test)
 def tokenizerXUltra (input):
-    
+
     #regex = r"[A-Z]\.?(\w+\.){1,}|(\w+-)+\w+|\w+('s|'t|'ve|'re|'ll|'d)|[A-Za-z0-9]+" #regex V1.0
     regex = r"\W?\d+\.?\d+|[A-Z]\.?(\w+\.){1,}|(\w+-)+\w+|\w+('s|'t|'ve|'re|'ll|'d)|[\w\d]+" #regex V1.1 (support for decimal and $sign)
 
@@ -23,10 +42,10 @@ def selectTokenizer(name, input):
             return (nltk.word_tokenize(input))
 
         case "wsp": 
-            print("-------------------------------------------------using whitesapce tokenizer")
+            #print("-------------------------------------------------using whitesapce tokenizer")
             sd  = input.split()
             
-            return ([x.rstrip(".").rstrip(",") for x in sd])
+            return (tok([x.rstrip(".").rstrip(",") for x in sd]))
 
         case "pun":
             print("-------------------------------------------------using punctuation tokenizer")
@@ -37,7 +56,7 @@ def selectTokenizer(name, input):
             return (nltk.regexp_tokenize(input,"\w+"))
 
         case "regxUltra":
-           # print("-------------------------------------------------using regxUltra tokenizer")
+            # print("-------------------------------------------------using regxUltra tokenizer")
 
             return(tokenizerXUltra(input))
 
