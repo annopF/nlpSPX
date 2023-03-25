@@ -5,6 +5,7 @@ from tkinter.filedialog import *
 # sys.path.append('./functions')
 import textreader
 import Pparse
+import re
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
 scanoutput = []
@@ -37,6 +38,7 @@ def select_file():
     if not selectedfile:
         return
     inputtext = textreader.readtext(selectedfile)
+    # print(inputtext)
     text.insert(INSERT, inputtext)
     # filecontent = open(selectedfile, encoding="utf8")
     # filetext = filecontent.read()
@@ -45,19 +47,24 @@ def select_file():
 
 def scan_texts(inputtextbox):
     inp = inputtextbox.get(1.0, "end-1c")
+    # linecount = int(inputtextbox.index('end-1c').split('.')[0])
+    # print(linecount)
     if inp != "":
-        print(inp)
+        # print(inp)
+        # print(type(inp))
         pp = Pparse.scantexts(inp)
         # print(pp[1])
         # print(pp[1][0][0])
         # print(type(pp[1]))
         global scanoutput
         scanoutput = pp
+        # print(scanoutput)
 
         # create buttons for most repeated word
-        for i in scanoutput[1]:
+        global topwords
+        for idx, i in enumerate(scanoutput[1]):
             # Button(sbframe1, text=i[0], command=dummy_print).pack(fill='x', side=TOP)
-            Button(sbframe1, text=i, command=dummy_print).pack(fill='x', side=TOP)
+            Button(sbframe1, text=i[0], command=lambda x=i[0]: findtext_inthebox(text, x)).pack(fill='x', side=TOP)
 
     return
 
@@ -69,6 +76,21 @@ def print_output(input):
 
 def dummy_print():
     print("bruh")
+    return
+
+def findtext_inthebox(textbox, target):
+    inp = textbox.get(1.0, "end-1c")    # end is end, -1c will delete 1 last char(newline)
+    textbox.tag_configure('highlight', background='red', font='lucida 20 bold underline')
+    textbox.tag_remove("highlight", 1.0, "end-1c")
+    print(inp)
+    print(type(inp))
+
+    pattern = re.compile(fr"\b{target}\b")
+    print(pattern)
+    for m in pattern.finditer(inp):
+        print(m.group(), m.start(), m.end(), type(m.group()), type(m.start()), type(m.end()))
+        textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')  # line, text index
+
     return
 
 
