@@ -1,0 +1,9 @@
+I	Intro
+II	Background and related work
+III	Design and Methodology
+IV	**Result and discussion**
+
+Rewrite chp 1-3, update ตามปัจจุยันว่าเปลี่ยนอะไรไปย้าง
+chp4 เปลี่ยน เขียน progress ที่มี
+
+xelatex+makeindex+bibtex
