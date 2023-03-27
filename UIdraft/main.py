@@ -18,11 +18,11 @@ root.resizable(width=False, height=False)
 
 # ##Initialize labels(not placed yet)## #
 mainframe = Frame(root, bg="#ebeff8")
-sidebar = Frame(mainframe, width=250, bg="green", highlightbackground="#d8d8d8", highlightthickness="2")
-sbframe1 = Frame(sidebar, bg="red")
-sbhead1 = Label(sidebar, bg="yellow", text="Most repeated word", padx=50, pady=10, font="24")
-sbframe2 = Label(sidebar, bg="blue")
-sbhead2 = Label(sidebar, bg="yellow", text="Suggestions", padx=50, pady=10, font="24")
+sidebar = Frame(mainframe, width=250, bg="white")
+sbframe1 = Frame(sidebar, bg="white", highlightbackground="#d8d8d8", highlightthickness="2")
+sbhead1 = Label(sidebar, bg="white", text="Most repeated word", padx=50, pady=10, font="24", highlightbackground="#d8d8d8", highlightthickness="2")
+sbframe2 = Label(sidebar, bg="white", highlightbackground="#d8d8d8", highlightthickness="2")
+sbhead2 = Label(sidebar, bg="white", text="Suggestions", padx=50, pady=10, font="24", highlightbackground="#d8d8d8", highlightthickness="2")
 
 textarea = Frame(mainframe, width=500, bg="red")
 text = Text(textarea, font=("Ink Free", 16), padx=10, pady=10, relief=FLAT)
@@ -64,7 +64,7 @@ def scan_texts(inputtextbox):
         global topwords
         for idx, i in enumerate(scanoutput[1]):
             # Button(sbframe1, text=i[0], command=dummy_print).pack(fill='x', side=TOP)
-            Button(sbframe1, text=i[0], command=lambda x=i[0]: findtext_inthebox(text, x)).pack(fill='x', side=TOP)
+            Button(sbframe1, text=i[0], bg="#e7d5fa", relief=RIDGE, command=lambda x=i[0]: findtext_inthebox(text, x)).pack(fill='x', side=TOP)
 
     return
 
@@ -80,7 +80,7 @@ def dummy_print():
 
 def findtext_inthebox(textbox, target):
     inp = textbox.get(1.0, "end-1c")    # end is end, -1c will delete 1 last char(newline)
-    textbox.tag_configure('highlight', background='red', font='lucida 20 bold underline')
+    textbox.tag_configure('highlight', background='#ffa2a2')
     textbox.tag_remove("highlight", 1.0, "end-1c")
     print(inp)
     print(type(inp))
@@ -122,7 +122,7 @@ mainframe.pack(expand=1, fill=BOTH)
 sidebar.pack(fill="y", expand=True, anchor="e")
 sbhead1.pack()
 sbframe1.pack(expand=1, fill=BOTH, side=TOP)
-sbhead2.pack()
+sbhead2.pack(fill='x')
 sbframe2.pack(expand=1, fill=BOTH, side=BOTTOM)
 
 # Paper(width 500)

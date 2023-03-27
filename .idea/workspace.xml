@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bf97d9bc-3782-44e4-a9fe-0e1557e99282" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex/Report Format Latex/undergrad-sample-english.log" beforeDir="false" afterPath="$PROJECT_DIR$/latex/Report Format Latex/undergrad-sample-english.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex/Report Format Latex/undergrad-sample-english.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/latex/Report Format Latex/undergrad-sample-english.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex/Report Format Latex/undergrad-sample-english.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/latex/Report Format Latex/undergrad-sample-english.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIdraft/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/UIdraft/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex/sem2-note.txt" beforeDir="false" afterPath="$PROJECT_DIR$/latex/sem2-note.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +39,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/thana/Documents/GitHub/nlpSPX&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.Pparse">
+  <component name="RunManager" selected="Python.main">
     <configuration name="Pparse (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="nlpSPX" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -127,8 +126,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Pparse" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Pparse" />
         <item itemvalue="Python.Pparse (1)" />
         <item itemvalue="Python.highlighter" />
       </list>
