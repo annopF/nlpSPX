@@ -39,7 +39,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Your project and independent study committee..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\dissadvisor{Assoc.Prof. Nuttanart Muansuwan Facundes, Ph.D.}  % Advisor
+\def\dissadvisor{Asst. Prof. Nuttanart Muansuwan Facundes, Ph.D.}  % Advisor
 %%% Leave it empty if you have no Co-advisor
 \def\disscoadvisor{}  % Co-advisor
 \def\disscommitteetwo{Asst.Prof. Santhitham Prom-On, Ph.D.}  % 3rd committee member (optional)
@@ -129,7 +129,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \abstract
 
-The computer-assisted writing aims to help improve the quality of a piece of text with the help of computer. Most of the tools focus on fixing grammatical accuracy and misspelled words, only few of them offer repetition detectors. In this project we will be creating a program to keep track of the words and phrases frequency. Moreover, our program will suggest alternative words that fits in original context, thus, the writer can replace the word marked as repetitive with a new suggested word instead. Our proposed solutions consisted of two main parts, the detector, and the suggestor. In the first part, the program tries to detect only relevant repetitions and filter out very specific words or very trivial words. Next, the suggestor module will generate multiple substitution candidates by feeding the sentence into the Transformer model. The transformer model such as BERT is trained with Masked Language Modelling, which we can use to predict the mask position, in this case the target word to replace. The generated candidates are verified using SentenceBERT and similarity score to ensure each of them won’t alter the meaning of the original sentence. 
+The computer-assisted writing aims to help improve the quality of a piece of text with the help of a computer. Most of the tools focus on fixing grammatical accuracy and misspelled words, only a few of them offer repetition detectors. In this project, we will be creating a program to keep track of the words and phrases' frequency. Moreover, our program will suggest alternative words that fit in the original context, thus, the writer can replace the word marked as repetitive with a new suggested word instead. Our proposed solutions consisted of two main parts, the detector, and the suggestor. In the first part, the program tries to detect only relevant repetitions and filter out very specific words or very trivial words. It can detect a single word (unigram) up to three words (trigram) repetitions. Next, the suggestor module will generate multiple substitution candidates by feeding the original sentence along with the masked sentence into the Transformer model. The models such as BERT, and Roberta are trained with Masked Language Modelling, which we can use to predict the mask position, in this case, the target word to replace. The generated candidates will be evaluated by four different judges (judges = models), and the final result will be determined using a consensus-based ranking system to find broadly acceptable positions among all judges.
 
 \begin{flushleft}
 \begin{tabular*}{\textwidth}{@{}lp{0.8\textwidth}}
@@ -148,7 +148,7 @@ The computer-assisted writing aims to help improve the quality of a piece of tex
 \thaifont
 \thaiabstract
 
-การเขียนโดยใช้คอมพิวเตอร์เป็นตัวช่วยมีจุดมุ่งหมายเพื่อช่วยปรับปรุงคุณภาพของข้อความโดยใช้คอมพิวเตอร์เข้ามาช่วยเหลือ เครื่องมือส่วนใหญ่มุ่งเน้นไปที่การแก้ไขความถูกต้องทางไวยากรณ์และคำที่สะกดผิด มีเพียงไม่กี่เครื่องมือเท่านั้นที่มีระบบตรวจจับคำซ้ำ ในโครงการนี้ เราจะสร้างเครื่องมือเพื่อติดตามความถี่ของคำและวลี นอกจากนี้ โปรแกรมของเราจะแนะนำคำทดแทนที่เหมาะกับบริบทเดิม ดังนั้น ผู้เขียนสามารถแทนที่คำที่ถูกทำเครื่องหมายว่าซ้ำด้วยคำใหม่ที่แนะนำแทน แนวทางที่เรานำเสนอประกอบด้วยสองส่วนหลัก ได้แก่ ตัวตรวจจับ และตัวแนะนำ ในส่วนแรก โปรแกรมจะพยายามตรวจหาเฉพาะคำซ้ำที่เกี่ยวข้องและกรองคำเฉพาะหรือคำที่ไม่สำคัญออก ถัดไป โมดูลผู้แนะนำจะสร้างชุดคำทางเลือกสำหรับทดแทน โดยป้อนประโยคลงในโมเดล Transformer โมเดลทรานสฟอร์เมอร์ เช่น BERT ได้รับการฝึกฝนด้วย Masked Language Modeling ซึ่งเราสามารถใช้มันเพื่อทำนายตำแหน่งของมาสก์ ในกรณีนี้ คำเป้าหมายที่จะแทนที่ คำทดแทนที่สร้างขึ้นจะได้รับการตรวจสอบโดยใช้ SentenceBERT และคะแนนความคล้ายคลึงกันเพื่อให้แน่ใจว่าแต่ละคำจะไม่เปลี่ยนความหมายของประโยคเดิม
+การเขียนโดยใช้คอมพิวเตอร์ช่วยมีจุดมุ่งหมายเพื่อช่วยปรับปรุงคุณภาพของข้อความด้วยความช่วยเหลือของคอมพิวเตอร์ เครื่องมือส่วนใหญ่มุ่งเน้นไปที่การแก้ไขความถูกต้องทางไวยากรณ์และคำที่สะกดผิด แต่ก็ยังมีเครื่องมือน้อยที่ใช้ในการตรวจจับคำซ้ำ ในโครงการนี้ เราจะสร้างโปรแกรมเพื่อติดตามความถี่ของคำและวลี นอกจากนี้ โปรแกรมของเราจะแนะนำคำทางเลือกที่เหมาะสมกับบริบทเดิม ดังนั้น ผู้เขียนสามารถแทนที่คำซ้ำด้วยคำใหม่ที่แนะนำแทน วิธีแก้ปัญหาที่เรานำเสนอประกอบด้วยสองส่วนหลัก ได้แก่ ส่วนตรวจจับ และส่วนแนะนำ ในส่วนแรก โปรแกรมจะพยายามตรวจหาเฉพาะคำซ้ำที่เกี่ยวข้องและกรองคำเฉพาะหรือคำที่ไม่สำคัญออก โปรแกรมของเราสามารถตรวจจับคำซ้ำได้ตั้งแต่คำเดียว (ยูนิแกรม) จนถึงสามคำ (ไตรแกรม) จากนั้นโมดูลผู้แนะนำจะสร้างรายการคำตัวเลือกโดยป้อนประโยคต้นฉบับพร้อมกับประโยคที่ทำการมาสก์โทเค่นลงในแบบจำลองทรานส์ฟอร์มเมอร์สเช่น เบิร์ทและ โรเบอร์ต้า ได้รับการฝึกฝนด้วย มาสก์แลงเกวจโมเดลลิ่ง ซึ่งเราสามารถใช้เพื่อทำนายตำแหน่งของมาสก์ ในกรณีนี้ คำเป้าหมายที่จะแทนที่ รายการคำที่สร้างขึ้นจะได้รับการประเมินโดยผู้ตัดสินที่แตกต่างกัน 4 คน (ผู้ตัดสินหมายถึงแบบจำลอง) และผลลัพธ์สุดท้ายจะถูกตัดสินโดยใช้ระบบการจัดอันดับตามฉันทามติเพื่อค้นหาการจัดอันดับที่เป็นที่ยอมรับจากผู้ตัดสินทั้งหมด
 
 \begin{flushleft}
 \begin{tabular*}{\textwidth}{@{}lp{0.8\textwidth}}
@@ -321,7 +321,7 @@ Natural Language Processing (NLP) has been greatly advanced in recent years both
 \subsection{Natural Language Processing}
 Natural language Processing (NLP) is a sub-field of computer science (also a branch of Artificial intelligence depending on the technique used) defined as a way to give computers the ability to understand text and spoken language in the same way human beings can (IBM, 2020 \cite{c}). According to IBM,  NLP is a multidisciplinary combining computational linguistics, rule-based modeling of human language, statistics, machine learning, and deep learning models. All of these enable computers to interpret natural language in both textual and verbal forms.  NLP has various use cases both for personal and business use such as machine translators, voice-activated speakers, virtual assistants, virtual agents, customer service chatbots, and social media analysis respectively. Early, NLP applications often rely on a rule-based approach which means the programmer must hard code all the linguistic rules to let the computer perform NLP tasks. However, human language is full of ambiguity and exceptions which makes traditional methods cannot scale to capture all the nuance of everchanging human language. Thus, most modern-day NLP applications let the computer learn patterns by themself using Machine Learning instead.
 \subsubsection{Part-of-speech Tagging}
-A process of assigning the part of speech to different words in a piece of text. Part of speech is critical as some words can be both verb and noun depending on the usage for example “ship” in the product has been shipped or “ship” in the ship will not float.
+A process of assigning the part of speech to different words in a piece of text. Part of speech is critical as some words can be both verb and noun depending on the usage for example “ship” in the product has been shipped or “ship” in the ship will not float. Conventionally, the POS tag uses hard-coded, rule-based approaches. However, with the advancement of technology, nowadays, machine learning techniques have become a standard for assigning part of speech to words in a sentence. This modern approach uses a statistical model trained on large multi-language datasets, it is capable of generalizing across all languages.
 
 \subsubsection{Word sense disambiguation}
 A method to determine which meaning to use in a certain context in case the word has more than one meaning. For example, “park” could mean a large public green area or bring a vehicle to a halt and leave it temporarily. This can be done through semantic analysis.
@@ -333,7 +333,8 @@ A technique used to automatically identify name and location in the given text, 
 An attempt to interpret the tone and attitude of the text. Useful for detecting emotions, sarcasm, confusion, and suspicion in the text.
 
 \subsubsection{Natural Language Generation}
-A process where computers create textual information that humans can understand.
+A process where computers create textual information that humans can understand. A well-known example is OpenAI’s Generative Pretrained Transformer (GPT) which has taken the world by storm recently due to its human-like response. 
+
 
 \subsubsection{Keyword Extraction}
 A method used to automatically find the most relevant words and phrases from a piece of document\cite{f}. Allowing the computer to know the main idea of the text. Some of the most well-known techniques (Pradeep, 2022) are KeyBERT, Rapid Automatic Keyword Extraction (aka. Rake), Yet Another Keyword Extractor (aka. YAKE), and TextRank.
@@ -345,8 +346,11 @@ Pointwise Mutual Information (PMI) is a technique used to analyze the associatio
 	According to packtpub.com(n.d.), likelihood ratio or log-likelihood ratio is a measure of how two events are unlikely to be independent but occur together more than by chance. This is used to measure the level of association between tokens, aka. bigram, trigram. A higher score indicates a significant co-occurrence between those tokens. Unlike PMI, this metric is not biased toward low-frequency words.
 
 \subsection{Byte-pair encoding (BPE)}
-A type of tokenizer where the word is broken down into tokens each containing a single character. A token can be merged to form a larger group. Similarly, each group can also be joined together to form a word. 
-Example: This is tokenizing -> T h i s i s t o k e n i z i n g -> this is token izing
+A type of tokenizer where the word is broken down into tokens each containing a single character. A token can be merged to form a larger group. Similarly, each group can also be joined together to form a word. Example: This is tokenizing → T h i s i s t o k e n i z i n g → th is to ke ni zi ng → this is token in zi ng. The most frequent character pair are merged into one token, which will be added to the vocabulary.  The process repeats until it the target vocabulary limit is reached.
+The BPE-based tokenizer is used in multiple models including BERT and Roberta to combat the out-of-vocabulary problem. Considering the size and amount of datasets required to train the model, it  may encounter domain-specific vocabularies that are not in the dictionary. A Wordpiece tokenizer is used in BERT family model. According to Eram M, instead of relying on the frequency of the pairs, WordPiece chooses the one which maximises the likelihood of the training data. This means that it trains a language model starting on the base vocabulary and picks the pair with the highest likelihood. For example, Internationalization
+→ inter national \#\#iz\#\#ation. This is again, to overcome the out-of-vocabulary problem.
+
+
 
 \subsection{Attention}
 Traditional sequence to sequence approaches such as LSTM and RNN tend to suffer from the vanishing gradient problem, where the model failed to capture long term dependencies in a lengthy text. The attention model comes to solve this problem as it permits the model to focus on only the important information of the inputp\cite{p}. Instead of encoding the entire input sentence into a fixed-sized vector, the model learned to attend to parts of the sentence that are relevant to the output it will produce.  The decoder performs additional before outputting the result which is 1) look at each hidden state received from the encoder, 2) assign each of them a score, 3) apply softmax to each score, thus, higher scores will be amplified, the lower scores will be suppressed.
@@ -382,12 +386,30 @@ A kind of feed-forward network expands the multi-headed attention output to the 
 \subsubsection{Softmax (9)}
 Calculate the probability score ranging from 0 to 1 for every class (words in the language). The class with the highest probability will be selected as the final output.
 
+\subsubsection{Masked langauge modelling}
+A training objective used in Transformer models like BERT and Roberta. This technique masks some portions of the input sentence, the model will try to fill in the blank by looking at the remaining unmasked token. For example: 
+In reality, rich people can bribe the officer to avoid a long prison sentence.
+In reality, rich <mask> can bribe the officer to avoid a long prison sentence.
+The model will try to predict what word would fit in the mask position taking into account the surrounding contexts. The model has been trained on huge datasets both online and offline sources such as Wikipedia text and book corpus. Despite enormous data, the model may give biased result toward a certain gender or race.
+This technique combined with attention mechanism permits the model to learn and capture contextual information. Some of the models that utilize this technique are BERT, Roberta, XLM, and distilBert. There are many use cases namely, text summarization, question answering, translation, token classification, entailment problem, and more.
+
+\subsubsection{Finetuning}
+A machine learning technique used to adapt a pre-trained model to perform specialized tasks. For instance, ResNet, an image classification model has already gained some general knowledge about the visual world. When building a new model for a domain-specific problem, we do not need to train it from scratch, instead, we build on top of the pre-trained model. In this project, we experimented with this technique but the result was unsatisfactory. 
+
+\subsubsection{Consensus Ranking}
+A consensus-based ranking is a type of voting system used in an election. Instead of relying on a majority vote, consensus voting uses a broadly accepted preferential order to determine the winner. There are numerous existing policies, but in this project, the Borda count method will be used. Borda count is a family of positional voting first purposed by Nicholas of Cusa in 1435, the nomenclature “Borda” is named after the French mathematician and engineer Jean-Charles de Borda in 1770. Generally, voters will rank their most wanted candidate first, second, third, and so on. Each position is assigned a point, the first position gets n-1 point, and the last position gets 0 points (*where n is the number of candidates). The one who possessed the most point will be the winner. 
+
+
+
 \section{Technologies and Development Tools}
 \subsection{Python} 
 Python is an object-oriented programming language that supports a wide selection of libraries including PyTorch, Spacy, NLTK, etc. 
  
 \subsection{PyTorch} 
 A machine learning library written in python.
+
+\subsection{Pycharm Community} 
+Another code editing software from JetBrains, it’s an open source version, specialized on edit and testing code in Python language. 
 
 \subsection{Natural Language Toolkit (NLTK)} 
 A toolkit provides some of the basic operations in NLP including stemming, tokenization, cooccurrence analysis, etc. 
@@ -409,16 +431,20 @@ A library to help visualize results as a graphical representation such as confus
 \subsection{Huggingface Transformer} 
 An open-source library dedicated to the development of NLP applications using transformers. It is compatible with both Tensorflow and PyTorch. The package includes numerous state-of-the-art models including BERT, Roberta, XLNet, T5, and more. It also supports various NLP pipelines for performing different tasks out-of-the-box some of them are audio classification, question answering, summarization, and translation. Moreover, this library provides a range of utility functions for training, finetuning, inferencing, etc.
 
+\subsection{Sentence Transformer} 
+A library leveraging on the original BERT architecture and Huggingface’s Transformers library, provides the ability to work with sentence-level as opposed to token-level embedding in the vanilla BERT. The pre-trained models have been trained on the datasets including Standford Natural Language Inference (SNLI) containing 570K sentence pairs and Multi-Genre Natural Language Inference (MNLI) containing 430K pairs. The dataset is labeled with 3 tags namely contradiction, neutral, and entailment. The model will learn to classify each sentence into one of the three categories.  After  Sentence Transformer framework is to compute the semantic textual similarity between 2 sentences, semantic search, and paraphrase mining. The closeness of embeddings is assessed with a cosine similarity score. In our project, it will be used to evaluate the quality substitution candidates and determine their appropriate ranking.
 
 \section{Related Research}
 \subsection{Embedding Dropout}
 As mentioned, BERT has been trained using masked language modeling, it is capable of predicting a masked token of the sentence. However, if we feed the sentence where a word is replaced with <masked> token, the predicted token will likely fit in the context but may not retain its original meaning. According to Zhou, et al.\cite{k}\cite{o}, the embedding dropout can be used to overcome this issue. It is the technique where the random index of the token will be set to zero, thus, it allows the model to get partial information about the target word but help avoid overfitting. This approach helps improve the performance of the prediction according to the researcher. Further evaluation of performance when implemented in our project is needed.
 
 \subsection{Sentence Concatenation}
-According to the article, A simple BERT-Based Approach for Lexical Simplication purposed by Jipeng et al\cite{l}\cite{o}. The research focuses on simplifying complex words, although not directly related, this method is applicable to our project. The authors state that considering the complex word w in sentence S, the word w is masked to create a new sentence S’ and feed into the model. By doing this, the model will not consider the influence of the complex word.  To give some clue about the target word, the sentence with a masked token will be concatenated with the original sentence that has no mask. Both sentences are then passed into the model to get the prediction. This allows the model to get some contexts about the target words, therefore, the output will be relatively close to the target word. 
+According to the article, A simple BERT-Based Approach for Lexical Simplification purposed by Jipeng et al[10][9]. The research focuses on simplifying complex words, although not directly related, this method is applicable to our project. The authors state that considering the complex word w in sentence S, the word w is masked to create a new sentence S’ and feed into the model. By doing this, the model will not consider the influence of the complex word. To give some clue about the target word, the sentence with a masked token will be concatenated with the original sentence that has no mask. Both sentences are then passed into the model to get the prediction. This allows the model to get some contexts about the target words, therefore, the output will be relatively close to the target word. The sentence Concatenation technique guarded inappropriate predictions produced by the model. This behavior is expected because the model has been trained to guess the <mask> with the most probable word based on the context. However, in reality, the highest probability word although grammatically correct and perfectly make sense is not guaranteed to retain the sentence’s original meaning. 
 
 \subsection{BERT}
-Based on Bidirectional Encoder Representations from Transformer (aka. BERT), A machine learning-based approach purposed by Google AI Language (Horev, 2018)\cite{d}. It achieved superior performance by reading the entire sequence of words at once, instead of left to right or right to left like most of the previous works. This allows the model to learn the context of words using clues from their surroundings. BERT has been trained using 2 objectives in mind\cite{j}. The first is called next-sentence prediction where it tries to predict whether the given sentence will follow the previous sentence or not. Next, the masked language model where the random part of the corpus is masked and the model tries to fill in the gap. This research has become one of the best-performing approaches in the NLP world. Despite that, the model itself is inefficient and slow to run due to the complexity, so in this project, we decided to use another model named Roberta. At its core, Roberta is similar to BERT but without the Next sentence prediction objective, which noticeably improves the execution speed compared to the original BERT.
+Based on Bidirectional Encoder Representations from Transformer (aka. BERT), A machine learning-based approach purposed by Google AI Language (Horev, 2018)[11]. It achieved superior performance by reading the entire sequence of words at once, instead of left to right or right to left like most of the previous works. This allows the model to learn the context of words using clues from their surroundings. BERT has been trained using 2 objectives in mind[12]. The first is called next-sentence prediction where it tries to predict whether the given sentence will follow the previous sentence or not. Next, the masked language model where the random part of the corpus is masked and the model tries to fill in the gap. This research has become one of the best-performing approaches in the NLP world. Despite that, the model itself is inefficient and slow to run due to the complexity, so in this project, we decided to use another model named Roberta. At its core, Roberta is similar to BERT but without the Next sentence prediction objective.
+Roberta stands for A Robustly Optimized BERT Pretraining Approach proposed by Yinhan Liu et.al. This model includes some tweaks mainly in the masking technique, as a result, it performs better than the original BERT. The researcher used dynamic masking to change the masking pattern of the sentence in each epoch. Unlike in BERT where the masking is done only once at the beginning, thus it remains static throughout the procedure. The modified BERT also used larger batch sizes and datasets during the training. Allowing the model to advance even further. 
+
 \subsection{Existing product in the market}
 
 \subsubsection{Grammarly} 
@@ -513,66 +539,122 @@ Figure \ref{fig:seq3} shows the process in case the user doesn’t want to chang
 Figure \ref{fig:seq4} shows the process when the user doesn’t want this overused word to not be scanned at all in the document. So, after they click to add this word to the exception list. The program will send the exception word information to the detector to include it in. And also hide the suggestion list in the UI itself.
 
 \section{User Interface}
-\subsubsection{Input area}
+\subsection{Input area}
 Allow user to input the text either by typing out or copy-and-paste the text.
 The words that are marked as overused will be highlighted.
-\subsubsection{Information area}
+\subsection{Information area}
 The side panel will be used to show additional details such as alternative words as well as their definition. 
 
-\subsection{Text normalizer}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp3/processsingPipe.png}
+\caption{Processing pipeline of the core engine}\label{fig:corePP}
+\end{figure}
+\section{Parser}
 	The writer can either type out the text or copy and paste from somewhere else. The latter can cause problems during tokenization. One example is the apostrophe, the tokenizer expects straight quotes, if the curly variant is used, it will lead to a wrong result. The text normalizer performs token transformation to turn all the input into a compatible form supported by the tokenizer.
 
 
-\section{Tokenizer}
-Tokenizer is a task to break input text into individual components known as tokens. This is a critical step and is done before any further analysis can take place. The token can be in a form of a word or sub-word depending on the desired goal. In this project, we need several tokenizers to achieve the goal.
+\subsection{Read input text}
+This program supports both user-typed text and pdf file. In case of pdf file, the program will extract the text content tokenize it.
+\subsection{Tokenizer input text}
+Tokenizer is a task to break input text into individual components known as tokens. This is a critical step and is done before any further analysis can take place. The token can be in a form of a word or sub-word depending on the desired goal. In this project, we need several tokenizers to achieve the goal. For the Parser, we used white space tokenizer in conjunction with a Spacy tokenizer.
 \subsubsection{Regex Tokenizer}
-Using regular expression to match the specified pattern of the input text and then separate them into a token. Currently, the regular expression supports the following cases: 
-
-
+Using regular expression to match the specified pattern of the input text and then separate them into a token. Currently, the regular expression supports the following cases:
 Word matching: apple, banana, pencil
-
-
-word with hyphen: plant-based, state-of-the-art, cloud
-
-
-USD currency: \$120, 1\$
-
-
+word with hyphen: plant-based, state-of-the-art, cloud USD currency: $120, 1$
 abbreviation: U.S.D., N.D.
-
-
 initials containing up to 3 characters: Mr. Mrs. Ph.D.
+Unlike most out-of-the-box tokenizers which are designed to behave in a specific way, although it is easier to use, altering its behavior is nearly impossible. Some tokenizers such as the one included in Spacy will break apart the contraction (don’t → do n’t) which is not a desirable result for our project. Instead, all contractions must remain as a single token. This is where the regex tokenizer comes in, it is very flexible and can be extended to cover most patterns the way we intended. However, one downside is the performance, some matcher uses greedy search behavior which can increase the execution speed, especially for a long text. After weighing the pros and cons, we decided to go with a regex-based tokenizer due to its flexibility.
+While working on the project, we noticed that our long and complex regex tokenizer produced a result comparable to a more simple whitespace tokenizer. Our regex matcher is superior to whitespace only in the case of abbreviations for example Mr. and U.S.A., regex keeps all the dots intact. However, retaining the dot doesn’t add much value to the prediction accuracy of the model. Moreover, our custom regex expression is more prone to errors when dealing with complex text which may contain untested edge cases.  Ultimately, we have made the decision to use a modified whitespace tokenizer instead.
 
-\setlength\parindent{24pt}
- Unlike most out-of-the-box tokenizers which are designed to behave in a specific way, although it is easier to use, altering its behavior is nearly impossible. Some tokenizers break apart the contraction (don’t → do n’t) which is not a desirable result for our project. Instead, all contractions must remain as a single token. This is where the regex tokenizer comes in, it is very flexible and can be extended to cover most patterns the way we intended. However, one downside is the performance, some matcher uses greedy search behavior which can increase the execution speed, especially for a long text.  After weighing the pros and cons, we decided to go with a regex-based tokenizer due to its flexibility.
+\subsubsection{Modified Whitespace Tokenizer}
+All the bigram counter will work on the tokens produced by the new modified whitespace tokenizer. Usually, this type of tokenizer splits words by whitespace, however, this means the last word of each sentence will include a full stop. Any word with an extra dot at the end will be counted as a separate item by the n-gram frequency counter. 
 
-\subsubsection{Spacy tokenizer}
-The default tokenizer shipped with the package outputs a specific format of tokens that are different from our tokenizer, for example, don’t → do and n’t. In Spacy, there are many models out of the box which we can use to perform various NLP tasks namely NER and POS, but all of them expect the token to be in this particular format. Therefore, with our regexp-based tokenizer, the output tokens are not in the right format, thus, performance suffered significantly. This is why we need to use the default Spacy tokenizer instead.
+I like apple. → apple 
+I like apple. → apple.
 
-\subsubsection{BERT tokenizer}
-This is a special kind of tokenizer used for BERT family tokenizer. Instead of breaking down the text into words level, this breaks down the individual word to a sub-word level. For example, Internationalization → inter \#national \#\#iz\#\#ation. The reason is to overcome the out-of-vocabulary problem. This approach is called workpiece tokenization. Each token will be converted to embedding specific to the transformer architecture. 
-Note that this approach is used only in the suggestor module, not anywhere else.
+Thus, the program trims out the excess dots and symbols at the end of each token. This will not affect the accuracy of the prediction.
 
-\section{Cleaner}
-This module will be used after the text has been tokenized by the tokenizer module. At this point, the tokenized text still contains stop words, for example, I, You, So, It’s, To, As, etc. These words are very common and will appear very frequently in any text regardless of the writer’s ability. Thus, counting those into the repetition list will not provide much benefit for the writer in terms of helping them avoid repetitions.
+\subsubsection{Spacy Tokenizer}
+The default tokenizer shipped with the package outputs a specific format of tokens that are different from our tokenizer, for example, don’t → do and n’t. All the hyphens are split as a separate tokens. In Spacy, basic tasks such as tokenization, sentence boundary detection, POS, and NER all require a specific model. Our custom tokenization cannot be used in this context. Instead, the default tokenizer shipped with the spacy language package will be used. In Parser, the Spacy tokenizer is used so that we can perform sentence boundary detection, NER, and POS later on in the process
+
 
 \section{Detector}
-The role of this module is to count all the occurrences of words in the text. There are single-word or unigrams, two-word phrases or bigrams, and three-word phrases or trigrams. In NLP, this is known as ngrams. 
-\subsubsection{Unigram counter}
-Detect a single word occurrence in the text by counting, the common words will be filtered to keep only the meaningful words. 
-\subsubsection{Bigram counter}
-Detect a 2-word occurrence in the text using NLTK bigram collocation package, the quality of bigram is evaluated using association score.
-\subsubsection{Trigram counter}
-Detect a 3-word occurrence in the text using NLTK bigram collocation package, the quality of trigram is evaluated using association score.
+The role of this module is to count all the occurrences of n-gram up to trigram in the text. In the end, it generates a package that will be sent to the sugestor model.
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp3/Frame 13.png}
+\caption{Structure of n-gram object}\label{fig:list of ngram object}
+\end{figure}
+\subsection{Count all n-gram in the text}
+Detect unigram, bigram, trigram occurrences in the text by counting, the words in the exclusion list will be filtered out to keep only the meaningful words.
+
+\subsection{Create n-gram object}
+The detector will generate a list of n-gram objects for each type of n-gram namely unigram, bigram, and trigram.
+\subsection{Assign sentence ID and target index}
+The findWord() module will go through the list of n-gram objects. For each of them, it finds the sentence containing the target n-gram and indexes of the target in the sentence. All the positional information of each n-gram target is stored as an index instead of a full sentence as in our previous implementation to reduce memory usage. The information is in a cascaded list of objects inside the n-gram list. By doing this, we can directly access the position of the target word during the <mask> replacement process. 
+\subsection{Repalce target with <mask>}
+After that, it replaces all the target index with <mask> token, if the word is not on the exclusion list. If the word is a part of the list, the replacement will not be performed. In case of multi-words expression like bigram or trigram, each gram is assessed individually, if it is not in an exclusion list, <mask> token is applied, otherwise the word will be skipped. In case of multiple occurrences of the same bigram present in the same sentence, a separate sentence object will be created for all the duplicated instances. 
+
+\subsection{Package all data in a list format}
+Finally, the FM (Fill Mask) package containing the original sentence, masked sentence, and the target word is created. This format is sent to the predictor module.
+
+\section{Exclusion List}
+In a document, not all words are substitutable, some of them have special grammatical features which if changed, may create ungrammatical sentences. This is particularly true for preposition, modal verb, conjunction, contraction, negation, and pronoun. In NLP, we refer them as a stopword. Thus, the detector will ignore all of the stopwords and will not generate alternatives.  Additionally, all the special entities such as name, place, country, work of art, and organization will also be excluded.
+The following words will be discarded by default:
+Stopwords such as I, You, We, He, They, Can’t, Could, Will, To, Not, Am, Are Is, Were, Because, etc.
+Named entity: Location, Name, Country, Work of Art, Person, Organization, etc
+
+If the users do not want to get suggestions for a particular word, they can manually add them to the list as well. 
+
+
+
 \section{Suggestor}
-The word suggestor is used to suggest an alternative word that can be substituted in the original sentence without changing the meaning of the text. 
-\subsection{Candidate generation}
+Roberta is used as the main model to generate substitution candidates. The model is similar to BERT but without the next sentence prediction part, leaving with just the masking language modeling (MLM) objective. The primary task is to use MLM to fill in the masked token. For instance, I like playing video game because it is fun. Let’s say we want to replace the word “fun”, we replace it with <mask> token. The sentence “I like playing video game because it is <mask> will be concatenated with the original unmasked sentence to create a sentence pair. The model attempts to predict the sentence pairs using the context clue from the original sentence with no mask. This approach is used alongside the second approach called embedding dropout which randomly set the target embedding to zero. Without the second approach, the predicted output is very likely to be the original word itself, which is not what we want. We can overcome this issue with the help of embedding dropout.
 
-	Roberta is used as the main model to generate substitution candidates. The model is similar to BERT but without the next sentence prediction part, leaving with just the masking language modeling (MLM) objective. The primary task is to use MLM to fill in the masked token. For instance, I like playing video game because it is fun. Let's say we want to replace the word “fun”, we replace it with <mask> token. The sentence “I like playing video game because it is <mask> will be concatenated with the original unmasked sentence to create a sentence pair. The model attempts to predict the sentence pairs using the context clue from the original sentence with no mask. This approach is used alongside the second approach called embedding dropout which randomly set the target embedding to zero. Without the second approach, the predicted output is very likely to be the original word itself, which is not what we want. We can overcome this issue with the help of embedding dropout.
 
-\subsection{Candidate validation}
+The candidate generation process begins with the FM package from the Detector module. It contains information of the following structure
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp3/Package.png}
+\caption{FM Package (Fill Mask Pacakage)}\label{fig:FMPX}
+\end{figure}
+The first element, unmasked sentence will be concatenated with the second element, masked sentence, and the third element, target word, will be used to facilitate the evaluation process. In the case of bigram and trigram, each FM (Fill-Mask) package will be created separately for each word in the n-gram. Refer to the following example:
+\begin{itemize}
+\item SENTENCE: Most rich people like trees. → target bigram = “rich”, “people”
+\item PACKAGE 1: [Most rich people like trees., Most <mask> people like tree, rich]
+\item PACKAGE 2: [Most rich people like trees., Most rich <mask> like tree, people]
+\end{itemize}
+The suggestor module will perform the prediction according to the list being sent by the Detector module. In this case, 2 predictions are applied to the same sentence.
 
-Not all generated candidates are a suitable substitution. Although most of them fit in the context well, it changes the meaning of the original sentence entirely. The validation process contains scoring criteria based on semantic similarity between both sentences, and lexical relationships extracted from wordnet. A higher score will advance the rank, the lower score will be filtered out if it falls below the threshold.
+\section{Cleaner}
+The output candidates still contain words with incorrect part of speech, verb tense, and non-words. As a result, further cleaning is performed to remove all the wrong items. The following operations will be applied to the candidate list; 
+\subsubsection{POS filtering}
+Firstly, part of speech of the original word is obtained, next, the part of speech of the all the candidates is obtained. Any word with a mismatched POS with respect to the original will be removed, leaving only the candidates with the correct POS. Nevertheless, this method is not perfect because sometimes, candidates with wrong verb tense may be tagged incorrectly. Consider this example:
+
+\begin{itemize}
+\item[--]I drive Tesla Model X to London. drive is a verb
+\item[--]I driver Tesla Model X to London driver is a noun, but it will be tagged as a verb
+\end{itemize}
+This is due to the tagger being trained to recognize grammatically valid sentences, this sentence is ungrammatical, therefore, unexpected behaviors may occur. 
+
+\subsubsection{Antonym removal}
+Secondly, the antonym removal, during this stage, an antonym list is extracted from Wordnet synset database. Words within the antonym list will be removed from the candidate list. 
+\subsubsection{Derivationally related form removal}
+A derivationally related form is a derived form of the root word. This function removes all variant forms of the word occur in the output list. 
+
+\subsubsection{Inflection removal}
+Lastly, inflection removal removes any inflected form of the target word. All of the aforementioned procedures grealtly improve the correctness of the final result. Despite all that, some incorrect word may still be present in the result. 
+
+
+\section{Evaluator}
+Not all generated candidates are a suitable substitution. Although most of them fit in the context well, it changes the meaning of the original sentence entirely. The validation process contains scoring criteria based on semantic similarity between both sentences, and lexical relationships extracted from wordnet. A higher score will advance the rank, the lower score will be filtered out if it falls below the threshold. \\
+
+During the implementation, we found out that Wordnet lexical relationship only includes verbs and nouns, but not adjectives. So we cannot rely solely on Wordnet. Our revised strategy employs consensus-based ranking. The technique involves 4 judges, in this project, 4 models is used. First model is the original ranking based on top-k output from the fill-mask pipeline. The second model is called Roberta-base-v2 from Sentence Transformer library. In this project, we use this model to compute sentence similarity against the original sentence. The third model is named Roberta-base-MNLI. It is suitable for computing the similarity between sentences. Lastly, the cross-encoder NLI Roberta-base. This model is used to predict whether 2 sentences entail or contradict each other. NLI is useful for filtering out words that carry the opposite meaning to the original word but are not present in the Wordnet antonym list. This can happen because some words may not explicitly be an antonym according to the dictionary, but in certain contexts, they could be. \\
+
+\subsection{Consensus Ranking}
+All the rankings from each model will be aggregated into the ultimate ranking by considering common positions among all 4 judges. The candidate that is ranked consistently across all 4 rankings will hold its position. In contrast, if there are some disagreements, the final position of a particular word will be readjusted accordingly. To elaborate, the word A ranked 3,2,3,4 which is fairly consistent. On the other hand, word B ranked 5,12,9,16, which indicates inconsistency and will need to be reordered using the Borda count algorithm.  This method improves average ranking accuracy compared to our previous approach where we relied on a single judge.  
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Experiments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -641,6 +723,10 @@ After the user click scan, Parser module will analyze all the text and create n-
 Right now we are facing a progress problem, which goes slower than we planned. The actual program still can not be tested since not all of the functions are completed. Because some coding problems such as initializing, or combining code take too much time to perform. But surely we are speeding up the process in order to make the program meets the requirement, before adding secondary functions or improving UI’s style.\\
 
 For the data modeling side. We have tried Model finetuning on a custom dataset, but it doesn’t work as intended. As a part of our initial plan, we need to retrain the model on a custom dataset focusing on the academic document. The dataset we collected is from the open-source arXiv research paper abstract containing 1.7 million articles with a size of 3GB. Due to a large amount of data and task complexity, the finetuning process was executed on Google Colab Pro+ with the help of GPU acceleration. We finetuned Roberta-large and Roberta-base using Masked Language Modelling. This technique required only the actual text data, so all the unnecessary columns were discarded. During our first attempt, we used an entire 1.7 million sample to train, unfortunately, it quickly consumed a huge amount of compute units and took almost 6 hours to complete. Despite a Pro+ subscription, there was not much room for experimentation due to the resource limit. As a consequence, we needed to shrink the size from 1.7 million to 440K, which reduced resource utilization but accuracy sacrificed accuracy. We were able to achieve 5 attempts. We tried adjusting the parameters namely learning rate, batch size, decay, and the number of epochs. The lowest loss we achieve was 1.29 after 8 epochs. Regardless, the performance of the finetuned model was not satisfactory. It performed no better than the original out-of-the-box model for both Roberta-base and Roberta-large. \\
+
+After experimenting with Embedding Dropout method, we could not reproduce the result achieved by the original publisher. During the experiment, the produced results were inconsistent and most of them were not usable as a substitution candidate. Thus, we have decided not to use this approach in the final deliverable. Nevertheless, the Sentence Concatenation technique yields decent results in our experimentation. It produces candidates that mostly fit in the original context. 
+
+Another behavior we noticed is when the model tried to predict the last word, for example, I like this game because it is <mask>. This task may produce unwanted results because it resembles the next word prediction problem which is not what MLM is good at. The output could be <s>, </s>, .. The workaround may involve swapping the sentence order by putting a masked sentence at the beginning followed by the origins sentence.
 
 \subsection{Plans}
 \begin{itemize}
