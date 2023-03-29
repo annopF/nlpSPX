@@ -105,7 +105,7 @@ fileItem.add_command(label="New")
 fileItem.add_command(label="Open", command=select_file)
 fileItem.add_command(label="Save", command=lambda: print_output(scanoutput))
 fileItem.add_command(label="Save as")
-fileItem.add_command(label="Settings")
+# fileItem.add_command(label="Settings")
 
 myMenu.add_cascade(label="Edit")
 editItem.add_command(label="Undo")
