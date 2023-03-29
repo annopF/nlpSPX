@@ -1,4 +1,5 @@
 from PyPDF2 import PdfReader
+import re
 
 
 def readtext(filepath):
@@ -6,10 +7,11 @@ def readtext(filepath):
     text = str()
     for i in range(len(reader.pages)):
         currentpage = reader.pages[i].extract_text()
+        currentpage = re.sub(r"\n", "", currentpage)
         if i == 0:
-            text = currentpage
+            text = currentpage + "\n------------------------------\n"
         else:
-            text = "\n------------------------------\n".join([text, currentpage])
+            text = "".join([text, currentpage])
         # text = f"{text, currentpage}"
     # page = reader.pages[0]
     # text = page.extract_text()
