@@ -10,7 +10,7 @@ from Putil import nicePrint, isStopword
 #change file path here
 def generateText(mode):
     if mode == 1:
-        filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f15.pdf"
+        filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/pdfFile/f14.pdf"
         text = tt.process(filePath)
         texts = text.decode("utf8")
         return(texts)
@@ -54,7 +54,7 @@ def findWord(ug_list, bg_list, tg_list):
 
 
 nlp = spacy.load("en_core_web_lg")
-texts = generateText(0)
+texts = generateText(1)
 #texts = open(filePath, encoding="UTF-8").read()
 
 

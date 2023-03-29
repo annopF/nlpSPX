@@ -58,7 +58,7 @@ def loadClassifier(MAX):
     #Cmodel = RobertaForMaskedLM.from_pretrained("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/rbtaX3_500k")
     #Ctokenizer = RobertaTokenizer.from_pretrained("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/rbtaX3_500k")
     return (pipeline("fill-mask", model = "roberta-base", top_k=MAX, framework="pt", device = -1))
-classifier = loadClassifier(20)
+classifier = loadClassifier(40)
 
 print("(Classifier) Elapsed time: ", end - start, "DELTA T=", 15-(end-start))
 
