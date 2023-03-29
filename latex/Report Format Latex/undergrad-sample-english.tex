@@ -577,20 +577,82 @@ Not all generated candidates are a suitable substitution. Although most of them 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Experiments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Work Progress}
+\chapter{Implementation}
 
-We have been working on the preprocessor including the tokenizer module, ngram detector and counter. We have also done some experiments for the word suggestion which is the second half of our project.\\
+\section{Current progress}
+This section contains the current progress of the actual program and its resources to show. Separate into two parts which are the application’s UI and the model. Thus, some features we declared in (Feature lists) can not be shown here.
 
-Tokenizer: Experiment with eight different tokenizer methods including whitespace, punctuation, word, Spacy, and regex.\\
+\subsection{User Interface} \label{subsec:ui}
 
-Ngram detection: The current version is able to detect up to trigram. However, it is still case-sensitive which means “The camera” and “the camera” will be counted separately.\\
+\noindent{\large  1. Initialize}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/init.png}
+\caption{Application’s starting screen}\label{fig:ui1}
+\end{figure}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/menubar.png}
+\caption{‘File’ button dropdown in the menu bar}\label{fig:ui2}
+\end{figure}
 
-Synonym generation: We tried using BERT based model but it is quite slow, so we switched to another BERT family model such as DistilBERT and RoBERTa to see the performance improvement. The result has not been concluded yet.\\
+Figure \ref{fig:ui1} shows the program's blank screen after it’s launched. Showing some basic labels and spaces including.
+\begin{itemize}
+\item[--] Menubar: At the top of the window, there’s a bar that contains basic functions such as opening documents or saving.
+\item[--] Text workspace: A white blank textbox in the middle of the window, consume most of the window’s area for editing text.
+\item[--] Scan button: This button is located below the menubar. Which will scan the text in the text workspace when there’s any text in the space.
+\item[--] Sidebar: Showing key functions to look for most repeated words and its suggestion to replace them or else.
+\end{itemize}
 
-Embedding dropout: Test the performance of the generated prediction using this technique. 
-Sentence concatenation: Test the performance of the generated prediction using this technique.\\
+\noindent{\large  2. Open file}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/open.png}
+\caption{Choose file window}\label{fig:ui3}
+\end{figure}
 
-\includegraphics[width=15cm]{./img/chp4/progress.png}
+After the user choose to import the document into the text workspace by going to ‘File’ --> ’Open’ from the menubar shown in figure \ref{fig:ui3}. A File Explorer window will appeared to choose .pdf folder from. And the application will read the text in the file, then show it in the text workspace.\\
+
+\noindent{\large  3. Scan function}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/scan.png}
+\caption{Most repeated words shown after clicking ‘scan’ button}\label{fig:ui4}
+\end{figure}
+
+After the user has imported the text or there’s some amount of text in the workspace. If they click the ‘scan’ button below the menu bar. The application will scan the text and show  most repeated word in the upper side of the sidebar as figure \ref{fig:ui4} shows.\\
+
+\noindent{\large  4. Text highlighting}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/highlight1.png}
+\caption{Most repeated words shown after clicking ‘scan’ button}\label{fig:ui5}
+\end{figure}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/highlight2.png}
+\caption{Most repeated words shown after clicking ‘scan’ button}\label{fig:ui6}
+\end{figure}
+
+As figure \ref{fig:ui5} and \ref{fig:ui6} shows, after the user clicks on any most repeated word shown in the sidebar. That word in the text will be highlighted by using Regex method, captures the exact word as the selected repeated word. Also, clicking a different word will remove the highlight from the old word and moves to another word in the text.
+
+\subsection{Application's backend}
+\noindent{\large  Parser}
+The text reader module inside a Parser is used to read pdf files from disk. This module read the input, ignoring images and graphics, and removes all the extra spaces in the text. The textual content of the file will be shown on the text GUI as seen in section \ref{subsec:ui}. 
+
+After the user click scan, Parser module will analyze all the text and create n-gram objects for the most frequent words. It can find words from unigram up to trigram. (only unigram is displayed on the UI in the current implementation). The n-gram objects are stored by the program and are ready to be accessed when needed. In our current version, although all the repeated entities are shown and highlighted on the right panel, not all words will have an alternative. (stopwords cannot be substituted) 
+
+\section{Problems and Plan}
+\subsection{Current issues}
+Right now we are facing a progress problem, which goes slower than we planned. The actual program still can not be tested since not all of the functions are completed. Because some coding problems such as initializing, or combining code take too much time to perform. But surely we are speeding up the process in order to make the program meets the requirement, before adding secondary functions or improving UI’s style.\\
+
+For the data modeling side. We have tried Model finetuning on a custom dataset, but it doesn’t work as intended. As a part of our initial plan, we need to retrain the model on a custom dataset focusing on the academic document. The dataset we collected is from the open-source arXiv research paper abstract containing 1.7 million articles with a size of 3GB. Due to a large amount of data and task complexity, the finetuning process was executed on Google Colab Pro+ with the help of GPU acceleration. We finetuned Roberta-large and Roberta-base using Masked Language Modelling. This technique required only the actual text data, so all the unnecessary columns were discarded. During our first attempt, we used an entire 1.7 million sample to train, unfortunately, it quickly consumed a huge amount of compute units and took almost 6 hours to complete. Despite a Pro+ subscription, there was not much room for experimentation due to the resource limit. As a consequence, we needed to shrink the size from 1.7 million to 440K, which reduced resource utilization but accuracy sacrificed accuracy. We were able to achieve 5 attempts. We tried adjusting the parameters namely learning rate, batch size, decay, and the number of epochs. The lowest loss we achieve was 1.29 after 8 epochs. Regardless, the performance of the finetuned model was not satisfactory. It performed no better than the original out-of-the-box model for both Roberta-base and Roberta-large. \\
+
+\subsection{Plans}
+\begin{itemize}
+\item[--] To complete the application\\
+First of all, we have to complete coding the application. By continue developing core functions to work properly. For example, currently the scan function returns all ‘words’ as most repeated words, which is not exactly what we need and requires fixing. After that is to finish creating all other missing feature lists we declared such as the word suggestion function, export or saving a file, importing .txt format, etc. We will prioritize these core features to be completed, to make sure that at least the program is likely done.
+\item[--] Testing strategy\\
+We are planning to test the application after all important features are ready to work. The scope of testing is the actual application including all supporting module that combines with the main file which runs the UI and makes the application run as intended. And the test doesn’t include the model training files which we use before creating the application but doesn’t use in it.\\
+
+We will do the functional test on each unit, test each possible input and verify that it’s running as expected. Such as the process of opening the file, if we cancel halfway or input other types of files, we will check the result and fix if there’s an error occurred. The same goes for component test and system tests.
+
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Conclusions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
