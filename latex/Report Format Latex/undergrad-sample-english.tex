@@ -39,7 +39,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Your project and independent study committee..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\dissadvisor{Asst. Prof. Nuttanart Muansuwan Facundes, Ph.D.}  % Advisor
+\def\dissadvisor{Asst. Prof. Nuttanart Muansuwan, Ph.D.}  % Advisor
 %%% Leave it empty if you have no Co-advisor
 \def\disscoadvisor{}  % Co-advisor
 \def\disscommitteetwo{Asst.Prof. Santhitham Prom-On, Ph.D.}  % 3rd committee member (optional)
@@ -608,7 +608,7 @@ If the users do not want to get suggestions for a particular word, they can manu
 
 
 \section{Suggestor}
-Roberta is used as the main model to generate substitution candidates. The model is similar to BERT but without the next sentence prediction part, leaving with just the masking language modeling (MLM) objective. The primary task is to use MLM to fill in the masked token. For instance, I like playing video game because it is fun. Let’s say we want to replace the word “fun”, we replace it with <mask> token. The sentence “I like playing video game because it is <mask> will be concatenated with the original unmasked sentence to create a sentence pair. The model attempts to predict the sentence pairs using the context clue from the original sentence with no mask. This approach is used alongside the second approach called embedding dropout which randomly set the target embedding to zero. Without the second approach, the predicted output is very likely to be the original word itself, which is not what we want. We can overcome this issue with the help of embedding dropout.
+Roberta, a Robustly Optimized BERT pretraining Approach is used as the main model to generate substitution candidates. The model is similar to BERT but without the next sentence prediction part, leaving with only the masking language modeling (MLM) objective. The primary task is to use MLM to fill in the masked token. For instance, I like playing video game because it is fun. Let’s say we want to replace the word “fun”, we replace it with <mask> token. The sentence “I like playing video game because it is <mask> will be concatenated with the original unmasked sentence to create a sentence pair. The model attempts to predict the sentence pairs using the context clue from the original sentence with no mask. This approach is used alongside the second approach called embedding dropout which randomly set the target embedding to zero. Without the second approach, the predicted output is very likely to be the original word itself, which is not what we want. We can overcome this issue with the help of embedding dropout.
 
 
 The candidate generation process begins with the FM package from the Detector module. It contains information of the following structure
@@ -617,6 +617,7 @@ The candidate generation process begins with the FM package from the Detector mo
 \caption{FM Package (Fill Mask Pacakage)}\label{fig:FMPX}
 \end{figure}
 The first element, unmasked sentence will be concatenated with the second element, masked sentence, and the third element, target word, will be used to facilitate the evaluation process. In the case of bigram and trigram, each FM (Fill-Mask) package will be created separately for each word in the n-gram. Refer to the following example:
+
 \begin{itemize}
 \item SENTENCE: Most rich people like trees. → target bigram = “rich”, “people”
 \item PACKAGE 1: [Most rich people like trees., Most <mask> people like tree, rich]
