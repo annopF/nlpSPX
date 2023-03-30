@@ -475,12 +475,12 @@ A writing assistant powered by Artificial Intelligence based in San Francisco, C
 
 Figure \ref{fig:sysarch} shows an application architecture in a diagram. The system is a standalone program, There’s basically just user interaction with the application side, and some general process of repetition search and word suggestion logic. After the user inputs text by typing and/or importing from other sources by copy and paste the text into the application text input area. The program will read those texts and start a repetition search by counting word occurrences.  After searching, the text data will be sent to another software’s part which is the word suggestion part, working along with a trained text model. And return matched words excluded from the exclusion list given from the user, that can be replaced with those repetition whether it has or not.
 
-\section{Feature Lists}
+\section{Feature Lists} \label{sec:featlist}
 
 \subsection{Editor}
 	Our program’s basic function is to allow users to type in texts or paste them from other sources, so the program can use these texts with other functions.
 
-\subsection{Repetition highlights}
+\subsection{Repetition highlights} \label{subsec:rephigh}
 	As the name said. The program should highlight the repetitions for the entire text input that user gives, and to not let the user get dazzled when seeing those repetitions in case there are many repeated words in the document. Only the first word or every repetition word will be highlighted, and only shows all the repetition locations when the user hovers or clicks on it.
 \subsection{Repetition replacement suggestion}
 
@@ -711,7 +711,7 @@ After the user has imported the text or there’s some amount of text in the wor
 \caption{Most repeated words shown after clicking ‘scan’ button}\label{fig:ui6}
 \end{figure}
 
-As figure \ref{fig:ui5} and \ref{fig:ui6} shows, after the user clicks on any most repeated word shown in the sidebar. That word in the text will be highlighted by using Regex method, captures the exact word as the selected repeated word. Also, clicking a different word will remove the highlight from the old word and moves to another word in the text.
+The method of text highlighting has been changed from what it should be in section \ref{subsec:rephigh}. As figure \ref{fig:ui5} and \ref{fig:ui6} shows, after the user clicks on any most repeated word shown in the sidebar. That word in the text will be highlighted by using Regex method, captures the exact word as the selected repeated word. Also, clicking a different word will remove the highlight from the old word and moves to another word in the text.
 
 \subsection{Application's backend}
 \noindent{\large  Parser}
@@ -721,7 +721,7 @@ After the user click scan, Parser module will analyze all the text and create n-
 
 \section{Problems and Plan}
 \subsection{Current issues}
-Right now we are facing a progress problem, which goes slower than we planned. The actual program still can not be tested since not all of the functions are completed. Because some coding problems such as initializing, or combining code take too much time to perform. But surely we are speeding up the process in order to make the program meets the requirement, before adding secondary functions or improving UI’s style.\\
+Right now we are facing a progress problem, which goes slower than we planned. The actual program still can not be tested since not all of the functions are completed. Because some coding problems such as initializing, or combining code take too much time to perform. The problem affects the project to be slower, and some features’ operations are more or less differ from what we declared in the feature list (section \ref{sec:featlist}). But surely we are speeding up the process in order to make the program meets the requirement, before adding secondary functions or improving UI’s style.\\
 
 For the data modeling side. We have tried Model finetuning on a custom dataset, but it doesn’t work as intended. As a part of our initial plan, we need to retrain the model on a custom dataset focusing on the academic document. The dataset we collected is from the open-source arXiv research paper abstract containing 1.7 million articles with a size of 3GB. Due to a large amount of data and task complexity, the finetuning process was executed on Google Colab Pro+ with the help of GPU acceleration. We finetuned Roberta-large and Roberta-base using Masked Language Modelling. This technique required only the actual text data, so all the unnecessary columns were discarded. During our first attempt, we used an entire 1.7 million sample to train, unfortunately, it quickly consumed a huge amount of compute units and took almost 6 hours to complete. Despite a Pro+ subscription, there was not much room for experimentation due to the resource limit. As a consequence, we needed to shrink the size from 1.7 million to 440K, which reduced resource utilization but accuracy sacrificed accuracy. We were able to achieve 5 attempts. We tried adjusting the parameters namely learning rate, batch size, decay, and the number of epochs. The lowest loss we achieve was 1.29 after 8 epochs. Regardless, the performance of the finetuned model was not satisfactory. It performed no better than the original out-of-the-box model for both Roberta-base and Roberta-large. \\
 
