@@ -1,6 +1,6 @@
 import spacy
-import sys 
-sys.path.append("./playground")
+""" import sys 
+sys.path.append("./playground") """
 from tokenizer import *
 from ngram import *
 
