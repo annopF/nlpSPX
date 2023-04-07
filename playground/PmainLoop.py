@@ -15,7 +15,7 @@ from Pcanclean import *
 from Pscorer import *
 from PgetMorph import *
 from Putil import *
-from Pparse import runParse
+from Ppack import makeFMP
 
 end = time.time()
 print("(Import) Elapsed time: ", end - start, "DELTA T=", 8.1634-(end-start), "Avg. loading time= 8.1634")
@@ -71,7 +71,7 @@ def generateData(mode,parseMode):
     if mode == 1:
         return(testData)
     else:
-        return(runParse(parseMode))
+        return(makeFMP(parseMode))
 
 while True:
     choice = int(input("choose mode: 2=from list(no concat), 1=from list, 0=manual, -1=quit"))

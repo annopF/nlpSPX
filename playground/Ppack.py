@@ -25,7 +25,7 @@ def generateText(mode):
     
     
 
-def findWord(ug_list, bg_list, tg_list):
+def findWord(ug_list, bg_list, tg_list,doc):
    
    for sentId, sentence in enumerate(doc.sents):
         piece = (selectTokenizer("wsp", str(sentence))).returnList()
@@ -53,25 +53,9 @@ def findWord(ug_list, bg_list, tg_list):
 
 
 
-nlp = spacy.load("en_core_web_lg")
-texts = generateText(1)
-#texts = open(filePath, encoding="UTF-8").read()
 
-
-doc = nlp(texts.replace("\n"," ").replace("\r",""))
-
-tok = selectTokenizer("wsp", texts)
-
-gram = createNgram(80, tok.returnList())
-ug = gram.unigram()
-bg = gram.bigram()
-tg = gram.trigram()
-
-
-
-findWord(ug, bg, tg)
-
-def reCon(xg, sentObj):
+#argument, doc = spacy doc object
+def reCon(xg, sentObj ,doc):
     senOG = list(doc.sents)[sentObj.getSentId()]
 
     res = []
@@ -92,19 +76,19 @@ def reCon(xg, sentObj):
     print("---------------------------------------------------------")
     return (out)
 
-def runParse(mode):
+def makeFMP(mode,xg):
     package = []
     if mode == 0:
         exit()
     elif mode == 1:
         print("--/\--/\--/\--/\--/\--/\-- MOST REPEATED WORDS --/\--/\--/\--/\--/\--/\--")
-        for i in ug:
+        for i in xg:
             print(i.gram1, i.count)
         
         select = input("enter unigram to search (CaSe SeNsItIvE):")
 
 
-        for IDX,i in enumerate(ug):
+        for IDX,i in enumerate(xg):
             if i.gram1 == select:
                 for j in i.sentenceObj:
                     package.append(reCon(i,j))
@@ -113,14 +97,14 @@ def runParse(mode):
 
     elif mode == 2:
         print("--/\--/\--/\--/\--/\--/\-- MOST REPEATED WORDS --/\--/\--/\--/\--/\--/\--")
-        for i in bg:
+        for i in xg:
             print(i.gram1, i.gram2, i.count)
         
         select = input("enter bigram to search (CaSe SeNsItIvE):")
         a = select.split()
 
 
-        for IDX,i in enumerate(bg):
+        for IDX,i in enumerate(xg):
             if i.gram1 == a[0] and i.gram2 == a[1]:
                 for j in i.sentenceObj:
                     package.append(reCon(i,j))
@@ -128,14 +112,14 @@ def runParse(mode):
     
     elif mode == 3:
         print("--/\--/\--/\--/\--/\--/\-- MOST REPEATED WORDS --/\--/\--/\--/\--/\--/\--")
-        for i in tg:
+        for i in xg:
             print(i.gram1, i.gram2, i.gram3, i.count)
         
         select = input("enter trigram to search (CaSe SeNsItIvE):")
         a = select.split()
 
 
-        for IDX,i in enumerate(tg):
+        for IDX,i in enumerate(xg):
             if i.gram1 == a[0] and i.gram2 == a[1] and i.gram3 == a[2]:
                 for j in i.sentenceObj:
                     package.append(reCon(i,j))

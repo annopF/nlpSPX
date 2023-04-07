@@ -1,12 +1,8 @@
 import spacy
-import textract as tt
-from termcolor import colored, cprint
-from spacy.matcher import Matcher
-from tokenizer import selectTokenizer
-from ngram import bigram, trigram, unigram
-import re
-# from Putil import nicePrint
-import niceprint
+import sys 
+sys.path.append("./playground")
+from tokenizer import *
+from ngram import *
 
 
 def scantexts(inputtext):
@@ -18,12 +14,14 @@ def scantexts(inputtext):
     nlp = spacy.load("en_core_web_lg")
 
     doc = nlp(text.replace("\n", " ").replace("\r", ""))
-    toks = selectTokenizer("regxUltra", str(doc))            # all words' here
-    topwords = unigram(10, toks)
-
-    # for i in ngram:
+    toks = selectTokenizer("wsp", str(doc))            # all words' here
+    gram = createNgram(80, toks.returnList())
+    ug = gram.unigram()
+    bg = gram.bigram()
+    tg = gram.trigram()
+        # for i in ngram:
     #     print(i)
-
+    topwords = [(x.gram1+" "+x.gram2,x.count) for x in bg]
     return toks, topwords
 
 
