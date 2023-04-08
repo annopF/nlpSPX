@@ -86,7 +86,7 @@ class createNgram():
     def bigram(self):
         bigram_measures = nltk.collocations.BigramAssocMeasures()
         finder = BigramCollocationFinder.from_words(self.tok) #call bigramFinder from nltk library
-        finder.apply_freq_filter(3) #filter out anything less than 3 occurrenees
+        finder.apply_freq_filter(1) #filter out anything less than 3 occurrenees
         bg_rf =  finder.score_ngrams(bigram_measures.raw_freq) #use raw frequency as a measurement score
         fdist = nltk.FreqDist(bigrams(self.tok)) #count frequency of each bigram
         bg_ct_toList= [(k,v) for k,v in fdist.items()] #convert fdist(frequency distribution of ngram) to list
