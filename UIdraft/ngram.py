@@ -1,15 +1,8 @@
-import nltk
-from nltk.collocations import *
-from nltk.tokenize import *
-from nltk import *
-from collections import Counter
-from Putil import isStopword, cleanToken
-
-
-
 class sentenceX():
-    def __init__(self, sentId, i1,i2,i3):
+    def __init__(self, sentId, i1,i2,i3, start, end):
         self.sentId = sentId
+        self.start = start
+        self.end = end
         self.i1 = i1
         self.i2 = i2
         self.i3 = i3
@@ -17,6 +10,12 @@ class sentenceX():
 
     def getSentId(self):
             return(self.sentId)
+    
+    def getStart(self):
+        return(self.start)
+    
+    def getEnd(self):
+        return(self.end)
 
     def geti(self,idx):
         match idx:
@@ -36,10 +35,12 @@ class ngram():
         self.count = count
         self.sentenceObj = []
         self.type = None
+        self.concat = None
 
     def printData(self):
         for i in self.sentenceObj:
-            print(self.gram1, self.gram2,self.count,i.getSentId(),i.getTargetIdx())
+            print("gram1",self.gram1, "gram2",self.gram2, "count",self.count,"sentID",i.getSentId(),"geti1",i.geti(1), "geti2",i.geti(2),"start",i.getStart(),"end",i.getEnd())
+
     def getGram(self,idx):
         match idx:
             case 1:
@@ -48,7 +49,17 @@ class ngram():
                 return self.gram2
             case 3:
                 return self.gram3
+    def getConcat(self):
+        return(self.concat)
+    def getSentObj(self):
+        return self.sentenceObj
     
+    def getParentSentence(self,start,gram1, gram2):
+        for item in self.sentenceObj:
+            if self.gram1 == gram1 and self.gram2 == gram2 and start in range(item.getStart(), item.getEnd()):
+                return(item)
+        return(0)
+
     
 class unigram(ngram):
     def __init__(self,gram1, count):
@@ -75,41 +86,5 @@ class trigram(ngram):
     def show(self):
         print(self.gram1, self.gram2, self.gram3, self.count)
 
-class createNgram():
-    def __init__(self,num,tok):
-        self.num  = num
-        self.tok = tok
-    
-        
-    #find and count bigrams in text
-    
-    def bigram(self):
-        bigram_measures = nltk.collocations.BigramAssocMeasures()
-        finder = BigramCollocationFinder.from_words(self.tok) #call bigramFinder from nltk library
-        finder.apply_freq_filter(1) #filter out anything less than 3 occurrenees
-        bg_rf =  finder.score_ngrams(bigram_measures.raw_freq) #use raw frequency as a measurement score
-        fdist = nltk.FreqDist(bigrams(self.tok)) #count frequency of each bigram
-        bg_ct_toList= [(k,v) for k,v in fdist.items()] #convert fdist(frequency distribution of ngram) to list
-        bg_ct = (sorted(bg_ct_toList, key=lambda x:x[1], reverse=True)) #sort frequency in deceending order
-        return ([bigram(item[0][0],item[0][1],fdist[item[0]]) for item in bg_rf][:self.num])             
-        
-    
-    def trigram(self):
-        trigram_measures = nltk.collocations.TrigramAssocMeasures()
-        finderT = TrigramCollocationFinder.from_words(self.tok)
-        finderT.apply_freq_filter(3)
-        tg_rf =  finderT.score_ngrams(trigram_measures.likelihood_ratio)
-        fdist = nltk.FreqDist(trigrams(self.tok))
-        tg_ct_toList= [(k,v) for k,v in fdist.items()]
-        tg_ct = (sorted(tg_ct_toList, key=lambda x:x[1], reverse=True))[:self.num] 
-        return ([trigram(item[0][0],item[0][1],item[0][2],fdist[item[0]]) for item in tg_rf][:self.num])             
 
-    def unigram(self):
-        clean = cleanToken(self.tok) #remove common word such as I you we were was is are etc.
-        
-        count = Counter(clean) #count frequency
-
-        res = list(sorted(count.items(), key = lambda t: t[1], reverse=True))[:self.num] #sort frequency in descending order
-        return ([unigram(word,count) for (word, count) in res])   
-    
   

@@ -3,7 +3,7 @@ from tkinter.filedialog import *
 
 import textreader
 import highlighter
-import Pparse
+from Pparse import parse
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
 scanoutput = []
@@ -65,17 +65,20 @@ def select_file():
 def scan_texts(inputtextbox):
     inp = inputtextbox.get(1.0, "end-1c")
     if inp != "":
-        pp = Pparse.scantexts(inp)
+        parser = parse()
+        parser.setUp(inp)
+        bg = parser.getBg()
+        dox = parser.getDoc()
+        pp = parser.scantexts()
         global scanoutput
         scanoutput = pp
-
         # create buttons for most repeated word
         global topwords
         for idx, i in enumerate(scanoutput[1]):
             # pack(fill='x', side=TOP)
-            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x))\
+            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, bg, dox))\
                 .grid(row=idx+1, column=0)
-    return
+    return ()
 
 
 # Place default labels
@@ -114,3 +117,5 @@ suggestion_header.grid(row=0, column=0, sticky="w")
 
 # Launch GUI(last)
 root.mainloop()
+
+print("final: ", )
