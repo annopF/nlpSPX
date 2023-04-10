@@ -1,6 +1,8 @@
 import spacy
-import sys
-sys.path.append("./playground")
+
+# import sys
+# sys.path.append("./playground")
+
 from tokenizer import *
 from createNgram import *
 
@@ -32,7 +34,7 @@ class parse():
         self.ug = createUnigram(toks,10)
         self.bg = createBigram(toks,10)
         self.tg = createTrigram(toks,10)
-        print("BGX  =", self.bg)
+        # print("BGX  =", self.bg)
         self.doc = doc
         findWord(self)
 
@@ -51,8 +53,8 @@ class parse():
          return self.doc
 
     def scantexts(self):
-        for i in self.bg:
-             i.printData()
+        # for i in self.bg:
+        #      i.printData()
 
         toks = []
         topwords = [(x.gram1+" "+x.gram2,x.count) for x in self.bg]

@@ -27,6 +27,7 @@ def createTrigram(tok,num):
     #tg_ct = (sorted(tg_ct_toList, key=lambda x:x[1], reverse=True))[:num] 
     return ([trigram(item[0][0],item[0][1],item[0][2],fdist[item[0]]) for item in tg_rf][:num])             
 
+
 def createUnigram(tok,num):
     clean = cleanToken(tok) #remove common word such as I you we were was is are etc.
     

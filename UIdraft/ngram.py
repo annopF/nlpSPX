@@ -6,7 +6,6 @@ class sentenceX():
         self.i1 = i1
         self.i2 = i2
         self.i3 = i3
-        
 
     def getSentId(self):
             return(self.sentId)
@@ -25,7 +24,8 @@ class sentenceX():
                 return self.i2
             case 3:
                 return self.i3
-    
+
+
 class ngram():
 
     def __init__(self, gram1, gram2, gram3, count):
@@ -49,8 +49,10 @@ class ngram():
                 return self.gram2
             case 3:
                 return self.gram3
+
     def getConcat(self):
         return(self.concat)
+
     def getSentObj(self):
         return self.sentenceObj
     
@@ -66,8 +68,10 @@ class unigram(ngram):
         super().__init__(gram1,None, None, count)
         self.concat = gram1
         self.type = 1
+
     def show(self):
         print(self.gram1, self.count)
+
 
 class bigram(ngram):
     def __init__(self,gram1, gram2, count):
@@ -76,6 +80,7 @@ class bigram(ngram):
         self.type = 2
     def show(self):
         print(self.gram1, self.gram2, self.count)
+
 
 class trigram(ngram):
     def __init__(self,gram1, gram2, gram3, count):

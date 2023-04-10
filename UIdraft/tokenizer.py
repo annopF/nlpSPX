@@ -1,9 +1,6 @@
-#THIS IS TOKENIZER 
-import re
 import nltk
-from nltk.collocations import *
-from nltk.tokenize import *
 from nltk import *
+
 
 class tok():
     def __init__(self,token):
