@@ -7,7 +7,14 @@ class sentenceX():
         self.i2 = i2
         self.i3 = i3
 
-  
+    def getSentId(self):
+            return(self.sentId)
+    
+    def getStart(self):
+        return(self.start)
+    
+    def getEnd(self):
+        return(self.end)
 
     def geti(self,idx):
         match idx:
@@ -29,7 +36,6 @@ class ngram():
         self.sentenceObj = []
         self.type = None
         self.concat = None
-        self.safe = True #True if not all grams are stopword (they are -> False, is the -> False, the rule -> True, the people -> True)
 
     def printData(self):
         for i in self.sentenceObj:
@@ -52,7 +58,7 @@ class ngram():
     
     def getParentSentence(self,start,gram1, gram2):
         for item in self.sentenceObj:
-            if self.gram1 == gram1 and self.gram2 == gram2 and start in range(item.start, item.end):
+            if self.gram1 == gram1 and self.gram2 == gram2 and start in range(item.getStart(), item.getEnd()):
                 return(item)
         return(0)
 

@@ -1,8 +1,8 @@
 from PyPDF2 import PdfReader
 import re
-import textract as tt
 
-def readtexts(filepath):
+
+def readtext(filepath):
     reader = PdfReader(filepath)
     text = str()
     for i in range(len(reader.pages)):
@@ -15,11 +15,4 @@ def readtexts(filepath):
         # text = f"{text, currentpage}"
     # page = reader.pages[0]
     # text = page.extract_text()
-    print(text)
     return text
-
-def readtext(input):
-    text = tt.process(input)
-    texts = text.decode("utf8")
-    texts = re.sub(r"\n"," ", texts)
-    return(texts)
