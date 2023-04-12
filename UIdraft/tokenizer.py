@@ -44,8 +44,8 @@ def selectTokenizer(name, input):
         case "wsp": 
             #print("-------------------------------------------------using whitesapce tokenizer")
             sd  = input.split()
-            
-            return (tok([x.rstrip(".").rstrip(",") for x in sd]))
+            out = [x.rstrip(".").rstrip(",") for x in sd]
+            return (tok([x for x in out if x != '']))
 
         case "pun":
             print("-------------------------------------------------using punctuation tokenizer")

@@ -67,16 +67,17 @@ def scan_texts(inputtextbox):
     if inp != "":
         parser = parse()
         parser.setUp(inp)
-        bg = parser.getBg()
-        dox = parser.getDoc()
         pp = parser.scantexts()
+
+        print("PP",pp)
         global scanoutput
         scanoutput = pp
         # create buttons for most repeated word
         global topwords
         for idx, i in enumerate(scanoutput[1]):
             # pack(fill='x', side=TOP)
-            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, bg, dox))\
+            print("texti[0]",i[0])
+            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, parser))\
                 .grid(row=idx+1, column=0)
     return ()
 
