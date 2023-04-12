@@ -2,27 +2,42 @@ import re
 import suggestor
 
 
-def findtext_inthebox(textbox, target,bg, dox):
-    inp = textbox.get(1.0, "end-1c")    # end is end, -1c will delete 1 last char(newline)
+def findtext_inthebox(textbox, target,parser):
+    line_count = int(textbox.index('end').split('.')[0]) - 1  # returns line count(not index)
+    print(line_count)
+
+    inp = []
+
+    # inp is updated every time you click the button
+    # inp = textbox.get(1.0, "end-1c")    # end is end, -1c will delete 1 last char(newline)
+    # inp = textbox.get("1.0", "1.0 lineend")
     textbox.tag_configure('highlight', background='red', font='lucida 20 bold underline')
-    textbox.tag_bind("highlight", "<Button-1>", lambda event:(suggestor.callback(event,bg, dox)))
+    textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.callback(event, parser)))
     textbox.tag_remove("highlight", 1.0, "end-1c")
+
+    for i in range(line_count):
+        inp.append(textbox.get(f"{i+1}.0", f"{i+1}.0 lineend"))
+
     # console  
     # print(inp)
     # print(type(inp))
 
-    pattern = re.compile(fr"\b{target}\b")
+    pattern = re.compile(fr"\b{target.lower()}\b")
 
     #console
     # print(pattern)
 
-    for m in pattern.finditer(inp):
-
-        # console
-        # print(m.group(), m.start(), m.end(), type(m.group()), type(m.start()), type(m.end()))
-
-        textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')  # line, text index
-
+    # รอแก้
+    # for idx, page in enumerate(inp):
+    #     # find each word in the text
+    #     for m in pattern.finditer(inp.lower()):
+    #         # console
+    #         print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
+    #               type(m.end()))
+    #
+    #         # textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')  # line, text index
+    #
+    #         textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')
     return
 
 def buttonPress(func, *args):

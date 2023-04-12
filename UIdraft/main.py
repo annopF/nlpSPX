@@ -6,6 +6,7 @@ import highlighter
 from Pparse import parse
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
+input_text = []
 scanoutput = []
 
 # Generate window
@@ -26,7 +27,13 @@ mainframe = Frame(root, bg="green")
 
 # # Navbar
 navbar = Frame(mainframe, height=60, padx=10, pady=10, bg="white")
+navbar.grid_columnconfigure(0, weight=1)
+navbar.grid_columnconfigure(1, weight=3)
+navbar.grid_columnconfigure(2, weight=3)
+navbar.grid_columnconfigure(3, weight=4)
 scan_btn = Button(navbar, text="Scan", bg="#b5ffc1", padx=15, relief=RIDGE, command=lambda: scan_texts(text))
+prev_pg_btn = Button(navbar, text="Previous")
+next_pg_btn = Button(navbar, text="Next")
 navbar_border = Canvas(mainframe, height=0, highlightbackground="#d8d8d8",
                        highlightthickness="0.5")  # fake bottom border
 
@@ -58,8 +65,16 @@ def select_file():
     selectedfile = askopenfilename()
     if not selectedfile:
         return
-    inputtext = textreader.readtext(selectedfile)
-    text.insert(INSERT, inputtext)
+
+    global input_text
+    input_text = textreader.readtext(selectedfile)
+    # CONTINUE: show EACH page in textbox
+    text.insert(INSERT, input_text[0])
+
+def dummy_print(input_list):
+    for idx, page in enumerate(input_list):
+        print("PAGE ", idx + 1)
+        print(page)
 
 
 def scan_texts(inputtextbox):
@@ -67,16 +82,16 @@ def scan_texts(inputtextbox):
     if inp != "":
         parser = parse()
         parser.setUp(inp)
-        bg = parser.getBg()
-        dox = parser.getDoc()
         pp = parser.scantexts()
+
+        print("PP",pp)
         global scanoutput
         scanoutput = pp
         # create buttons for most repeated word
-        global topwords
         for idx, i in enumerate(scanoutput[1]):
             # pack(fill='x', side=TOP)
-            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, bg, dox))\
+            print("texti[0]", i[0])
+            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, parser))\
                 .grid(row=idx+1, column=0)
     return ()
 
@@ -86,7 +101,7 @@ def scan_texts(inputtextbox):
 menubar.add_cascade(label="File", menu=menubar_file)
 menubar_file.add_command(label="New")
 menubar_file.add_command(label="Open", command=select_file)
-menubar_file.add_command(label="Save")
+menubar_file.add_command(label="Save", command=lambda: dummy_print(input_text))
 menubar_file.add_command(label="Save as")
 menubar_file.add_command(label="Settings")
 
@@ -95,7 +110,9 @@ mainframe.pack(expand=True, fill=BOTH)
 
 # # Navbar
 navbar.pack(fill='x')
-scan_btn.grid(row=0, column=0)
+scan_btn.grid(row=0, column=0, sticky="w")
+prev_pg_btn.grid(row=0, column=1, sticky="e", padx=(0, 5))
+next_pg_btn.grid(row=0, column=2, sticky="w", padx=(5, 0))
 navbar_border.pack(fill='x')
 
 # # Workspace
@@ -109,8 +126,7 @@ sidebar.grid_propagate(False)
 
 repeatedword.grid(row=0, column=0, sticky="nsew")
 repeatedword.grid_propagate(False)
-repeatedword_header.grid(row=0, column=0, sticky="w")  # Note: grid also has padx,y function with tuples(padx=(10, 10))
-
+repeatedword_header.grid(row=0, column=0, sticky="w")
 suggestion.grid(row=1, column=0, sticky="nsew")
 suggestion.grid_propagate(False)
 suggestion_header.grid(row=0, column=0, sticky="w")

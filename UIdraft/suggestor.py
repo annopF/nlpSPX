@@ -1,6 +1,6 @@
 from Pparse import parse
 
-def callback(event,bg, dox):
+def callback(event,parser):
     # get the index of the mouse click
     index = event.widget.index("@%s,%s" % (event.x, event.y))
 
@@ -15,17 +15,15 @@ def callback(event,bg, dox):
             word = event.widget.get(start,end).split(" ")
             gram1 = word[0]
             gram2 = word[1]
-            print("PACK GRAM ",gram1, gram2)
+            print("PACK GRAM ",gram1,start, gram2,end)
 
             ###### CALL SUGGESTION FUNCTION ######
             def tclToInt(tcl):
                 return int(str(tcl)[slice(2,len(str(tcl)))])
-            
-        
-            print("type of start: ", type(start))
 
-            for item in bg:
-                a = item.getParentSentence(tclToInt(start),gram1, gram2)
+            print("start:", start)
+            for item in parser.bg:
+                a = item.getParentSentence(tclToInt(start), gram1.lower(), gram2.lower())
                 if a:
-                    print(list(dox.sents)[a.getSentId()])
+                    print(list(parser.doc.sents)[a.sentId])
 
