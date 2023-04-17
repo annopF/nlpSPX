@@ -3,21 +3,8 @@ import re
 import textract as tt
 
 
+#Pypdf
 def readtext(filepath):
-    # reader = PdfReader(filepath)
-    # text = str()
-    # for i in range(len(reader.pages)):
-    #     currentpage = reader.pages[i].extract_text()
-    #     currentpage = re.sub(r"\n", " ", currentpage)
-    #     if i == 0:
-    #         text = currentpage + "\n------------------------------\n"
-    #     else:
-    #         text = "".join([text, currentpage]) + "\n------------------------------\n"
-    #     # text = f"{text, currentpage}"
-    # # page = reader.pages[0]
-    # # text = page.extract_text()
-    # return text
-
     reader = PdfReader(filepath)
     pages = []
     for i in range(len(reader.pages)):
@@ -30,3 +17,13 @@ def readtext(filepath):
         print(page)
 
     return pages
+
+
+# textract method(ERR: returns )
+def nopreadtext(filepath):
+    text = tt.process(filepath)
+    texts = text.decode("utf8")
+    pattern = '\n'
+    result = re.sub(pattern, " ", texts)
+    print(result)
+    return result

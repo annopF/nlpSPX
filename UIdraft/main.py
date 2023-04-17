@@ -7,7 +7,8 @@ from Pparse import parse
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
 input_text = []
-scanoutput = []
+scan_output = []
+current_page_idx = 0
 
 # Generate window
 root = Tk()
@@ -32,8 +33,8 @@ navbar.grid_columnconfigure(1, weight=3)
 navbar.grid_columnconfigure(2, weight=3)
 navbar.grid_columnconfigure(3, weight=4)
 scan_btn = Button(navbar, text="Scan", bg="#b5ffc1", padx=15, relief=RIDGE, command=lambda: scan_texts(text))
-prev_pg_btn = Button(navbar, text="Previous")
-next_pg_btn = Button(navbar, text="Next")
+prev_pg_btn = Button(navbar, text="Previous", command=lambda: previous_page(text))
+next_pg_btn = Button(navbar, text="Next", command=lambda: next_page(text))
 navbar_border = Canvas(mainframe, height=0, highlightbackground="#d8d8d8",
                        highlightthickness="0.5")  # fake bottom border
 
@@ -68,13 +69,9 @@ def select_file():
 
     global input_text
     input_text = textreader.readtext(selectedfile)
+    # input_text = textreader.nopreadtext(selectedfile)
     # CONTINUE: show EACH page in textbox
-    text.insert(INSERT, input_text[0])
-
-def dummy_print(input_list):
-    for idx, page in enumerate(input_list):
-        print("PAGE ", idx + 1)
-        print(page)
+    text.insert(INSERT, input_text[0])      # INSERT, END defines direction to insert text
 
 
 def scan_texts(inputtextbox):
@@ -85,10 +82,10 @@ def scan_texts(inputtextbox):
         pp = parser.scantexts()
 
         print("PP",pp)
-        global scanoutput
-        scanoutput = pp
+        global scan_output
+        scan_output = pp
         # create buttons for most repeated word
-        for idx, i in enumerate(scanoutput[1]):
+        for idx, i in enumerate(scan_output[1]):
             # pack(fill='x', side=TOP)
             print("texti[0]", i[0])
             Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, parser))\
@@ -96,12 +93,45 @@ def scan_texts(inputtextbox):
     return ()
 
 
+# Need more? condition check
+def previous_page(textbox):
+    global input_text
+    global current_page_idx
+
+    page_length = len(input_text)
+
+    if current_page_idx in range(1, page_length):       # prev page is available when cur_pg is at idx 1 to last
+        input_text[current_page_idx] = textbox.get('1.0', 'end-1c')
+        textbox.delete('1.0', 'end')
+        textbox.insert(INSERT, input_text[current_page_idx - 1])
+        current_page_idx -= 1
+        # print("Showed page ", current_page_idx+1, ' / ', page_length)
+
+    return
+
+
+def next_page(textbox):
+    global input_text
+    global current_page_idx
+
+    page_length = len(input_text)
+
+    if current_page_idx in range(0, page_length-1):       # next page is available when cur_pg is at idx 0 to last-1
+        input_text[current_page_idx] = textbox.get('1.0', 'end-1c')
+        textbox.delete('1.0', 'end')
+        textbox.insert(INSERT, input_text[current_page_idx + 1])
+        current_page_idx += 1
+        # print("Showed page ", current_page_idx+1, ' / ', page_length)
+
+    return
+
+
 # Place default labels
 # # Menubar
 menubar.add_cascade(label="File", menu=menubar_file)
 menubar_file.add_command(label="New")
 menubar_file.add_command(label="Open", command=select_file)
-menubar_file.add_command(label="Save", command=lambda: dummy_print(input_text))
+menubar_file.add_command(label="Save")
 menubar_file.add_command(label="Save as")
 menubar_file.add_command(label="Settings")
 
