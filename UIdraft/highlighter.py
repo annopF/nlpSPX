@@ -6,6 +6,7 @@ def findtext_inthebox(textbox, target,parser):
     line_count = int(textbox.index('end').split('.')[0]) - 1  # returns line count(not index)
     print(line_count)
 
+    # List of inp according to textbox 'lines'
     inp = []
 
     # inp is updated every time you click the button
@@ -15,6 +16,7 @@ def findtext_inthebox(textbox, target,parser):
     textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.callback(event, parser)))
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
+    # get all the lines in the text
     for i in range(line_count):
         inp.append(textbox.get(f"{i+1}.0", f"{i+1}.0 lineend"))
 
@@ -27,17 +29,17 @@ def findtext_inthebox(textbox, target,parser):
     #console
     # print(pattern)
 
-    # รอแก้
-    # for idx, page in enumerate(inp):
-    #     # find each word in the text
-    #     for m in pattern.finditer(inp.lower()):
-    #         # console
-    #         print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
-    #               type(m.end()))
-    #
-    #         # textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')  # line, text index
-    #
-    #         textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')
+    # for all lines(list)
+    for idx, line in enumerate(inp):
+        for m in pattern.finditer(line.lower()):
+            # console
+            print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
+                  type(m.end()))
+
+            # textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')  # line, text index
+
+            textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')
+
     return
 
 def buttonPress(func, *args):

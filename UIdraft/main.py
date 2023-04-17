@@ -87,7 +87,7 @@ def scan_texts(inputtextbox):
         # create buttons for most repeated word
         for idx, i in enumerate(scan_output[1]):
             # pack(fill='x', side=TOP)
-            print("texti[0]", i[0])
+            print(f"text[{idx}]", i[0])
             Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, parser))\
                 .grid(row=idx+1, column=0)
     return ()
@@ -105,7 +105,7 @@ def previous_page(textbox):
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, input_text[current_page_idx - 1])
         current_page_idx -= 1
-        # print("Showed page ", current_page_idx+1, ' / ', page_length)
+        print("Showed page ", current_page_idx+1, ' / ', page_length)
 
     return
 
@@ -121,7 +121,7 @@ def next_page(textbox):
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, input_text[current_page_idx + 1])
         current_page_idx += 1
-        # print("Showed page ", current_page_idx+1, ' / ', page_length)
+        print("Showed page ", current_page_idx+1, ' / ', page_length)
 
     return
 
