@@ -81,7 +81,7 @@ def scan_texts(inputtextbox):
         parser.setUp(inp)
         pp = parser.scantexts()
 
-        print("PP",pp)
+        print("PP", pp)
         global scan_output
         scan_output = pp
         # create buttons for most repeated word
