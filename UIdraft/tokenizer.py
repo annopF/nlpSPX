@@ -1,5 +1,7 @@
 import nltk
 from nltk import *
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 
 class tok():

@@ -23,7 +23,7 @@ logging.getLogger("transformers").setLevel(logging.ERROR)
 
 end = time.time()
 print("(Import) Elapsed time: ", end - start, "DELTA T=", 8.1634-(end-start), "Avg. loading time= 8.1634")
-use = "cuda"
+use = "cpu"
 print("preparing SentenceTransformers")
 lmv6  = SentenceTransformer("sentence-transformers/stsb-roberta-base-v2", device = use)
 mnli  = SentenceTransformer("textattack/roberta-base-MNLI", device = use)

@@ -31,11 +31,13 @@ mainframe = Frame(root, bg="green")
 # # Navbar
 navbar = Frame(mainframe, height=60, padx=10, pady=10, bg="white")
 navbar.grid_columnconfigure(0, weight=1)
-navbar.grid_columnconfigure(1, weight=3)
-navbar.grid_columnconfigure(2, weight=3)
-navbar.grid_columnconfigure(3, weight=4)
+navbar.grid_columnconfigure(1, weight=5)
+navbar.grid_columnconfigure(2, weight=1)
+navbar.grid_columnconfigure(3, weight=6)
+navbar.grid_columnconfigure(4, weight=7)
 scan_btn = Button(navbar, text="Scan", bg="#b5ffc1", padx=15, relief=RIDGE, command=lambda: scan_texts(text))
 prev_pg_btn = Button(navbar, text="Previous", command=lambda: previous_page(text))
+page_label = Label(navbar, text="Page x / y")
 next_pg_btn = Button(navbar, text="Next", command=lambda: next_page(text))
 navbar_border = Canvas(mainframe, height=0, highlightbackground="#d8d8d8",
                        highlightthickness="0.5")  # fake bottom border
@@ -47,7 +49,9 @@ workspace.grid_columnconfigure(1, weight=2)
 workspace.grid_rowconfigure(0, weight=1)  # full height since no others rowconfigure
 # # # Paper
 textarea = Frame(workspace, bg="#ebeff8")
-text = Text(textarea, font=("Ink Free", 16), padx=10, pady=10, relief=FLAT)
+text_scroll = Scrollbar(textarea)
+text = Text(textarea, font=("Ink Free", 16), padx=10, pady=10, relief=FLAT
+            , yscrollcommand=text_scroll.set, wrap=WORD)
 # # # Sidebar
 sidebar = Frame(workspace, bg="green")
 sidebar.grid_columnconfigure(0, weight=1)
@@ -78,6 +82,7 @@ def select_file():
 def scan_texts(inputtextbox):
     inp = inputtextbox.get(1.0, "end-1c")
     if inp != "":
+        inputtextbox.tag_remove("highlight", 1.0, "end-1c")
         destroy_all_buttons(repeatedword)
         parser = parse()
         parser.setUp(inp)
@@ -154,13 +159,15 @@ navbar.pack(fill='x')
 scan_btn.grid(row=0, column=0, sticky="w")
 # CONTINUE: Add page number
 prev_pg_btn.grid(row=0, column=1, sticky="e", padx=(0, 5))
-next_pg_btn.grid(row=0, column=2, sticky="w", padx=(5, 0))
+page_label.grid(row=0, column=2, sticky="nsew")
+next_pg_btn.grid(row=0, column=3, sticky="w", padx=(5, 0))
 navbar_border.pack(fill='x')
 
 # # Workspace
 workspace.pack(expand=True, fill=BOTH)
 # # # Paper
 textarea.grid(row=0, column=0, sticky="nsew")
+text_scroll.pack(side=RIGHT, fill='y')
 text.place(relwidth= 0.5, relx=0.5, rely=0.5, anchor=CENTER)
 # # # Sidebar
 sidebar.grid(row=0, column=1, sticky="nsew")
@@ -172,6 +179,9 @@ repeatedword_header.grid(row=0, column=0, sticky="w")
 suggestion.grid(row=1, column=0, sticky="nsew")
 suggestion.grid_propagate(False)
 suggestion_header.grid(row=0, column=0, sticky="w")
+
+# Configure scrollbar
+text_scroll.config(command=text.yview)
 
 # Launch GUI(last)
 root.mainloop()

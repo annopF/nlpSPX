@@ -4,19 +4,16 @@ import suggestor
 
 def findtext_inthebox(textbox, target,parser):
     line_count = int(textbox.index('end').split('.')[0]) - 1  # returns line count(not index)
-    print(line_count)
 
     # List of inp according to textbox 'lines'
     inp = []
 
-    # inp is updated every time you click the button
-    # inp = textbox.get(1.0, "end-1c")    # end is end, -1c will delete 1 last char(newline)
-    # inp = textbox.get("1.0", "1.0 lineend")
-    textbox.tag_configure('highlight', background='red', font='lucida 20 bold underline')
+    textbox.tag_configure('highlight', background='#46ffde')
     textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.callback(event, parser)))
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
     # get all the lines in the text
+    # inp is updated every time you click the button
     for i in range(line_count):
         inp.append(textbox.get(f"{i+1}.0", f"{i+1}.0 lineend"))
 

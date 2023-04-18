@@ -6,6 +6,7 @@ import sys
 sys.path.append("./playground")
 from PmainLoop import makeOutput
 
+# CONTINUE: Change highlight color on click
 def callback(event,parser):
     # get the index of the mouse click
     index = event.widget.index("@%s,%s" % (event.x, event.y))

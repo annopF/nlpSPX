@@ -48,7 +48,7 @@ def sentenceSimilarity(maskedSentence, inputList, model, mode):
 
     start = time.time()
     
-    embeddings = (model.encode(sentenceList, convert_to_tensor=True))
+    embeddings = (model.encode(sentenceList, convert_to_tensor=False))
     
     
     ##print("embd1 size=",embeddings1.size())
