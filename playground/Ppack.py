@@ -35,7 +35,7 @@ def findWord(ug_list, bg_list, tg_list,doc):
             for i,target in enumerate(piece):
                 if piece[i].lower() == bg.gram2.lower() and piece[i-1].lower() == bg.gram1.lower():
                     #print("sentence",sentence, "#POS ", i-1, i, "#SentID ",sentId)
-                    bg.sentenceObj.append(sentenceX(sentId,i-1, i, None))
+                    bg.sentenceObj.append(sentenceX(sentId,i-1, i, None, sentence.start_char, sentence.end_char))
 
         for tg in tg_list:
             #print("---> bg1=",bg.gram1, "bg2=",bg.gram2)

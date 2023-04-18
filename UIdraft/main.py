@@ -6,6 +6,7 @@ import textreader
 import highlighter
 from Pparse import parse
 
+
 # GLOBAL VARIABLE(be careful if it goes to other files)
 input_text = []
 scan_output = []
@@ -81,7 +82,8 @@ def scan_texts(inputtextbox):
         parser = parse()
         parser.setUp(inp)
         pp = parser.scantexts()
-
+        for i in parser.bg:
+            print(i.gram1, i.gram2, i.count)
         print("PP", pp)
         global scan_output
         scan_output = pp

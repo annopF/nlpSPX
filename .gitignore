@@ -20,3 +20,17 @@ UIdraft/__pycache__/tokenizer.cpython-310.pyc
 playground/__pycache__/ngram.cpython-310.pyc
 playground/__pycache__/Putil.cpython-310.pyc
 playground/__pycache__/tokenizer.cpython-310.pyc
+UIdraft/__pycache__/createNgram.cpython-310.pyc
+UIdraft/__pycache__/highlighter.cpython-310.pyc
+UIdraft/__pycache__/ngram.cpython-310.pyc
+UIdraft/__pycache__/Pparse.cpython-310.pyc
+UIdraft/__pycache__/textreader.cpython-310.pyc
+UIdraft/__pycache__/tokenizer.cpython-310.pyc
+playground/__pycache__/PmainLoop.cpython-310.pyc
+UIdraft/__pycache__/createNgram.cpython-310.pyc
+UIdraft/__pycache__/highlighter.cpython-310.pyc
+UIdraft/__pycache__/ngram.cpython-310.pyc
+UIdraft/__pycache__/Pparse.cpython-310.pyc
+UIdraft/__pycache__/textreader.cpython-310.pyc
+UIdraft/__pycache__/tokenizer.cpython-310.pyc
+playground/tst.py

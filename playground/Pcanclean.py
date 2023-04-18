@@ -27,7 +27,21 @@ def removeMorph(maskedSentence, candidateList):
       
   #print(show)
   return (out)
+def checkLevRatio(wordList):
+  out = {}
+  
+  for i in wordList:
+    li = []
+    for j in wordList:
+      r = ratio(i[0],j[0])
+      if  r >= 0.80 and r != 1:
+        li.append(j[0])
 
+    if len(li) != 0:
+      out[i[0]] = li
+
+  print(out)
+  
 def deepCleanX(wordList):
     from PgetMorph import getAntonym, getRelatedForm
     word = wordList[0][0]
@@ -37,17 +51,20 @@ def deepCleanX(wordList):
     relatedForm = getRelatedForm(word)
     #print("RELATED FORM ", relatedForm)
     derivedForm = getInflect(word)
+
     #print("-------*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*-------",wordList)
     out = [] 
 
     for item in wordList:
       a = item[0]
-      if a not in antonyms and ratio(word,a) < 0.8 and a not in relatedForm and a not in derivedForm:
+      if a not in antonyms and ratio(word,a) < 0.79 and a not in relatedForm and a not in derivedForm:
         out.append(item)
 
    
     out.insert(0,wordList[0])
-   
+
+    checkLevRatio(wordList)
+
     return (cleanDup(out))
    
 

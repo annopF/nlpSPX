@@ -1,4 +1,10 @@
 from Pparse import parse
+from Putil import isStopword
+from tokenizer import selectTokenizer 
+import sys
+
+sys.path.append("./playground")
+from PmainLoop import makeOutput
 
 def callback(event,parser):
     # get the index of the mouse click
@@ -22,8 +28,18 @@ def callback(event,parser):
                 return int(str(tcl)[slice(2,len(str(tcl)))])
 
             print("start:", start)
-            for item in parser.bg:
-                a = item.getParentSentence(tclToInt(start), gram1.lower(), gram2.lower())
+            
+            for bg in parser.bg:
+                out = []
+                a = bg.getParentSentence(tclToInt(start), gram1.lower(), gram2.lower())
                 if a:
-                    print(list(parser.doc.sents)[a.sentId])
-
+                    senOG = list(parser.doc.sents)[a.sentId]
+                    print("doc sent-->",senOG)
+                    
+                    for i in range(bg.type):
+                        if not isStopword(bg.getGram(i+1)):
+                            out.append([str(senOG).strip(),selectTokenizer("wsp",str(senOG)).replaceAt(a.geti(i+1),None),bg.getGram(i+1)])
+                if len(out)!=0:
+                    print(out)
+                    print("calling suggestor makeOutput()")
+                    makeOutput(out)
