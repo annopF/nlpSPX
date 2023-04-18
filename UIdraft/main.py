@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import *
 from tkinter.filedialog import *
 
@@ -70,13 +71,13 @@ def select_file():
     global input_text
     input_text = textreader.readtext(selectedfile)
     # input_text = textreader.nopreadtext(selectedfile)
-    # CONTINUE: show EACH page in textbox
     text.insert(INSERT, input_text[0])      # INSERT, END defines direction to insert text
 
 
 def scan_texts(inputtextbox):
     inp = inputtextbox.get(1.0, "end-1c")
     if inp != "":
+        destroy_all_buttons(repeatedword)
         parser = parse()
         parser.setUp(inp)
         pp = parser.scantexts()
@@ -101,6 +102,7 @@ def previous_page(textbox):
     page_length = len(input_text)
 
     if current_page_idx in range(1, page_length):       # prev page is available when cur_pg is at idx 1 to last
+        destroy_all_buttons(repeatedword)
         input_text[current_page_idx] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, input_text[current_page_idx - 1])
@@ -117,6 +119,7 @@ def next_page(textbox):
     page_length = len(input_text)
 
     if current_page_idx in range(0, page_length-1):       # next page is available when cur_pg is at idx 0 to last-1
+        destroy_all_buttons(repeatedword)
         input_text[current_page_idx] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, input_text[current_page_idx + 1])
@@ -125,6 +128,12 @@ def next_page(textbox):
 
     return
 
+
+def destroy_all_buttons(frame):
+    for widget in frame.winfo_children():
+        if isinstance(widget, tkinter.Button):
+            widget.destroy()
+    return
 
 # Place default labels
 # # Menubar
@@ -141,6 +150,7 @@ mainframe.pack(expand=True, fill=BOTH)
 # # Navbar
 navbar.pack(fill='x')
 scan_btn.grid(row=0, column=0, sticky="w")
+# CONTINUE: Add page number
 prev_pg_btn.grid(row=0, column=1, sticky="e", padx=(0, 5))
 next_pg_btn.grid(row=0, column=2, sticky="w", padx=(5, 0))
 navbar_border.pack(fill='x')

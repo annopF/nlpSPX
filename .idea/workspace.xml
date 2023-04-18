@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bf97d9bc-3782-44e4-a9fe-0e1557e99282" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UIdraft/createNgram.py" beforeDir="false" afterPath="$PROJECT_DIR$/UIdraft/createNgram.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UIdraft/highlighter.py" beforeDir="false" afterPath="$PROJECT_DIR$/UIdraft/highlighter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UIdraft/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/UIdraft/main.py" afterDir="false" />
     </list>

@@ -35,10 +35,7 @@ def findtext_inthebox(textbox, target,parser):
             # console
             print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
                   type(m.end()))
-
-            # textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')  # line, text index
-
-            textbox.tag_add('highlight', f'1.{m.start()}', f'1.{m.end()}')
+            textbox.tag_add('highlight', f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}')
 
     return
 
