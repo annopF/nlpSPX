@@ -65,6 +65,7 @@ repeatedword_header = Label(repeatedword, bg="white", text="Most repeated word",
 suggestion = Frame(sidebar, bg="white", highlightbackground="#d8d8d8", highlightthickness="1")
 suggestion.grid_columnconfigure(0, weight=1)
 suggestion_header = Label(suggestion, bg="white", text="Suggestions", padx=20, pady=15, font="24")
+ignore_all_btn = Button(suggestion, text="Ignore all")
 
 
 # Functions
@@ -182,6 +183,7 @@ repeatedword_header.grid(row=0, column=0, sticky="w")
 suggestion.grid(row=1, column=0, sticky="nsew")
 suggestion.grid_propagate(False)
 suggestion_header.grid(row=0, column=0, sticky="w")
+ignore_all_btn.grid(row=1, column=0, sticky="s")    # PUT command=function_name HERE
 
 # Configure scrollbar
 text_scroll.config(command=text.yview)
@@ -189,4 +191,5 @@ text_scroll.config(command=text.yview)
 # Launch GUI(last)
 root.mainloop()
 
+# Oh HI
 print("final: ", )
