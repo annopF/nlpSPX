@@ -50,7 +50,10 @@ def printPartial(sen):
   return " ".join(a[0:int(len(a)/2)])
 
 def getCandidate(sentence,maskedSentence,classifier,word):
-
+    print("from getCandidate--------")
+    print(sentence)
+    print(maskedSentence)
+    print(word)
     logging.set_verbosity_error()
     # para = paraphrase(sentence)
     # print(para)

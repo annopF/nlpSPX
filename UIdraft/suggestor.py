@@ -1,10 +1,7 @@
-from Pparse import parse
 from Putil import isStopword
 from tokenizer import selectTokenizer 
-import sys
-
-sys.path.append("./playground")
 from PmainLoop import makeOutput
+
 
 # CONTINUE: Change highlight color on click
 def callback(event,parser):
@@ -19,27 +16,33 @@ def callback(event,parser):
         # check if the tag matches the mouse click index
         if event.widget.compare(start, '<=', index) and event.widget.compare(index, '<', end):
             # return string between tag start and end
-            word = event.widget.get(start,end).split(" ")
-            gram1 = word[0]
-            gram2 = word[1]
-            print("PACK GRAM ",gram1,start, gram2,end)
-
+            word = event.widget.get(start,end)
+            print("------> ", word)
+           
             ###### CALL SUGGESTION FUNCTION ######
             def tclToInt(tcl):
                 return int(str(tcl)[slice(2,len(str(tcl)))])
-
-            print("start:", start)
             
-            for bg in parser.bg:
+            def whatGram(input):
+                print(len(str(input).split(" ")))
+                return (parser.getGram(len(str(input).split(" "))))
+            
+            for xg in whatGram(word):
                 out = []
-                a = bg.getParentSentence(tclToInt(start), gram1.lower(), gram2.lower())
+                
+                a = xg.getParentSentence(tclToInt(start), str(word).lower().strip())
+                print("a:",a)
+                print("before a")
                 if a:
+                    print("in a")
                     senOG = list(parser.doc.sents)[a.sentId]
-                    print("doc sent-->",senOG)
-                    
-                    for i in range(bg.type):
-                        if not isStopword(bg.getGram(i+1)):
-                            out.append([str(senOG).strip(),selectTokenizer("wsp",str(senOG)).replaceAt(a.geti(i+1),None),bg.getGram(i+1)])
+                    for i in range(xg.type):
+                        print(i)
+                        if not isStopword(xg.getGram(i+1)):
+                            out.append([str(senOG),
+                                        selectTokenizer("wsp",str(senOG)).replaceAt(a.geti(i+1),None),
+                                        xg.getGram(i+1)])
+                            
                 if len(out)!=0:
                     print(out)
                     print("calling suggestor makeOutput()")

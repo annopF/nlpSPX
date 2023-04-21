@@ -16,7 +16,7 @@ def getMorph(maskedSentence, candidateList):
         for token in doc:
             if str(token) == word:
 
-                morphList.append([item,str(token.tag_)])
+                morphList.append([item,str(token.tag_)+" "+str(token.morph)])
 
     #print("---------******--------",morphList)
     return (morphList)

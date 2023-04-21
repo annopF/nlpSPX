@@ -2,7 +2,6 @@ import time
 import pandas as pd
 import ranky as rk
 import torch
-
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 pd.set_option('display.max_colwidth', None)
@@ -11,7 +10,6 @@ pd.set_option('display.max_columns', None)
 pd.set_option('expand_frame_repr', False)
 start = time.time()
 from transformers import pipeline 
-from transformers import RobertaForMaskedLM, RobertaTokenizer
 from sentence_transformers import CrossEncoder
 from PtestFillMask import *
 from Pcanclean import *
@@ -28,7 +26,7 @@ print("preparing SentenceTransformers")
 lmv6  = SentenceTransformer("sentence-transformers/stsb-roberta-base-v2", device = use)
 mnli  = SentenceTransformer("textattack/roberta-base-MNLI", device = use)
 dbt = CrossEncoder('cross-encoder/nli-roberta-base', device=use)
-limit = 100
+limit = 60
 def rankAll(a,b,c,d):
 
     #print(a)
@@ -96,7 +94,7 @@ def paraphrase(input_sentence):
 def generateData(mode):
     testData = [
                 ["I drive MG car to London", "I <mask> MG car to London","drive"],
-                ["With his attention to unnecessary detail, Steve Jobs likes White color, so everything in the factory is White. He ordered his staff to re paint the entire building","With his attention to unnecessary detail, Steve Jobs likes White color, so everything in the <mask> is White. He ordered his staff to re paint the entire building","factory"],
+                ["Steve Jobs likes White color, so everything in the factory is White.","Steve Jobs likes White color, so everything in the <mask> is White.","factory"],
                 ["Apple Park is a circular building worth millions of dollar.", "Apple Park is a circular <mask> worth millions of dollar.", "building"],
                 ["Rich people can escape the a long jail sentence when commiting a crime", "Rich <mask> can escape the a long jail sentence when commiting a crime", "people"],
                 ["Apple, Inc. is founded by Steve Job.", "Apple, Inc. is <mask> by Steve Job.", "founded"],
@@ -138,16 +136,21 @@ def makeOutput(fmp):
         word = item[2]
     
         print("getting candidate...")
-        candidate = getCandidate(sentence, maskedSentence, classifier, word)
-        
-        removedMorph = removeMorph(maskedSentence, candidate) 
-        deepClean = deepCleanX(removedMorph)  
 
+        start = time.time()
+        candidate = getCandidate(sentence, maskedSentence, classifier, word)
+        ogLen = len(candidate)
+        #removedMorph = removeMorph(maskedSentence, candidate) 
+        #deepClean = deepCleanX(removedMorph)  
         cleanedMorph = removeMorph(maskedSentence, candidate)
         deepCleans = deepCleanX(cleanedMorph)
+        #print("deepclean (s)", deepCleans)
         deepClean = [x[0] for x in deepCleans]
+        #print("deepclean no s",deepClean)
+        end = time.time()
+        print("(get candidate + clean) elapse time=",end-start)
 
-        #print("DEEPCLEAN X", deepClean)
+        print("DEEPCLEAN X", deepClean)
         print("verifying...")
 
         ST_outputMNLI = sentenceSimilarity(maskedSentence, deepClean, model=mnli,mode=0)
@@ -168,6 +171,7 @@ def makeOutput(fmp):
         print(">>>> MASKED WORD:",word)
         print(">>>> MASKED SEN:",maskedSentence)
         #print("---- PARA SEN:", paraphrase(sentence))
-        
-
+        print(">>>> OG:Final ratio = {}/{}".format(ogLen,len(rerank)))
         print("-"*100)        
+
+#makeOutput(generateData(1))

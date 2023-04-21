@@ -1,8 +1,4 @@
 import spacy
-
-# import sys
-# sys.path.append("./playground")
-
 from tokenizer import *
 from createNgram import *
 from Putil import isStopword
@@ -29,11 +25,27 @@ class parse():
                             if piece[i].lower() == bg.gram2.lower() and piece[i-1].lower() == bg.gram1.lower():
                                 #print("sentence",sentence, "#POS ", i-1, i, "#SentID ",sentId)
                                 bg.sentenceObj.append(sentenceX(sentId,i-1, i, None, sentence.start_char, sentence.end_char))
-        def findEnt(self):
 
-            for ent in doc.ents:
-                self.entIndex.append(ent.start_char)
+            for sentId, sentence in enumerate(self.doc.sents):
+                    piece = (selectTokenizer("wsp", str(sentence).lower())).returnList()
+                    for tg in self.tg:
+                        #print("---> bg1=",bg.gram1, "bg2=",bg.gram2)
+                                    
+                        for i,target in enumerate(piece):
+                            if piece[i].lower() == tg.gram3.lower() and piece[i-1].lower() == tg.gram2.lower() and piece[i-2].lower() == tg.gram1.lower():
+                                #print("sentence",sentence, "#POS ", i-1, i, "#SentID ",sentId)
+                                tg.sentenceObj.append(sentenceX(sentId,i-2,i-1, i, sentence.start_char, sentence.end_char))
 
+            for sentId, sentence in enumerate(self.doc.sents):
+                    piece = (selectTokenizer("wsp", str(sentence).lower())).returnList()
+                    for ug in self.ug:
+                        #print("---> bg1=",bg.gram1, "bg2=",bg.gram2)
+                                    
+                        for i,target in enumerate(piece):
+                            if piece[i].lower() == ug.gram1.lower():
+                                #print("sentence",sentence, "#POS ", i-1, i, "#SentID ",sentId)
+                                ug.sentenceObj.append(sentenceX(sentId,i,None,None, sentence.start_char, sentence.end_char))
+        
         def checkSafe(self):
             for bigram in self.bg:
                 if isStopword(bigram.gram1) and isStopword(bigram.gram2):
@@ -53,34 +65,37 @@ class parse():
         self.doc = doc
         text = str(doc)
         text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
+        print(self.entIndex)
         for i in self.entIndex:
+
             text = re.sub(fr"\b{i}\b", "", text)
 
         toks = selectTokenizer("wsp", text.lower()).returnList()
 
-        self.ug = createUnigram(toks, 40)
-        self.bg = createBigram(toks, 40)
-        self.tg = createTrigram(toks, 40)
+        self.ug = createUnigram(toks, 10)
+        self.bg = createBigram(toks, 10)
+        self.tg = createTrigram(toks, 10)
         findWord(self)
         checkSafe(self)
 
-    def getRes(self,start):
-        
-        for item in self.bg:
-            a = item.getParentSentence(start)
-            if a:
-                return(list(self.doc.sents)[a.getSentId()])
-            else:
-                 return 0
-      
+    def getGram(self, gram):
+        if gram == 1:
+            return(self.ug)
+        elif gram == 2:
+            return(self.bg)
+        else:
+            return(self.tg)
 
     def scantexts(self):
         toks = []
+        topwords = []
+        topwords.append([(ug.concat, ug.count) for ug in self.ug if ug.safe][:3])
+        topwords.append([(bg.concat, bg.count) for bg in self.bg if bg.safe][:3])
+        topwords.append([(tg.concat, tg.count) for tg in self.tg if tg.safe][:3])
 
-        topwords = [(x.gram1 + " " + x.gram2, x.count) for x in self.bg if x.safe]
-        return toks, topwords
+        return toks, [word for container in topwords for word in container]
 
-         
+    
 
 # testunit = scantexts()
 # print(testunit)

@@ -48,9 +48,9 @@ class ngram():
     def getSentObj(self):
         return self.sentenceObj
     
-    def getParentSentence(self,start,gram1, gram2):
+    def getParentSentence(self,start,target):
         for item in self.sentenceObj:
-            if self.gram1 == gram1 and self.gram2 == gram2 and start in range(item.start, item.end):
+            if self.concat == target and start in range(item.start, item.end):
                 return(item)
         return(0)
 

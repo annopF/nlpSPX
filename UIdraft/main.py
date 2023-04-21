@@ -87,8 +87,11 @@ def scan_texts(inputtextbox):
         parser = parse()
         parser.setUp(inp)
         pp = parser.scantexts()
+        for i in parser.ug:
+            print(i.gram1,i.count)
         for i in parser.bg:
             print(i.gram1, i.gram2, i.count)
+        
         print("PP", pp)
         global scan_output
         scan_output = pp
