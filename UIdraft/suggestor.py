@@ -31,10 +31,7 @@ def callback(event,parser):
                 out = []
                 
                 a = xg.getParentSentence(tclToInt(start), str(word).lower().strip())
-                print("a:",a)
-                print("before a")
                 if a:
-                    print("in a")
                     senOG = list(parser.doc.sents)[a.sentId]
                     for i in range(xg.type):
                         print(i)

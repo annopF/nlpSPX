@@ -13,7 +13,6 @@ from itertools import combinations
 def removeMorph(maskedSentence, candidateList):
 
   morphList = getMorph(maskedSentence, candidateList)
-  print(morphList)
   out = []
   show = []
 
@@ -44,13 +43,13 @@ def levRatCheck(input):
         
         related = getRelatedForm(i)
     
-        print(i,related,len(related))
+        #print(i,related,len(related))
         
         if len(related) > 0:
             a= [x for x in related if ratio(i,x) > 0.78 and x != i and x in wordList] 
             if len(a) != 0:
                 dix[i] = a
-    print(dix)
+    print("word with similar root (in progress)", dix)
     return dix
 
 def deepCleanX(wordList):
@@ -60,10 +59,10 @@ def deepCleanX(wordList):
     antonyms = getAntonym(word)
     #print("ANTONYM ", antonyms)
     relatedForm = getRelatedForm(word)
-    print("x",relatedForm)
+    print("relatedForm",relatedForm)
     #print("RELATED FORM ", relatedForm)
     derivedForm = getInflect(word)
-    print("X",derivedForm)
+    print("derivedForm",derivedForm)
 
     #print("-------*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*X*-------",wordList)
     out = [] 

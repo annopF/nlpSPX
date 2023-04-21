@@ -150,7 +150,7 @@ def makeOutput(fmp):
         end = time.time()
         print("(get candidate + clean) elapse time=",end-start)
 
-        print("DEEPCLEAN X", deepClean)
+        #print("DEEPCLEAN X", deepClean)
         print("verifying...")
 
         ST_outputMNLI = sentenceSimilarity(maskedSentence, deepClean, model=mnli,mode=0)
