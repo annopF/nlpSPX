@@ -8,9 +8,9 @@ from Pparse import parse
 
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
-input_text = []
-scan_output = []
-current_page_idx = 0
+INPUT_TEXT = []
+SCAN_OUTPUT = []
+CURRENT_PAGE_IDX = 0
 
 # Generate window
 root = Tk()
@@ -74,10 +74,10 @@ def select_file():
     if not selectedfile:
         return
 
-    global input_text
-    input_text = textreader.readtext(selectedfile)
-    # input_text = textreader.nopreadtext(selectedfile)
-    text.insert(INSERT, input_text[0])      # INSERT, END defines direction to insert text
+    global INPUT_TEXT
+    INPUT_TEXT = textreader.readtext(selectedfile)
+    # INPUT_TEXT = textreader.nopreadtext(selectedfile)
+    text.insert(INSERT, INPUT_TEXT[0])      # INSERT, END defines direction to insert text
 
 
 def scan_texts(inputtextbox):
@@ -94,10 +94,10 @@ def scan_texts(inputtextbox):
             print(i.gram1, i.gram2, i.count)
         
         print("PP", pp)
-        global scan_output
-        scan_output = pp
+        global SCAN_OUTPUT
+        SCAN_OUTPUT = pp
         # create buttons for most repeated word
-        for idx, i in enumerate(scan_output[1]):
+        for idx, i in enumerate(SCAN_OUTPUT[1]):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
             Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, parser))\
@@ -107,35 +107,35 @@ def scan_texts(inputtextbox):
 
 # Need more? condition check
 def previous_page(textbox):
-    global input_text
-    global current_page_idx
+    global INPUT_TEXT
+    global CURRENT_PAGE_IDX
 
-    page_length = len(input_text)
+    page_length = len(INPUT_TEXT)
 
-    if current_page_idx in range(1, page_length):       # prev page is available when cur_pg is at idx 1 to last
+    if CURRENT_PAGE_IDX in range(1, page_length):       # prev page is available when cur_pg is at idx 1 to last
         destroy_all_buttons(repeatedword)
-        input_text[current_page_idx] = textbox.get('1.0', 'end-1c')
+        INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
-        textbox.insert(INSERT, input_text[current_page_idx - 1])
-        current_page_idx -= 1
-        print("Showed page ", current_page_idx+1, ' / ', page_length)
+        textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
+        CURRENT_PAGE_IDX -= 1
+        print("Showed page ", CURRENT_PAGE_IDX+1, ' / ', page_length)
 
     return
 
 
 def next_page(textbox):
-    global input_text
-    global current_page_idx
+    global INPUT_TEXT
+    global CURRENT_PAGE_IDX
 
-    page_length = len(input_text)
+    page_length = len(INPUT_TEXT)
 
-    if current_page_idx in range(0, page_length-1):       # next page is available when cur_pg is at idx 0 to last-1
+    if CURRENT_PAGE_IDX in range(0, page_length-1):       # next page is available when cur_pg is at idx 0 to last-1
         destroy_all_buttons(repeatedword)
-        input_text[current_page_idx] = textbox.get('1.0', 'end-1c')
+        INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
-        textbox.insert(INSERT, input_text[current_page_idx + 1])
-        current_page_idx += 1
-        print("Showed page ", current_page_idx+1, ' / ', page_length)
+        textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX + 1])
+        CURRENT_PAGE_IDX += 1
+        print("Showed page ", CURRENT_PAGE_IDX+1, ' / ', page_length)
 
     return
 
