@@ -9,7 +9,6 @@ nlp = spacy.load('en_core_web_lg') # just keep tagger for lemmatization
 def getMorph(maskedSentence, candidateList):
 
     morphList = []
-
     for item in candidateList:
         word = item[0]
         doc = nlp(maskedSentence.replace("<mask>", word))
@@ -18,7 +17,7 @@ def getMorph(maskedSentence, candidateList):
 
                 morphList.append([item,str(token.tag_)+" "+str(token.morph)])
 
-    #print("---------******--------",morphList)
+    print("---------******--------",morphList)
     return (morphList)
 
         

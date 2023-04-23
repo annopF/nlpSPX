@@ -11,20 +11,18 @@ stopword = ['a', 'about', 'above', 'again', 'against', 'am', 'an', 'and', 'any',
             'ourselves', 'over', 'own', "shan't", 'she', "she'd", "she'll", "she's", 'should', "shouldn't", 'so', 'some', 'such', 'than', 'that', "that's", 'the', 
             'their', 'theirs', 'them', 'themselves', 'then', 'there', "there's", 'these', 'they', "they'd", "they'll", "they're", "they've", 'this', 'those', 'through', 
             'to', 'until', 'was', "wasn't", 'we', "we'd", "we'll", "we're", "we've", 'were', "weren't", 'what', "what's", 'when', "when's", 'where', "where's", 'which', 
-            'while', 'who', "who's", 'whom', 'why', "why's", 'with', "won't", 'would', "wouldn't", 'you', "you'd", "you'll", "you're", "you've", 'your', 'yours', 'yourself', 'yourselves']
-
+            'while', 'who', "who's", 'whom', 'why', "why's", 'with', "won't", 'would', "wouldn't", 'you', "you'd", "you'll", "you're", "you've", 'your', 'yours', 
+            'yourself', 'yourselves',"get","got","gotten"]
 
 def cleanToken(token):
     return [x for x in token if x.lower() not in stopword and x not in stopword]
-
 
 def isStopword(token):
     if token.lower() in stopword:
         return (1)
     else:
         return (0)
-
-
+    
 def levDistance(str1,str2):
 
     array = [[0]*(len(str2)+1) for i in range(len(str1)+1)]
@@ -45,7 +43,6 @@ def levDistance(str1,str2):
 
     return (array[-1][-1])
 
-
 def cleanDup(inputList):
     out  =[]
 
@@ -54,7 +51,6 @@ def cleanDup(inputList):
             out.append(item)
 
     return out
-
 
 def plotFreq(word_count,vocab):
 

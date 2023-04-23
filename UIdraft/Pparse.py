@@ -2,13 +2,23 @@ import spacy
 from tokenizer import *
 from createNgram import *
 from Putil import isStopword
+from spacy import displacy
+from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForTokenClassification
+import time
 
-
+start = time.time()
+tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
+model = AutoModelForTokenClassification.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
+classifier = pipeline("ner", model=model, tokenizer=tokenizer)
+end = time.time()
+print("elapsed time (AtMForTokenClassification)", end - start)
 
 class parse():
     def __init__(self):
          self.doc = None
          self.entIndex = None
+         self.DoNotHighLight = None
          self.ug = None
          self.bg = None
          self.tg = None
@@ -59,12 +69,17 @@ class parse():
                 if isStopword(unigram.gram1):
                     unigram.safe = False
 
-        nlp = spacy.load("en_core_web_lg")
+        nlp = spacy.load("en_core_web_trf")
         doc = nlp(text.replace("\n", "").replace("\r", ""))
         self.entIndex = doc.ents
+        s = classifier(str(doc))
+        self.DoNotHighLight = [i["start"] for i in s]
         self.doc = doc
         text = str(doc)
         text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
+        print("-------this is self no hilight")
+        print(self.DoNotHighLight)
+        print("-------this is entIndex")
         print(self.entIndex)
         for i in self.entIndex:
 

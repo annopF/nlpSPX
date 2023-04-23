@@ -25,14 +25,16 @@ def findtext_inthebox(textbox, target,parser):
 
     #console
     # print(pattern)
-
+    
     # for all lines(list)
     for idx, line in enumerate(inp):
         for m in pattern.finditer(line.lower()):
             # console
-            print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
-                  type(m.end()))
-            textbox.tag_add('highlight', f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}')
+            if m.start() not in parser.DoNotHighLight:
+
+                print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
+                    type(m.end()))
+                textbox.tag_add('highlight', f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}')
 
     return
 

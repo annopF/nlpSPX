@@ -17,14 +17,13 @@ def callback(event,parser):
         if event.widget.compare(start, '<=', index) and event.widget.compare(index, '<', end):
             # return string between tag start and end
             word = event.widget.get(start,end)
-            print("------> ", word)
+            print("------> ", word, start, end)
            
             ###### CALL SUGGESTION FUNCTION ######
             def tclToInt(tcl):
                 return int(str(tcl)[slice(2,len(str(tcl)))])
             
             def whatGram(input):
-                print(len(str(input).split(" ")))
                 return (parser.getGram(len(str(input).split(" "))))
             
             for xg in whatGram(word):
