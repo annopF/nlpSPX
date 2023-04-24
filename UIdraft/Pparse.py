@@ -110,8 +110,7 @@ class parse():
 
         return toks, [word for container in topwords for word in container]
 
-    
-
+# Test comment sar
 # testunit = scantexts()
 # print(testunit)
 # print(type(testunit))
