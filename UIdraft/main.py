@@ -123,6 +123,11 @@ def previous_page(textbox):
     return
 
 
+def dummy_function():
+    print("meh")
+    return
+
+
 def next_page(textbox):
     global INPUT_TEXT
     global CURRENT_PAGE_IDX
