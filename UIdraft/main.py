@@ -188,5 +188,5 @@ text_scroll.config(command=text.yview)
 # Launch GUI(last)
 root.mainloop()
 
-# Oh HI
+# BABUU
 print("final: ", )
