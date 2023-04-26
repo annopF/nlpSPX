@@ -4,6 +4,7 @@ from tkinter.filedialog import *
 
 import textreader
 import highlighter
+import inter_values
 from Pparse import parse
 
 
@@ -65,7 +66,7 @@ repeatedword_header = Label(repeatedword, bg="white", text="Most repeated word",
 suggestion = Frame(sidebar, bg="white", highlightbackground="#d8d8d8", highlightthickness="1")
 suggestion.grid_columnconfigure(0, weight=1)
 suggestion_header = Label(suggestion, bg="white", text="Suggestions", padx=20, pady=15, font="24")
-ignore_all_btn = Button(suggestion, text="Ignore all")
+ignore_all_btn = Button(suggestion, text="Ignore all", command=lambda: dummy_print())
 
 
 # Functions
@@ -123,8 +124,8 @@ def previous_page(textbox):
     return
 
 
-def dummy_function():
-    print("meh")
+def dummy_print():
+    print("Current: ", inter_values.foo)
     return
 
 

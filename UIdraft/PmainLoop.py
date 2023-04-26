@@ -1,6 +1,7 @@
 import time
 import pandas as pd
 import ranky as rk
+import inter_values
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
@@ -169,6 +170,7 @@ def makeOutput(fmp):
         #print("///////REMOVE MORPH:", removedMorph )
         print(">>>> OG SEN:",sentence)
         print(">>>> MASKED WORD:",word)
+        inter_values.foo += 9
         print(">>>> MASKED SEN:",maskedSentence)
         #print("---- PARA SEN:", paraphrase(sentence))
         print(">>>> OG:Final ratio = {}/{}".format(ogLen,len(rerank)))
