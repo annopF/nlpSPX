@@ -1,10 +1,12 @@
 from Putil import isStopword
 from tokenizer import selectTokenizer 
 from PmainLoop import makeOutput
+from tkinter import Button
+import inter_values
 
 
 # CONTINUE: Change highlight color on click
-def callback(event,parser):
+def callback(suggestionbox, event,parser):
     # get the index of the mouse click
     index = event.widget.index("@%s,%s" % (event.x, event.y))
 
@@ -43,3 +45,7 @@ def callback(event,parser):
                     print(out)
                     print("calling suggestor makeOutput()")
                     makeOutput(out)
+                    for idx, word in enumerate(inter_values.suggested_words):
+                        # May change to idx+1 since there's temp ignore all button placed
+                        Button(suggestionbox, text=word).grid(row=idx+2, column=0, sticky="s")
+

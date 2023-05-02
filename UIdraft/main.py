@@ -101,7 +101,7 @@ def scan_texts(inputtextbox):
         for idx, i in enumerate(SCAN_OUTPUT[1]):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
-            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, x, parser))\
+            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion, x, parser))\
                 .grid(row=idx+1, column=0)
     return ()
 
@@ -125,7 +125,9 @@ def previous_page(textbox):
 
 
 def dummy_print():
-    print("Current: ", inter_values.foo)
+    print("Current: ", inter_values.suggested_words)
+    highlighter.list_highlights(text)
+    # Return text, and then what about MULTIPLE WORDS
     return
 
 

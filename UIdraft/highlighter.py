@@ -2,14 +2,14 @@ import re
 import suggestor
 
 
-def findtext_inthebox(textbox, target,parser):
+def findtext_inthebox(textbox, suggestionbox, target,parser):
     line_count = int(textbox.index('end').split('.')[0]) - 1  # returns line count(not index)
 
     # List of inp according to textbox 'lines'
     inp = []
 
     textbox.tag_configure('highlight', background='#46ffde')
-    textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.callback(event, parser)))
+    textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.callback(suggestionbox, event, parser)))
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
     # get all the lines in the text
@@ -38,12 +38,11 @@ def findtext_inthebox(textbox, target,parser):
 
     return
 
-def buttonPress(func, *args):
-    value = func(*args)
+# def buttonPress(func, *args):
+#     value = func(*args)
 
 def list_highlights(textbox):
     highlights = textbox.tag_ranges("highlight")
-
     for i in range(0, len(highlights), 2):
         print("TX",highlights[i], highlights[i+1])
     return

@@ -170,10 +170,13 @@ def makeOutput(fmp):
         #print("///////REMOVE MORPH:", removedMorph )
         print(">>>> OG SEN:",sentence)
         print(">>>> MASKED WORD:",word)
-        inter_values.foo += 9
         print(">>>> MASKED SEN:",maskedSentence)
         #print("---- PARA SEN:", paraphrase(sentence))
         print(">>>> OG:Final ratio = {}/{}".format(ogLen,len(rerank)))
-        print("-"*100)        
+        print("-"*100)
+
+        for n in range(1, 5):
+            inter_values.suggested_words.append(data["rerank"][n][0])
+
 
 #makeOutput(generateData(1))
