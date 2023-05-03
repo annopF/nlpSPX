@@ -66,6 +66,9 @@ repeatedword_header = Label(repeatedword, bg="white", text="Most repeated word",
 suggestion = Frame(sidebar, bg="white", highlightbackground="#d8d8d8", highlightthickness="1")
 suggestion.grid_columnconfigure(0, weight=1)
 suggestion_header = Label(suggestion, bg="white", text="Suggestions", padx=20, pady=15, font="24")
+suggestion_wordlist = Frame(suggestion, bg="white")
+suggestion_wordlist.grid_columnconfigure(0, weight=1)
+suggestion_wordlist.grid_columnconfigure(1, weight=1)
 ignore_all_btn = Button(suggestion, text="Ignore all", command=lambda: dummy_print())
 
 
@@ -101,7 +104,7 @@ def scan_texts(inputtextbox):
         for idx, i in enumerate(SCAN_OUTPUT[1]):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
-            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion, x, parser))\
+            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, parser))\
                 .grid(row=idx+1, column=0)
     return ()
 
@@ -125,6 +128,7 @@ def previous_page(textbox):
 
 
 def dummy_print():
+    print(type(inter_values.suggested_words))
     print("Current: ", inter_values.suggested_words)
     highlighter.list_highlights(text)
     # Return text, and then what about MULTIPLE WORDS
@@ -191,7 +195,8 @@ repeatedword_header.grid(row=0, column=0, sticky="w")
 suggestion.grid(row=1, column=0, sticky="nsew")
 suggestion.grid_propagate(False)
 suggestion_header.grid(row=0, column=0, sticky="w")
-ignore_all_btn.grid(row=1, column=0, sticky="s")    # PUT command=function_name HERE
+suggestion_wordlist.grid(row=1, column=0, sticky="nsew")
+ignore_all_btn.grid(row=2, column=0, sticky="s")    # PUT command=function_name HERE
 
 # Configure scrollbar
 text_scroll.config(command=text.yview)
