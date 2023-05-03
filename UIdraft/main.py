@@ -117,21 +117,15 @@ def previous_page(textbox):
     page_length = len(INPUT_TEXT)
 
     if CURRENT_PAGE_IDX in range(1, page_length):       # prev page is available when cur_pg is at idx 1 to last
+        inter_values.suggested_words.clear()
         destroy_all_buttons(repeatedword)
+        destroy_all_buttons(suggestion_wordlist)
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
         CURRENT_PAGE_IDX -= 1
         print("Showed page ", CURRENT_PAGE_IDX+1, ' / ', page_length)
 
-    return
-
-
-def dummy_print():
-    print(type(inter_values.suggested_words))
-    print("Current: ", inter_values.suggested_words)
-    highlighter.list_highlights(text)
-    # Return text, and then what about MULTIPLE WORDS
     return
 
 
@@ -142,7 +136,9 @@ def next_page(textbox):
     page_length = len(INPUT_TEXT)
 
     if CURRENT_PAGE_IDX in range(0, page_length-1):       # next page is available when cur_pg is at idx 0 to last-1
+        inter_values.suggested_words.clear()
         destroy_all_buttons(repeatedword)
+        destroy_all_buttons(suggestion_wordlist)
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX + 1])
@@ -157,6 +153,15 @@ def destroy_all_buttons(frame):
         if isinstance(widget, tkinter.Button):
             widget.destroy()
     return
+
+
+def dummy_print():
+    print(type(inter_values.suggested_words))
+    print("Current: ", inter_values.suggested_words)
+    highlighter.list_highlights(text)
+    # Return text, and then what about MULTIPLE WORDS
+    return
+
 
 # Place default labels
 # # Menubar
