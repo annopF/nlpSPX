@@ -82,16 +82,23 @@ def select_file():
 
 def scan_texts(inputtextbox):
     inp = inputtextbox.get(1.0, "end-1c")
+    
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")
         destroy_all_buttons(repeatedword)
         parser = parse()
         parser.setUp(inp)
-        pp = parser.scantexts()
+        
+        print("---sentence obj content:",)
         for i in parser.ug:
-            print(i.gram1,i.count)
-        for i in parser.bg:
-            print(i.gram1, i.gram2, i.count)
+            for j in i.getSentObj():
+                print("start, end", j, j.start, j.end, j.target, i.gram1)
+        #print("--->XX<----", parser.newline)
+        #for i in parser.doc.sents:
+            #print("----S-->", i)
+
+      
+        pp = parser.scantexts()
         
         print("PP", pp)
         global SCAN_OUTPUT
@@ -112,7 +119,7 @@ def previous_page(textbox):
 
     page_length = len(INPUT_TEXT)
 
-    if CURRENT_PAGE_IDX in range(1, page_length):       # prev page is available when cur_pg is at idx 1 to last
+    if CURRENT_PAGE_IDX in range(1, page_length): #prev page is available when cur_pg is at idx 1 to last
         destroy_all_buttons(repeatedword)
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
