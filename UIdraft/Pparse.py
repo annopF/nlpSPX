@@ -29,6 +29,7 @@ class parse():
 
             def getTar(sent,target,count):
                 s = re.finditer(fr"\b{target}\b",str(sent))
+                print("XXX--XXX: sent.start=",sent.start_char)
                 out = [sent.start_char + i.start() for i in s]
                 
                 if len(out) != 0:
@@ -94,6 +95,7 @@ class parse():
             if i == "\n":
                 self.newline.append(x+1)
             
+            
         doc = nlp(text.replace("\r", ""))
         for i in doc.sents:
             print("---S->",i)
@@ -142,6 +144,7 @@ class parse():
 
             out = col + self.newline[line-(x+2)]
             print("out=", out)
+            print("newline",self.newline)
             return(out)
         else:
             return(col)

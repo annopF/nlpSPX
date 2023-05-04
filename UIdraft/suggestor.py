@@ -48,8 +48,8 @@ def on_highlight_click(suggestionbox, event,parser):
 
             for xg in whatGram(word):
                 out = []
-
-                a = xg.getParentSentence(parser.cvtIndex(start,count), str(word).lower().strip())
+                
+                a = xg.getParentSentence(parser.cvtIndex(start,count), str(word).lower().strip(),count)
                 if a:
 
                     print("!!---> a.sentID, start, end", a.sentId, a.start, a.end)
