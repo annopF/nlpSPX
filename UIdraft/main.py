@@ -7,7 +7,6 @@ import highlighter
 import inter_values
 from Pparse import parse
 
-
 # GLOBAL VARIABLE(be careful if it goes to other files)
 INPUT_TEXT = []
 SCAN_OUTPUT = []
@@ -69,7 +68,11 @@ suggestion_header = Label(suggestion, bg="white", text="Suggestions", padx=20, p
 suggestion_wordlist = Frame(suggestion, bg="white")
 suggestion_wordlist.grid_columnconfigure(0, weight=1)
 suggestion_wordlist.grid_columnconfigure(1, weight=1)
-ignore_all_btn = Button(suggestion, text="Ignore all", command=lambda: dummy_print())
+suggestion_function = Frame(sidebar, bg="white")
+suggestion_function.grid_columnconfigure(0, weight=1)
+suggestion_function.grid_columnconfigure(1, weight=1)
+replace_btn = Button(suggestion_function, text="Replace")
+ignore_all_btn = Button(suggestion_function, text="Ignore all", command=lambda: dummy_print())
 
 
 # Functions
@@ -81,29 +84,28 @@ def select_file():
     global INPUT_TEXT
     INPUT_TEXT = textreader.readtext(selectedfile)
     # INPUT_TEXT = textreader.nopreadtext(selectedfile)
-    text.insert(INSERT, INPUT_TEXT[0])      # INSERT, END defines direction to insert text
+    text.insert(INSERT, INPUT_TEXT[0])  # INSERT, END defines direction to insert text
 
 
 def scan_texts(inputtextbox):
     inp = inputtextbox.get(1.0, "end-1c")
-    
+
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")
         destroy_all_buttons(repeatedword)
         parser = parse()
         parser.setUp(inp)
-        
-        print("---sentence obj content:",)
+
+        print("---sentence obj content:", )
         for i in parser.ug:
             for j in i.getSentObj():
                 print("start, end", j, j.start, j.end, j.target, i.gram1)
-        #print("--->XX<----", parser.newline)
-        #for i in parser.doc.sents:
-            #print("----S-->", i)
+        # print("--->XX<----", parser.newline)
+        # for i in parser.doc.sents:
+        # print("----S-->", i)
 
-      
         pp = parser.scantexts()
-        
+
         print("PP", pp)
         global SCAN_OUTPUT
         SCAN_OUTPUT = pp
@@ -111,8 +113,9 @@ def scan_texts(inputtextbox):
         for idx, i in enumerate(SCAN_OUTPUT[1]):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
-            Button(repeatedword, text=i[0], command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, parser))\
-                .grid(row=idx+1, column=0)
+            Button(repeatedword, text=i[0],
+                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, parser))\
+                .grid(row=idx + 1, column=0)
     return ()
 
 
@@ -123,7 +126,7 @@ def previous_page(textbox):
 
     page_length = len(INPUT_TEXT)
 
-    if CURRENT_PAGE_IDX in range(1, page_length):       # prev page is available when cur_pg is at idx 1 to last
+    if CURRENT_PAGE_IDX in range(1, page_length):  # prev page is available when cur_pg is at idx 1 to last
         inter_values.suggested_words.clear()
         destroy_all_buttons(repeatedword)
         destroy_all_buttons(suggestion_wordlist)
@@ -131,7 +134,7 @@ def previous_page(textbox):
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
         CURRENT_PAGE_IDX -= 1
-        print("Showed page ", CURRENT_PAGE_IDX+1, ' / ', page_length)
+        print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
 
     return
 
@@ -142,7 +145,7 @@ def next_page(textbox):
 
     page_length = len(INPUT_TEXT)
 
-    if CURRENT_PAGE_IDX in range(0, page_length-1):       # next page is available when cur_pg is at idx 0 to last-1
+    if CURRENT_PAGE_IDX in range(0, page_length - 1):  # next page is available when cur_pg is at idx 0 to last-1
         inter_values.suggested_words.clear()
         destroy_all_buttons(repeatedword)
         destroy_all_buttons(suggestion_wordlist)
@@ -150,7 +153,7 @@ def next_page(textbox):
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX + 1])
         CURRENT_PAGE_IDX += 1
-        print("Showed page ", CURRENT_PAGE_IDX+1, ' / ', page_length)
+        print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
 
     return
 
@@ -170,12 +173,17 @@ def dummy_print():
     return
 
 
+def test_delete(textbox):
+    textbox.delete('1.0', '2.2')
+    return
+
+
 # Place default labels
 # # Menubar
 menubar.add_cascade(label="File", menu=menubar_file)
 menubar_file.add_command(label="New")
 menubar_file.add_command(label="Open", command=select_file)
-menubar_file.add_command(label="Save")
+menubar_file.add_command(label="Save", command=lambda: test_delete(text))
 menubar_file.add_command(label="Save as")
 menubar_file.add_command(label="Settings")
 
@@ -196,7 +204,7 @@ workspace.pack(expand=True, fill=BOTH)
 # # # Paper
 textarea.grid(row=0, column=0, sticky="nsew")
 text_scroll.pack(side=RIGHT, fill='y')
-text.place(relwidth= 0.5, relx=0.5, rely=0.5, anchor=CENTER)
+text.place(relwidth=0.5, relx=0.5, rely=0.5, anchor=CENTER)
 # # # Sidebar
 sidebar.grid(row=0, column=1, sticky="nsew")
 sidebar.grid_propagate(False)
@@ -208,7 +216,9 @@ suggestion.grid(row=1, column=0, sticky="nsew")
 suggestion.grid_propagate(False)
 suggestion_header.grid(row=0, column=0, sticky="w")
 suggestion_wordlist.grid(row=1, column=0, sticky="nsew")
-ignore_all_btn.grid(row=2, column=0, sticky="s")    # PUT command=function_name HERE
+suggestion_function.grid(row=2, column=0, sticky="sew")
+replace_btn.grid(row=0, column=0, sticky="we", padx=10, pady=10)
+ignore_all_btn.grid(row=0, column=1, sticky="we", padx=10, pady=10)  # PUT command=function_name HERE
 
 # Configure scrollbar
 text_scroll.config(command=text.yview)

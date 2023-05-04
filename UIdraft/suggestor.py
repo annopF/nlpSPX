@@ -1,5 +1,5 @@
 from Putil import isStopword
-from tokenizer import selectTokenizer 
+from tokenizer import selectTokenizer
 from PmainLoop import makeOutput
 import tkinter
 from tkinter import Button, Label
@@ -7,7 +7,7 @@ import inter_values
 
 
 # CONTINUE: Change highlight color on click
-def callback(suggestionbox, event,parser):
+def on_highlight_click(suggestionbox, event,parser):
     # destroy all buttons if any
     inter_values.suggested_words.clear()
     for widget in suggestionbox.winfo_children():
@@ -27,9 +27,10 @@ def callback(suggestionbox, event,parser):
             # return string between tag start and end
             word = event.widget.get(start,end)
             print("------> ", word, start, end)
+            word_output = text_split(word, str(start))
             def tclToInt(tcl):
                 return int(str(tcl)[slice(2,len(str(tcl)))])
-            
+
             def getPrevious(start,i):
                 tcl = int(str(start).split(".")[0])
                 previous = event.widget.get(f"{tcl-1}.0",f"{tcl-1}.0 lineend")
@@ -39,41 +40,72 @@ def callback(suggestionbox, event,parser):
                 else:
                     count +=1
                     return (getPrevious(tcl-1,count))
-                    
+
             count = getPrevious(start,0)
 
             def whatGram(input):
                 return (parser.getGram(len(str(input).split(" "))))
-            
+
             for xg in whatGram(word):
                 out = []
-                
+
                 a = xg.getParentSentence(parser.cvtIndex(start,count), str(word).lower().strip())
                 if a:
 
                     print("!!---> a.sentID, start, end", a.sentId, a.start, a.end)
-                    
+
                     senOG = list(parser.doc.sents)[a.sentId]
                     for i in range(xg.type):
                         if not isStopword(xg.getGram(i+1)):
                             out.append([str(senOG).strip(),
                                         selectTokenizer("wsp",str(senOG)).replaceAt(a.geti(i+1),None),
                                         xg.getGram(i+1)])
-                            
+
                 if len(out)!=0:
                     print(out)
                     print("calling suggestor makeOutput()")
                     makeOutput(out)
                     Label(suggestionbox, bg="white", text="Word 1", font="18").grid(row=1, column=0, sticky="we")
-                    for idx, word in enumerate(inter_values.suggested_words[0]):
+                    for idx, suggested_word in enumerate(inter_values.suggested_words[0]):
                         # May change to idx+1 since there's temp ignore all button placed
-                        Button(suggestionbox, text=word).grid(row=idx+2, column=0, sticky="s")
+                        Button(suggestionbox, text=suggested_word,
+                               command=lambda x=suggested_word, y=word_output[0][0], z=word_output[0][1]: selected_word(x, y, z)) \
+                            .grid(row=idx + 2, column=0, sticky="s")
 
                     if len(inter_values.suggested_words) == 2:
                         Label(suggestionbox, bg="white", text="Word 2", font="18").grid(row=1, column=1, sticky="we")
-                        for idx, word in enumerate(inter_values.suggested_words[1]):
+                        for idx, suggested_word in enumerate(inter_values.suggested_words[1]):
                             # May change to idx+1 since there's temp ignore all button placed
-                            Button(suggestionbox, text=word).grid(row=idx + 2, column=1, sticky="s")
+                            Button(suggestionbox, text=suggested_word,
+                                   command=lambda x=suggested_word, y=word_output[1][0], z=word_output[1][1]: selected_word(x, y, z))\
+                                .grid(row=idx + 2, column=1, sticky="s")
 
                 else:
                     print("EMPTY!")
+
+
+def selected_word(word, start, end):
+    print("Replace ", word, " to position --> ", start, end)
+    # CONTINUE: Actually replaces it
+    return
+
+
+def text_split(input_word, start):
+    # print(start)
+    words = input_word.split()
+    start = start.split(".")
+    # print(start)
+
+    line = start[0]
+    start_idx = int(start[1])
+
+    words_idx = []
+
+    for word in words:
+        idx = [".".join([line, str(start_idx)])]
+        start_idx += len(word) - 1
+        idx.append(".".join([line, str(start_idx)]))
+        words_idx.append(idx)
+        start_idx += 2
+
+    return words_idx
