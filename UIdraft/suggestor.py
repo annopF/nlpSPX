@@ -27,24 +27,36 @@ def callback(suggestionbox, event,parser):
             # return string between tag start and end
             word = event.widget.get(start,end)
             print("------> ", word, start, end)
-           
-            ###### CALL SUGGESTION FUNCTION ######
             def tclToInt(tcl):
                 return int(str(tcl)[slice(2,len(str(tcl)))])
             
+            def getPrevious(start,i):
+                tcl = int(str(start).split(".")[0])
+                previous = event.widget.get(f"{tcl-1}.0",f"{tcl-1}.0 lineend")
+                count = i
+                if previous != "":
+                    return(count)
+                else:
+                    count +=1
+                    return (getPrevious(tcl-1,count))
+                    
+            count = getPrevious(start,0)
+
             def whatGram(input):
                 return (parser.getGram(len(str(input).split(" "))))
             
             for xg in whatGram(word):
                 out = []
                 
-                a = xg.getParentSentence(tclToInt(start), str(word).lower().strip())
+                a = xg.getParentSentence(parser.cvtIndex(start,count), str(word).lower().strip())
                 if a:
+
+                    print("!!---> a.sentID, start, end", a.sentId, a.start, a.end)
+                    
                     senOG = list(parser.doc.sents)[a.sentId]
                     for i in range(xg.type):
-                        print(i)
                         if not isStopword(xg.getGram(i+1)):
-                            out.append([str(senOG),
+                            out.append([str(senOG).strip(),
                                         selectTokenizer("wsp",str(senOG)).replaceAt(a.geti(i+1),None),
                                         xg.getGram(i+1)])
                             
@@ -63,3 +75,5 @@ def callback(suggestionbox, event,parser):
                             # May change to idx+1 since there's temp ignore all button placed
                             Button(suggestionbox, text=word).grid(row=idx + 2, column=1, sticky="s")
 
+                else:
+                    print("EMPTY!")

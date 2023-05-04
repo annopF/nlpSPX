@@ -86,16 +86,23 @@ def select_file():
 
 def scan_texts(inputtextbox):
     inp = inputtextbox.get(1.0, "end-1c")
+    
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")
         destroy_all_buttons(repeatedword)
         parser = parse()
         parser.setUp(inp)
-        pp = parser.scantexts()
+        
+        print("---sentence obj content:",)
         for i in parser.ug:
-            print(i.gram1,i.count)
-        for i in parser.bg:
-            print(i.gram1, i.gram2, i.count)
+            for j in i.getSentObj():
+                print("start, end", j, j.start, j.end, j.target, i.gram1)
+        #print("--->XX<----", parser.newline)
+        #for i in parser.doc.sents:
+            #print("----S-->", i)
+
+      
+        pp = parser.scantexts()
         
         print("PP", pp)
         global SCAN_OUTPUT

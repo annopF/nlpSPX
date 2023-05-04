@@ -1,10 +1,11 @@
 class sentenceX():
-    def __init__(self, sentId, i1,i2,i3, start, end):
-        self.sentId = sentId
-        self.start = start
-        self.end = end
-        self.i1 = i1
-        self.i2 = i2
+    def __init__(self, sentId, i1,i2,i3, start, end, target):
+        self.sentId = sentId #index of sentence
+        self.start = start #start of sentence
+        self.end = end #end of sentence
+        self.target = target
+        self.i1 = i1 #used to select index of ngram to replace with <mask>
+        self.i2 = i2 
         self.i3 = i3
 
     def geti(self,idx):
@@ -49,8 +50,10 @@ class ngram():
         return self.sentenceObj
     
     def getParentSentence(self,start,target):
+        print("*-*-*-*-*-*-PRIORITY::::: start, target",start,target)
         for item in self.sentenceObj:
-            if self.concat == target and start in range(item.start, item.end):
+            print("item.target={}=start{}".format(item.target,start))
+            if self.concat == target and start in range(item.start, item.end) and start == item.target:
                 return(item)
         return(0)
 
