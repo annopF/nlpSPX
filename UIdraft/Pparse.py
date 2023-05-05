@@ -28,10 +28,11 @@ class parse():
         def findWord(self):
 
             def getTar(sent,target,count):
-                s = re.finditer(fr"\b{target}\b",str(sent))
-                print("XXX--XXX: sent.start=",sent.start_char)
+                s = re.finditer(fr"\b{target}\b",str(sent).lower())
+            
                 out = [sent.start_char + i.start() for i in s]
-                
+                print("XXX--XXX: sent.start=",sent.start_char, sent, "len out",len(out), out, target)
+
                 if len(out) != 0:
                     return out[count]
                 else:
@@ -47,7 +48,9 @@ class parse():
                         
                             if piece[i].lower() == bg.gram2.lower() and piece[i-1].lower() == bg.gram1.lower():
                                 count+=1
-                                
+                                print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "bg ", bg.gram1,bg.gram2, "count ",count)
+
+                                print("count:",count)
                                 bg.sentenceObj.append(sentenceX(sentId,i-1, i, None, 
                                                                 sentence.start_char, 
                                                                 sentence.end_char,
@@ -100,6 +103,7 @@ class parse():
         for i in doc.sents:
             print("---S->",i)
         self.entIndex = doc.ents
+        print(self.entIndex)
         s = classifier(str(doc))
         self.DoNotHighLight = [i["start"] for i in s]
         self.doc = doc
