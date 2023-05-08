@@ -52,6 +52,7 @@ textarea = Frame(workspace, bg="#ebeff8")
 text_scroll = Scrollbar(textarea)
 text = Text(textarea, font=("Ink Free", 16), padx=10, pady=10, relief=FLAT
             , yscrollcommand=text_scroll.set, wrap=WORD)
+text.tag_configure('highlight', background='#46ffde')
 # # # Sidebar
 sidebar = Frame(workspace, bg="green")
 sidebar.grid_columnconfigure(0, weight=1)
@@ -71,7 +72,7 @@ suggestion_wordlist.grid_columnconfigure(1, weight=1)
 suggestion_function = Frame(sidebar, bg="white")
 suggestion_function.grid_columnconfigure(0, weight=1)
 suggestion_function.grid_columnconfigure(1, weight=1)
-replace_btn = Button(suggestion_function, text="Replace")
+replace_btn = Button(suggestion_function, text="Replace", command=lambda : replace_word(text))
 ignore_all_btn = Button(suggestion_function, text="Ignore all", command=lambda: dummy_print())
 
 
@@ -92,7 +93,7 @@ def scan_texts(inputtextbox):
 
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")
-        destroy_all_buttons(repeatedword)
+        inter_values.destroy_all_buttons(repeatedword)
         parser = parse()
         parser.setUp(inp)
 
@@ -128,8 +129,8 @@ def previous_page(textbox):
 
     if CURRENT_PAGE_IDX in range(1, page_length):  # prev page is available when cur_pg is at idx 1 to last
         inter_values.suggested_words.clear()
-        destroy_all_buttons(repeatedword)
-        destroy_all_buttons(suggestion_wordlist)
+        inter_values.destroy_all_buttons(repeatedword)
+        inter_values.destroy_all_buttons(suggestion_wordlist)
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
@@ -146,9 +147,9 @@ def next_page(textbox):
     page_length = len(INPUT_TEXT)
 
     if CURRENT_PAGE_IDX in range(0, page_length - 1):  # next page is available when cur_pg is at idx 0 to last-1
-        inter_values.suggested_words.clear()
-        destroy_all_buttons(repeatedword)
-        destroy_all_buttons(suggestion_wordlist)
+        inter_values.destroy_all_buttons(repeatedword)
+        inter_values.suggestion_clear(suggestion_wordlist)
+
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX + 1])
@@ -158,11 +159,17 @@ def next_page(textbox):
     return
 
 
-def destroy_all_buttons(frame):
-    for widget in frame.winfo_children():
-        if isinstance(widget, tkinter.Button):
-            widget.destroy()
-    return
+def replace_word(textbox):
+    if inter_values.replacement:
+        textbox.delete(f"{inter_values.replacement[1]}", f"{inter_values.replacement[2]}")
+        textbox.insert(f"{inter_values.replacement[1]}", inter_values.replacement[0])
+        print("Replacement completed")
+
+        inter_values.suggestion_clear(suggestion_wordlist)
+        # Clear Suggestion list
+    else:
+        print("Replacement list is empty")
+
 
 
 def dummy_print():

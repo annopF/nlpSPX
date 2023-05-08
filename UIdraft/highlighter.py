@@ -1,22 +1,17 @@
 import re
 import suggestor
 import inter_values
-import tkinter
 
 
 def findtext_inthebox(textbox, suggestionbox, target,parser):
     # destroy all buttons if any
-    inter_values.suggested_words.clear()
-    for widget in suggestionbox.winfo_children():
-        if isinstance(widget, tkinter.Button):
-            widget.destroy()
+    inter_values.suggestion_clear(suggestionbox)
 
     line_count = int(textbox.index('end').split('.')[0]) - 1  # returns line count(not index)
 
     # List of inp according to textbox 'lines'
     inp = []
 
-    textbox.tag_configure('highlight', background='#46ffde')
     textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.on_highlight_click(suggestionbox, event, parser)))
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
