@@ -9,7 +9,7 @@ from Pparse import parse
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
 INPUT_TEXT = []
-SCAN_OUTPUT = []
+SCAN_OUTPUT = tuple()
 CURRENT_PAGE_IDX = 0
 PARSER = parse()
 
@@ -73,7 +73,7 @@ suggestion_wordlist.grid_columnconfigure(1, weight=1)
 suggestion_function = Frame(sidebar, bg="white")
 suggestion_function.grid_columnconfigure(0, weight=1)
 suggestion_function.grid_columnconfigure(1, weight=1)
-replace_btn = Button(suggestion_function, text="Replace", command=lambda : replace_word(text))
+replace_btn = Button(suggestion_function, text="Replace", command=lambda: replace_word(text))
 ignore_all_btn = Button(suggestion_function, text="Ignore all", command=lambda: dummy_print())
 
 
@@ -117,7 +117,7 @@ def scan_texts(inputtextbox):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
             Button(repeatedword, text=i[0],
-                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER))\
+                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER)) \
                 .grid(row=idx + 1, column=0)
     return ()
 
@@ -175,6 +175,21 @@ def replace_word(textbox):
         print("Replacement list is empty")
 
 
+def clear_inputs():
+    global INPUT_TEXT
+    global SCAN_OUTPUT
+    global CURRENT_PAGE_IDX
+    global PARSER
+
+    text.delete('1.0', 'end')
+    inter_values.destroy_all_buttons(repeatedword)
+    inter_values.suggestion_clear(suggestion_wordlist)
+    inter_values.replacement.clear()
+    INPUT_TEXT.clear()
+    SCAN_OUTPUT = tuple()
+    CURRENT_PAGE_IDX = 0
+    PARSER = parse()
+
 
 def dummy_print():
     print(type(inter_values.suggested_words))
@@ -192,11 +207,11 @@ def test_delete(textbox):
 # Place default labels
 # # Menubar
 menubar.add_cascade(label="File", menu=menubar_file)
-menubar_file.add_command(label="New")
+menubar_file.add_command(label="New", command=clear_inputs)
 menubar_file.add_command(label="Open", command=select_file)
-menubar_file.add_command(label="Save", command=lambda: test_delete(text))
-menubar_file.add_command(label="Save as")
-menubar_file.add_command(label="Settings")
+# menubar_file.add_command(label="Save", command=lambda: test_delete(text))
+# menubar_file.add_command(label="Save as")
+# menubar_file.add_command(label="Settings")
 
 # # Main frame(The most outside)
 mainframe.pack(expand=True, fill=BOTH)
