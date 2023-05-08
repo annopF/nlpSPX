@@ -49,11 +49,11 @@ class ngram():
     def getSentObj(self):
         return self.sentenceObj
     
-    def getParentSentence(self,start,target):
+    def getParentSentence(self,start,target,c):
         print("*-*-*-*-*-*-PRIORITY::::: start, target",start,target)
         for item in self.sentenceObj:
             print("item.target={}=start{}".format(item.target,start))
-            if self.concat == target and start in range(item.start, item.end) and start == item.target:
+            if self.concat == target and start in range(item.start, item.end) and start == item.target-c:
                 return(item)
         return(0)
 
