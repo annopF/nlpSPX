@@ -1,7 +1,6 @@
 from Putil import isStopword
 from tokenizer import selectTokenizer
 from PmainLoop import makeOutput
-import tkinter
 from tkinter import Button, Label
 import inter_values
 
@@ -109,6 +108,6 @@ def text_split(input_word, start):
         start_idx += len(word)
         idx.append(".".join([line, str(start_idx)]))
         words_idx.append(idx)
-        start_idx += 2
+        start_idx += 1
 
     return words_idx

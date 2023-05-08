@@ -11,6 +11,7 @@ from Pparse import parse
 INPUT_TEXT = []
 SCAN_OUTPUT = []
 CURRENT_PAGE_IDX = 0
+PARSER = parse()
 
 # Generate window
 root = Tk()
@@ -94,18 +95,19 @@ def scan_texts(inputtextbox):
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")
         inter_values.destroy_all_buttons(repeatedword)
-        parser = parse()
-        parser.setUp(inp)
+        global PARSER
+        # PARSER = parse()
+        PARSER.setUp(inp)
 
         print("---sentence obj content:", )
-        for i in parser.ug:
+        for i in PARSER.ug:
             for j in i.getSentObj():
                 print("start, end", j, j.start, j.end, j.target, i.gram1)
-        # print("--->XX<----", parser.newline)
-        # for i in parser.doc.sents:
+        # print("--->XX<----", PARSER.newline)
+        # for i in PARSER.doc.sents:
         # print("----S-->", i)
 
-        pp = parser.scantexts()
+        pp = PARSER.scantexts()
 
         print("PP", pp)
         global SCAN_OUTPUT
@@ -115,7 +117,7 @@ def scan_texts(inputtextbox):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
             Button(repeatedword, text=i[0],
-                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, parser))\
+                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER))\
                 .grid(row=idx + 1, column=0)
     return ()
 
@@ -165,8 +167,10 @@ def replace_word(textbox):
         textbox.insert(f"{inter_values.replacement[1]}", inter_values.replacement[0])
         print("Replacement completed")
 
-        inter_values.suggestion_clear(suggestion_wordlist)
         # Clear Suggestion list
+        inter_values.suggestion_clear(suggestion_wordlist)
+        inp = textbox.get(1.0, "end-1c")
+        PARSER.setUp(inp)
     else:
         print("Replacement list is empty")
 
