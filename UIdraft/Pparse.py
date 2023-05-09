@@ -1,7 +1,7 @@
 import spacy
 from tokenizer import *
 from createNgram import *
-from Putil import isStopword
+from Putil import isStopword, stopword, cleanDup
 from spacy import displacy
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForTokenClassification
@@ -10,7 +10,7 @@ import time
 start = time.time()
 tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
 model = AutoModelForTokenClassification.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
-classifier = pipeline("ner", model=model, tokenizer=tokenizer)
+classifier = pipeline("ner", model=model, tokenizer=tokenizer,grouped_entities=True)
 end = time.time()
 print("elapsed time (AtMForTokenClassification)", end - start)
 
@@ -31,7 +31,6 @@ class parse():
                 s = re.finditer(fr"\b{target}\b",str(sent).lower())
             
                 out = [sent.start_char + i.start() for i in s]
-                print("XXX--XXX: sent.start=",sent.start_char, sent, "len out",len(out), out, target)
 
                 if len(out) != 0:
                     return out[count]
@@ -100,20 +99,27 @@ class parse():
             
             
         doc = nlp(text.replace("\r", ""))
-        for i in doc.sents:
-            print("---S->",i)
-        self.entIndex = doc.ents
-        print(self.entIndex)
+
+        st = time.time()
         s = classifier(str(doc))
+        print(s)
+        ed = time.time()
+
+        self.entIndex = cleanDup([value for x in s for key, value in x.items() if key == "word"])
+        
+        print(self.entIndex)
+        
+        print("Elapsed time ENTI=",ed-st)
         self.DoNotHighLight = [i["start"] for i in s]
         self.doc = doc
         text = str(doc)
         text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
-     
+
         for i in self.entIndex:
 
             text = re.sub(fr"\b{i}\b", "", text)
 
+       
         toks = selectTokenizer("wsp", text.lower()).returnList()
         self.ug = createUnigram(toks, 15)
         self.bg = createBigram(toks, 15)
