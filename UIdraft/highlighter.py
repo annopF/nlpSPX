@@ -1,7 +1,7 @@
 import re
 import suggestor
 import inter_values
-
+import threading
 
 def findtext_inthebox(textbox, suggestionbox, target,parser):
     # destroy all buttons if any
@@ -12,7 +12,7 @@ def findtext_inthebox(textbox, suggestionbox, target,parser):
     # List of inp according to textbox 'lines'
     inp = []
 
-    textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.on_highlight_click(suggestionbox, event, parser)))
+    textbox.tag_bind("highlight", "<Button-1>", lambda event: threading.Thread(target = suggestor.on_highlight_click, args=(suggestionbox, event, parser)).start())
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
     # get all the lines in the text

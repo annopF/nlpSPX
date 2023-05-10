@@ -6,6 +6,7 @@ import textreader
 import highlighter
 import inter_values
 from Pparse import parse
+import threading
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
 INPUT_TEXT = []
@@ -36,7 +37,7 @@ navbar.grid_columnconfigure(1, weight=5)
 navbar.grid_columnconfigure(2, weight=1)
 navbar.grid_columnconfigure(3, weight=6)
 navbar.grid_columnconfigure(4, weight=7)
-scan_btn = Button(navbar, text="Scan", bg="#b5ffc1", padx=15, relief=RIDGE, command=lambda: scan_texts(text))
+scan_btn = Button(navbar, text="Scan", bg="#b5ffc1", padx=15, relief=RIDGE, command=lambda: threading.Thread(target = scan_texts, args=(text,)).start())
 prev_pg_btn = Button(navbar, text="Previous", command=lambda: previous_page(text))
 page_label = Label(navbar, text="Page x / y")
 next_pg_btn = Button(navbar, text="Next", command=lambda: next_page(text))
@@ -99,10 +100,6 @@ def scan_texts(inputtextbox):
         # PARSER = parse()
         PARSER.setUp(inp)
 
-        print("---sentence obj content:", )
-        for i in PARSER.ug:
-            for j in i.getSentObj():
-                print("start, end", j, j.start, j.end, j.target, i.gram1)
         # print("--->XX<----", PARSER.newline)
         # for i in PARSER.doc.sents:
         # print("----S-->", i)
@@ -117,10 +114,9 @@ def scan_texts(inputtextbox):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
             Button(repeatedword, text=i[0],
-                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER)) \
+                command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER)) \
                 .grid(row=idx + 1, column=0)
     return ()
-
 
 # Need more? condition check
 def previous_page(textbox):

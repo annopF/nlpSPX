@@ -8,13 +8,15 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 import time
 
 start = time.time()
-tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
-model = AutoModelForTokenClassification.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
+tokenizer = AutoTokenizer.from_pretrained("dslim/bert-base-NER")
+model = AutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER")
 classifier = pipeline("ner", model=model, tokenizer=tokenizer,grouped_entities=True)
+nlp = spacy.load("en_core_web_lg")
 end = time.time()
-print("elapsed time (AtMForTokenClassification)", end - start)
+print("elapsed time (loading spacy+atm)", end - start)
 
 class parse():
+    
     def __init__(self):
          self.doc = None
          self.entIndex = None
@@ -25,6 +27,7 @@ class parse():
          self.newline = []
 
     def setUp(self,text):
+        startX = time.time()
         def findWord(self):
 
             def getTar(sent,target,count):
@@ -37,7 +40,6 @@ class parse():
                 else:
                     return 1
                 
-            start = time.time()
             for sentId, sentence in enumerate(self.doc.sents):
                     piece = (selectTokenizer("wsp", str(sentence).lower())).returnList()
                     
@@ -76,9 +78,7 @@ class parse():
                                                                 sentence.start_char, 
                                                                 sentence.end_char,
                                                                 getTar(sentence,ug.concat,count-1)))
-            end = time.time()
-            #print("------------------><><><><><<><><><> elapsed time",end-start)
-
+    
         def checkSafe(self):
             for bigram in self.bg:
                 if isStopword(bigram.gram1) or isStopword(bigram.gram2):
@@ -91,45 +91,68 @@ class parse():
             for unigram in self.ug:
                 if isStopword(unigram.gram1):
                     unigram.safe = False
+           
         
-        nlp = spacy.load("en_core_web_lg")
+
+        start = time.time()
         for x,i in enumerate(text):
             if i == "\n":
                 self.newline.append(x+1)
-            
-            
-        doc = nlp(text.replace("\r", ""))
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (find newline)",end-start)
 
-        st = time.time()
+        start = time.time()
+        doc = nlp(text.replace("\r", ""))
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (replace /r)",end-start)
+
+
+        start = time.time()
         s = classifier(str(doc))
         #print(s)
-        ed = time.time()
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (NER)",end-start)
 
+        start = time.time()
         self.entIndex = cleanDup([value for x in s for key, value in x.items() if key == "word"])
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (clean NER)",end-start)
+
+        #print(self.entIndex)
         
-        print(self.entIndex)
-        
-        print("Elapsed time ENTI=",ed-st)
         self.DoNotHighLight = [(i["start"],i["end"]) for i in s]
-        print(self.DoNotHighLight)
+        #print(self.DoNotHighLight)
         self.doc = doc
         text = str(doc)
+        start = time.time()
         text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (replace parentheses)",end-start)
 
-        st = time.time()
+        start = time.time()
         for i in self.entIndex:
 
             text = re.sub(fr"\b{i}\b", "", text)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (replace entity)",end-start)
 
-        ed = time.time()
-        print("---->>>>>ELAPSED: (clean)=", ed-st)
+
         toks = selectTokenizer("wsp", text.lower()).returnList()
         self.ug = createUnigram(toks, 15)
         self.bg = createBigram(toks, 15)
         self.tg = createTrigram(toks, 15)
+        start = time.time()
         findWord(self)
-        checkSafe(self)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (findword)",end-start)
 
+        start = time.time()
+        checkSafe(self)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (checksafe)",end-start)
+        endX = time.time()
+        print("<><><><><><><><><><><><><> Elapsed time (setup)",endX-startX)
+            
     def getGram(self, gram):
         if gram == 1:
             return(self.ug)
