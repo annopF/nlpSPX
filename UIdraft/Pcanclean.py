@@ -37,16 +37,16 @@ def checkLevRatio(wordList):
 
 def levRatCheck(input):
     
-    wordList = [x[0] for x in input ]
+    wordList = [x[0] for x in input]
     dix = {}
     for i in wordList:
         
         related = getRelatedForm(i)
-    
+        derived = getInflect(i)
         #print(i,related,len(related))
         
         if len(related) > 0:
-            a= [x for x in related if ratio(i,x) > 0.78 and x != i and x in wordList] 
+            a= [x for x in related+derived if ratio(i,x) > 0.78 and x in wordList] 
             if len(a) != 0:
                 dix[i] = a
     print("word with similar root (in progress)", dix)

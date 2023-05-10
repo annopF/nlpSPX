@@ -4,6 +4,7 @@ import ranky as rk
 import inter_values
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import RobertaTokenizer,RobertaForMaskedLM
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
@@ -27,7 +28,7 @@ print("preparing SentenceTransformers")
 lmv6  = SentenceTransformer("sentence-transformers/stsb-roberta-base-v2", device = use)
 mnli  = SentenceTransformer("textattack/roberta-base-MNLI", device = use)
 dbt = CrossEncoder('cross-encoder/nli-roberta-base', device=use)
-limit = 60
+limit = 60 #recommened = 60
 def rankAll(a,b,c,d):
 
     #print(a)
@@ -60,6 +61,7 @@ def loadClassifier(MAX):
 
     #Cmodel = RobertaForMaskedLM.from_pretrained("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/rbtaX3_500k")
     #Ctokenizer = RobertaTokenizer.from_pretrained("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/rbtaX3_500k")
+    
     return (pipeline("fill-mask", model = "roberta-base", top_k=MAX, framework="pt", device = -1))
 classifier = loadClassifier(limit)
 
@@ -94,8 +96,9 @@ def paraphrase(input_sentence):
 
 def generateData(mode):
     testData = [
-                ["I drive MG car to London", "I <mask> MG car to London","drive"],
                 ["Steve Jobs likes White color, so everything in the factory is White.","Steve Jobs likes White color, so everything in the <mask> is White.","factory"],
+                ["Samsung Galaxy watch is the best Android Wearable on the marketright now","Samsung Galaxy watch is the best Android Wearable on the <mask> right now","market"],
+                ["I drive MG car to London", "I <mask> MG car to London","drive"],
                 ["Apple Park is a circular building worth millions of dollar.", "Apple Park is a circular <mask> worth millions of dollar.", "building"],
                 ["Rich people can escape the a long jail sentence when commiting a crime", "Rich <mask> can escape the a long jail sentence when commiting a crime", "people"],
                 ["Apple, Inc. is founded by Steve Job.", "Apple, Inc. is <mask> by Steve Job.", "founded"],
@@ -104,9 +107,8 @@ def generateData(mode):
                 ["Global climate change has become a major problem lately","Global climate change has become a major <mask> lately","problem"],
                 ["The micro processor from Apple called Apple Silicon beats those from Intel","The micro <mask> from Apple called Apple Silicon beats those from Intel","processor"],
                 ["Electric vehicles from Tesla can drive autonomously","Electric vehicles from Tesla can drive <mask>","autonomously"],
-                ["How can a teacher teach better in online classes","How can a teacher <mask> better in online classes","teach"],
+                ["How can a teacher teach better in online classes during the pandemic","How can a teacher teach better in online <mask> during the pandemic","classes"],
                 ["Sir James Dyson invented a turbo charger","Sir James Dyson <mask> a turbo charger","invented"],
-                ["Teddy Bear is song from StayC","Teddy Bear is <mask> from StayC","song"],
                 ["The professor said our work is wrong, but our friend's work is right","The professor said our <mask> is wrong, but our friend's work is right","work"],
                 ["This chemical is the base of all nuclear reaction including nuclear fission","This chemical is the base of all nuclear <mask> including nuclear fission","reaction"],
                 ["This chemical helps lower the activation energy of the reaction","This <mask> helps lower the activation energy of the reaction","chemical"],
@@ -115,9 +117,8 @@ def generateData(mode):
                 ["In the case of Ethan Couch, he was drunk drive and killing 4 people, but he came from a rich family, he can escape the laws","In the case of Ethan Couch, he was drunk drive and killing 4 people, but he came from a rich <mask>, he can escape the laws","family"],
                 ["I want to buy a new computer, which one should I get","I want to buy a new <mask>, which one should I get","computer"],
                 ["Most kpop fan don't like ballad song because they are boring","Most kpop <mask> don't like ballad song because they are boring","fan"],
-                ["I don't like most of the answers from my professor because they are all stupid","I don't like most of the <mask> from my professor because they are all stupid","answers"],
-                ["I hate verb in English because it is stupid","I <mask> verb in English because it is stupid","hate"],
-                ["Samsung Galaxy watch is the best Android Wearable on the marketright now","Samsung Galaxy watch is the best Android Wearable on the <mask> right now","market"],
+                ["Our project is about the application of Machine Learning","Our <mask> is about the application of Machine Learning","project"],
+                ["How to write a better essay in English writing class?","How to write a better <mask> in English writing class?","essay"],
                 ["HP Omen is a gaming laptop with external cooling pipe to keep the laptop cool","HP Omen is a gaming laptop with external cooling pipe to keep the <mask> cool","laptop"],
                 ["x"]
                 ]

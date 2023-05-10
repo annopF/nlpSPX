@@ -17,7 +17,7 @@ def getMorph(maskedSentence, candidateList):
 
                 morphList.append([item,str(token.tag_)])
 
-    print("---------******--------",morphList)
+    #print("---------******--------",morphList)
     return (morphList)
 
         

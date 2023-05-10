@@ -81,7 +81,7 @@ class parse():
 
         def checkSafe(self):
             for bigram in self.bg:
-                if isStopword(bigram.gram1) and isStopword(bigram.gram2):
+                if isStopword(bigram.gram1) or isStopword(bigram.gram2):
                     bigram.safe = False
 
             for trigram in self.tg:
@@ -115,11 +115,13 @@ class parse():
         text = str(doc)
         text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
 
+        st = time.time()
         for i in self.entIndex:
 
             text = re.sub(fr"\b{i}\b", "", text)
 
-       
+        ed = time.time()
+        print("---->>>>>ELAPSED: (clean)=", ed-st)
         toks = selectTokenizer("wsp", text.lower()).returnList()
         self.ug = createUnigram(toks, 15)
         self.bg = createBigram(toks, 15)
