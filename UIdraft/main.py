@@ -172,11 +172,13 @@ def replace_word(textbox):
         textbox.insert(f"{replacement.start}", replacement.word)
         print("Replacement completed")
 
-        # Clear Suggestion list
-        inter_values.suggestion_clear(suggestion_wordlist)
         # inp = textbox.get(1.0, "end-1c")
         # PARSER.setUp(inp)
         scan_texts(text)
+        highlighter.findtext_inthebox(text, suggestion_wordlist, inter_values.original_word, PARSER)
+
+        # Clear Suggestion list
+        inter_values.suggestion_clear(suggestion_wordlist)
     else:
         print("Replacement list is empty")
 

@@ -14,6 +14,9 @@ class Replace():
         return
 
 
+global original_word
+original_word = None
+
 global suggested_words
 suggested_words = []
 

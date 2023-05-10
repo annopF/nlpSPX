@@ -17,6 +17,8 @@ def findtext_inthebox(textbox, suggestionbox, target, parser):
                      lambda event: (suggestor.on_highlight_click(textbox, suggestionbox, event, parser)))
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
+    textbox.tag_remove("highlight-clicked", 1.0, "end-1c")
+
     # get all the lines in the text
     # inp is updated every time you click the button
     for i in range(line_count):
