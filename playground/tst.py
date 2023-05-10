@@ -2,32 +2,26 @@ import spacy
 import textract as tt
 import re
 
+import textract as tt
 
-def generateText(mode):
-    if mode == 1:
-        filePath = "F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/Rich Kids essay real one.pdf"
-        text = tt.process(filePath)
-        texts = text.decode("utf8")
-        return (texts)
-    else:
-        sentence = """
-        I don't like Apple iPhone very much due to its price, but I don't like Apple iPhone more. 
-        This apple iphone is awesome. 
-        Tim like macbook pro but don't like Apple iPhone. 
-        Steve job also don't like Apple iPhone. 
-        Bill gate really don't like Apple product but like Samsung."""
-        return (sentence)
+import spacy
+from spacy.matcher import Matcher
 
+nlp = spacy.load("en_core_web_sm")
+text = """I like likeness like,
+food
 
-nlp = spacy.load("en_core_web_lg")
-doc = nlp(generateText(1).replace("\n", " ").replace("\r", ""))
-text = str(doc)
+goodl food"""
 
-ent = doc.ents
-
-text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
-
-for i in ent:
-    text = re.sub(fr"\b{i}\b", "", text)
-
-print(text)
+""" s = re.finditer(r"\blie\b", text)
+print(s)
+doc = nlp(text)
+if s == None:
+    print("NONENNEONEOEN")
+out = [i.start() for i in s]
+print(out, len(out))
+ """
+ 
+for i in text:
+    if i == "\n":
+        print("fucker")

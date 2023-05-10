@@ -28,7 +28,8 @@ print("preparing SentenceTransformers")
 lmv6  = SentenceTransformer("sentence-transformers/stsb-roberta-base-v2", device = use)
 mnli  = SentenceTransformer("textattack/roberta-base-MNLI", device = use)
 dbt = CrossEncoder('cross-encoder/nli-roberta-base', device=use)
-limit = 60 #recommened = 60
+limit = 15 #(final output display limit)
+classifierLimit = 60 #recommened = 60
 def rankAll(a,b,c,d):
 
     #print(a)
@@ -63,7 +64,7 @@ def loadClassifier(MAX):
     #Ctokenizer = RobertaTokenizer.from_pretrained("F:/Work Folder/KMUTT/SeniorProject/nlpSPX/dataset/rbtaX3_500k")
     
     return (pipeline("fill-mask", model = "roberta-base", top_k=MAX, framework="pt", device = -1))
-classifier = loadClassifier(limit)
+classifier = loadClassifier(classifierLimit)
 
 print("(Classifier) Elapsed time: ", end - start, "DELTA T=", 15-(end-start))
 

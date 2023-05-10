@@ -28,7 +28,9 @@ def findtext_inthebox(textbox, suggestionbox, target,parser):
 
     #console
     # print(pattern)
+   
     
+
     # for all lines(list)
     for idx, line in enumerate(inp):
         for m in pattern.finditer(line.lower()):
