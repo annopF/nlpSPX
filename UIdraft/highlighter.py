@@ -35,7 +35,8 @@ def findtext_inthebox(textbox, suggestionbox, target,parser):
     for idx, line in enumerate(inp):
         for m in pattern.finditer(line.lower()):
             # console
-            if m.start() not in parser.DoNotHighLight:
+            print("m.start()",m.start())
+            if parser.highlightAble(m.start()):
 
                 print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
                     type(m.end()))

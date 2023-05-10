@@ -47,9 +47,9 @@ class parse():
                         
                             if piece[i].lower() == bg.gram2.lower() and piece[i-1].lower() == bg.gram1.lower():
                                 count+=1
-                                print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "bg ", bg.gram1,bg.gram2, "count ",count)
+                                #print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "bg ", bg.gram1,bg.gram2, "count ",count)
 
-                                print("count:",count)
+                                #print("count:",count)
                                 bg.sentenceObj.append(sentenceX(sentId,i-1, i, None, 
                                                                 sentence.start_char, 
                                                                 sentence.end_char,
@@ -70,14 +70,14 @@ class parse():
 
                             if piece[i].lower() == ug.gram1.lower():
                                 count+=1
-                                print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "ug ", ug.gram1, "count ",count)
+                                #print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "ug ", ug.gram1, "count ",count)
                             
                                 ug.sentenceObj.append(sentenceX(sentId,i,None,None, 
                                                                 sentence.start_char, 
                                                                 sentence.end_char,
                                                                 getTar(sentence,ug.concat,count-1)))
             end = time.time()
-            print("------------------><><><><><<><><><> elapsed time",end-start)
+            #print("------------------><><><><><<><><><> elapsed time",end-start)
 
         def checkSafe(self):
             for bigram in self.bg:
@@ -92,7 +92,7 @@ class parse():
                 if isStopword(unigram.gram1):
                     unigram.safe = False
         
-        nlp = spacy.load("en_core_web_sm")
+        nlp = spacy.load("en_core_web_lg")
         for x,i in enumerate(text):
             if i == "\n":
                 self.newline.append(x+1)
@@ -102,7 +102,7 @@ class parse():
 
         st = time.time()
         s = classifier(str(doc))
-        print(s)
+        #print(s)
         ed = time.time()
 
         self.entIndex = cleanDup([value for x in s for key, value in x.items() if key == "word"])
@@ -110,7 +110,8 @@ class parse():
         print(self.entIndex)
         
         print("Elapsed time ENTI=",ed-st)
-        self.DoNotHighLight = [i["start"] for i in s]
+        self.DoNotHighLight = [(i["start"],i["end"]) for i in s]
+        print(self.DoNotHighLight)
         self.doc = doc
         text = str(doc)
         text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
@@ -147,20 +148,25 @@ class parse():
         return toks, [word for container in topwords for word in container]
     
     def cvtIndex(self,tk,x):
-        print(">>>>LOG -tcl input:", tk)
+        #print(">>>>LOG -tcl input:", tk)
         line = int(str(tk).split(".")[0])
         col = int(str(tk).split(".")[1])
         
         if line != 1:
-            print(">>>> line={}, col={}, x={}, line-(x+2)={}".format(line,col,x, line-(x+2)))
+            #print(">>>> line={}, col={}, x={}, line-(x+2)={}".format(line,col,x, line-(x+2)))
 
             out = col + self.newline[line-(x+2)]
-            print("out=", out)
-            print("newline",self.newline)
+            #print("out=", out)
+            #print("newline",self.newline)
             return(out)
         else:
             return(col)
-    
+    def highlightAble(self, start):
+        for i in self.DoNotHighLight:
+            if start in range(i[0],i[1]):
+                print("HAB:",start,i[0],i[1])
+                return 0
+        return 1
     
 # Test comment sar
 # testunit = scantexts()
