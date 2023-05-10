@@ -3,7 +3,8 @@ import suggestor
 import inter_values
 
 
-def findtext_inthebox(textbox, suggestionbox, target,parser):
+def findtext_inthebox(textbox, suggestionbox, target, parser):
+    print("----------------------------------REPEATED WORDS CLICK----------------------------------")
     # destroy all buttons if any
     inter_values.suggestion_clear(suggestionbox)
 
@@ -12,13 +13,14 @@ def findtext_inthebox(textbox, suggestionbox, target,parser):
     # List of inp according to textbox 'lines'
     inp = []
 
-    textbox.tag_bind("highlight", "<Button-1>", lambda event: (suggestor.on_highlight_click(suggestionbox, event, parser)))
+    textbox.tag_bind("highlight", "<Button-1>",
+                     lambda event: (suggestor.on_highlight_click(textbox, suggestionbox, event, parser)))
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
     # get all the lines in the text
     # inp is updated every time you click the button
     for i in range(line_count):
-        inp.append(textbox.get(f"{i+1}.0", f"{i+1}.0 lineend"))
+        inp.append(textbox.get(f"{i + 1}.0", f"{i + 1}.0 lineend"))
 
     # console  
     # print(inp)
@@ -26,7 +28,7 @@ def findtext_inthebox(textbox, suggestionbox, target,parser):
 
     pattern = re.compile(fr"\b{target.lower()}\b")
 
-    #console
+    # console
     # print(pattern)
    
     
@@ -36,12 +38,12 @@ def findtext_inthebox(textbox, suggestionbox, target,parser):
         for m in pattern.finditer(line.lower()):
             # console
             if m.start() not in parser.DoNotHighLight:
-
                 print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
-                    type(m.end()))
+                      type(m.end()))
                 textbox.tag_add('highlight', f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}')
 
     return
+
 
 # def buttonPress(func, *args):
 #     value = func(*args)
@@ -49,5 +51,5 @@ def findtext_inthebox(textbox, suggestionbox, target,parser):
 def list_highlights(textbox):
     highlights = textbox.tag_ranges("highlight")
     for i in range(0, len(highlights), 2):
-        print("TX",highlights[i], highlights[i+1])
+        print("TX", highlights[i], highlights[i + 1])
     return

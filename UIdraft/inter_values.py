@@ -1,11 +1,25 @@
 import tkinter
 
+
+class Replace():
+    def __init__(self):
+        self.word = None
+        self.start = None
+        self.end = None
+
+    def add_replace(self, word, start, end):
+        self.word = word
+        self.start = start
+        self.end = end
+        return
+
+
 global suggested_words
 suggested_words = []
 
 global replacement      # word to replace, start point, end point(where to delete)
 # replacement = ["dum", 1.0, 1.2]
-replacement = []
+replacement = Replace()
 
 
 def destroy_all_buttons(frame):
@@ -17,5 +31,5 @@ def destroy_all_buttons(frame):
 
 def suggestion_clear(suggestionbox):
     suggested_words.clear()
-    replacement.clear()
+    replacement.__init__()
     destroy_all_buttons(suggestionbox)

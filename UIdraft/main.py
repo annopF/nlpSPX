@@ -5,6 +5,7 @@ from tkinter.filedialog import *
 import textreader
 import highlighter
 import inter_values
+from inter_values import replacement
 from Pparse import parse
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
@@ -53,7 +54,8 @@ textarea = Frame(workspace, bg="#ebeff8")
 text_scroll = Scrollbar(textarea)
 text = Text(textarea, font=("Ink Free", 16), padx=10, pady=10, relief=FLAT
             , yscrollcommand=text_scroll.set, wrap=WORD)
-text.tag_configure('highlight', background='#46ffde')
+text.tag_configure('highlight', background='#a2ffee')
+text.tag_configure('highlight-clicked', background='#ffa2a2')
 # # # Sidebar
 sidebar = Frame(workspace, bg="green")
 sidebar.grid_columnconfigure(0, weight=1)
@@ -90,10 +92,12 @@ def select_file():
 
 
 def scan_texts(inputtextbox):
+    print("----------------------------------SCAN TEXTS----------------------------------")
     inp = inputtextbox.get(1.0, "end-1c")
 
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")
+        inputtextbox.tag_remove("highlight-clicked", 1.0, "end-1c")
         inter_values.destroy_all_buttons(repeatedword)
         global PARSER
         # PARSER = parse()
@@ -162,15 +166,17 @@ def next_page(textbox):
 
 
 def replace_word(textbox):
-    if inter_values.replacement:
-        textbox.delete(f"{inter_values.replacement[1]}", f"{inter_values.replacement[2]}")
-        textbox.insert(f"{inter_values.replacement[1]}", inter_values.replacement[0])
+    print("----------------------------------REPLACE----------------------------------")
+    if replacement:
+        textbox.delete(f"{replacement.start}", f"{replacement.end}")
+        textbox.insert(f"{replacement.start}", replacement.word)
         print("Replacement completed")
 
         # Clear Suggestion list
         inter_values.suggestion_clear(suggestion_wordlist)
-        inp = textbox.get(1.0, "end-1c")
-        PARSER.setUp(inp)
+        # inp = textbox.get(1.0, "end-1c")
+        # PARSER.setUp(inp)
+        scan_texts(text)
     else:
         print("Replacement list is empty")
 
@@ -184,7 +190,7 @@ def clear_inputs():
     text.delete('1.0', 'end')
     inter_values.destroy_all_buttons(repeatedword)
     inter_values.suggestion_clear(suggestion_wordlist)
-    inter_values.replacement.clear()
+    replacement.__init__()
     INPUT_TEXT.clear()
     SCAN_OUTPUT = tuple()
     CURRENT_PAGE_IDX = 0

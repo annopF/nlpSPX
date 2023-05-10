@@ -50,12 +50,12 @@ class ngram():
         return self.sentenceObj
     
     def getParentSentence(self,start,target,c):
-        print("*-*-*-*-*-*-PRIORITY::::: start, target",start,target)
+        print("*-*-*-*-*-*-PRIORITY::::: start --> target = ", start, " --> ", target)
         for item in self.sentenceObj:
-            print("item.target={}=start{}".format(item.target,start))
+            # print("item.target={}=start{}".format(item.target,start))
             if self.concat == target and start in range(item.start, item.end) and start == item.target-c:
-                return(item)
-        return(0)
+                return item
+        return 0
 
     
 class unigram(ngram):

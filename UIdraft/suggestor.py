@@ -3,13 +3,30 @@ from tokenizer import selectTokenizer
 from PmainLoop import makeOutput
 from tkinter import Button, Label
 import inter_values
+from inter_values import replacement
+
+
+class NgramIndex():
+    def __init__(self):
+        self.start = []
+        self.end = []
+
+    def list_child(self):
+        print("Start:")
+        for obj in self.start:
+            print(obj)
+        print("End:")
+        for obj in self.end:
+            print(obj)
 
 
 # CONTINUE: Change highlight color on click
-def on_highlight_click(suggestionbox, event,parser):
+def on_highlight_click(textbox, suggestionbox, event,parser):
+    print("----------------------------------HIGHLIGHT CLICK----------------------------------")
     # destroy all buttons if any
     inter_values.suggested_words.clear()
     inter_values.suggestion_clear(suggestionbox)
+    textbox.tag_remove("highlight-clicked", 1.0, "end-1c")
 
     # get the index of the mouse click
     index = event.widget.index("@%s,%s" % (event.x, event.y))
@@ -23,8 +40,12 @@ def on_highlight_click(suggestionbox, event,parser):
         if event.widget.compare(start, '<=', index) and event.widget.compare(index, '<', end):
             # return string between tag start and end
             word = event.widget.get(start,end)
-            print("------> ", word, start, end)
+            print("INPUT --> ", word, start, end)
+
+            textbox.tag_add("highlight-clicked", start, end)
+
             word_output = text_split(word, str(start))
+            word_output.list_child()
             def tclToInt(tcl):
                 return int(str(tcl)[slice(2,len(str(tcl)))])
 
@@ -58,7 +79,7 @@ def on_highlight_click(suggestionbox, event,parser):
                                         selectTokenizer("wsp",str(senOG)).replaceAt(a.geti(i+1),None),
                                         xg.getGram(i+1)])
 
-                if len(out)!=0:
+                if len(out) != 0:
                     print(out)
                     print("calling suggestor makeOutput()")
                     makeOutput(out)
@@ -66,16 +87,18 @@ def on_highlight_click(suggestionbox, event,parser):
                     for idx, suggested_word in enumerate(inter_values.suggested_words[0]):
                         # May change to idx+1 since there's temp ignore all button placed
                         Button(suggestionbox, text=suggested_word,
-                               command=lambda x=suggested_word, y=word_output[0][0], z=word_output[0][1]: selected_word(x, y, z)) \
+                               command=lambda w=suggested_word, s=word_output.start[0], e=word_output.end[0]: selected_word(w, s, e)) \
                             .grid(row=idx + 2, column=0, sticky="s")
+                        print("Created button for word 1: ", suggested_word)
 
                     if len(inter_values.suggested_words) == 2:
                         Label(suggestionbox, bg="white", text="Word 2", font="18").grid(row=1, column=1, sticky="we")
                         for idx, suggested_word in enumerate(inter_values.suggested_words[1]):
                             # May change to idx+1 since there's temp ignore all button placed
                             Button(suggestionbox, text=suggested_word,
-                                   command=lambda x=suggested_word, y=word_output[1][0], z=word_output[1][1]: selected_word(x, y, z))\
+                                   command=lambda w=suggested_word, s=word_output.start[1], e=word_output.end[1]: selected_word(w, s, e))\
                                 .grid(row=idx + 2, column=1, sticky="s")
+                            print("Created button for word 2: ", suggested_word)
 
                 else:
                     print("EMPTY!")
@@ -83,31 +106,23 @@ def on_highlight_click(suggestionbox, event,parser):
 
 def selected_word(word, start, end):
     print("Replace ", word, " to position --> ", start, end)
-    inter_values.replacement.clear()
-    inter_values.replacement.append(word)
-    inter_values.replacement.append(start)
-    inter_values.replacement.append(end)
-    print(type(inter_values.replacement))
-    print(inter_values.replacement)
+    replacement.add_replace(word, start, end)
     return
 
 
 def text_split(input_word, start):
+    output = NgramIndex()
     # print(start)
     words = input_word.split()
     start = start.split(".")
     # print(start)
 
     line = start[0]
-    start_idx = int(start[1])
-
-    words_idx = []
+    current_idx = int(start[1])
 
     for word in words:
-        idx = [".".join([line, str(start_idx)])]
-        start_idx += len(word)
-        idx.append(".".join([line, str(start_idx)]))
-        words_idx.append(idx)
-        start_idx += 1
-
-    return words_idx
+        output.start.append(".".join([line, str(current_idx)]))  # Putting [] outside join means it sets itself
+        current_idx += len(word)
+        output.end.append(".".join([line, str(current_idx)]))
+        current_idx += 1  # Space bar
+    return output
