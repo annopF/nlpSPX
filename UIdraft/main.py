@@ -9,8 +9,9 @@ from Pparse import parse
 
 # GLOBAL VARIABLE(be careful if it goes to other files)
 INPUT_TEXT = []
-SCAN_OUTPUT = []
+SCAN_OUTPUT = tuple()
 CURRENT_PAGE_IDX = 0
+PARSER = parse()
 
 # Generate window
 root = Tk()
@@ -52,6 +53,7 @@ textarea = Frame(workspace, bg="#ebeff8")
 text_scroll = Scrollbar(textarea)
 text = Text(textarea, font=("Ink Free", 16), padx=10, pady=10, relief=FLAT
             , yscrollcommand=text_scroll.set, wrap=WORD)
+text.tag_configure('highlight', background='#46ffde')
 # # # Sidebar
 sidebar = Frame(workspace, bg="green")
 sidebar.grid_columnconfigure(0, weight=1)
@@ -71,7 +73,7 @@ suggestion_wordlist.grid_columnconfigure(1, weight=1)
 suggestion_function = Frame(sidebar, bg="white")
 suggestion_function.grid_columnconfigure(0, weight=1)
 suggestion_function.grid_columnconfigure(1, weight=1)
-replace_btn = Button(suggestion_function, text="Replace")
+replace_btn = Button(suggestion_function, text="Replace", command=lambda: replace_word(text))
 ignore_all_btn = Button(suggestion_function, text="Ignore all", command=lambda: dummy_print())
 
 
@@ -92,19 +94,20 @@ def scan_texts(inputtextbox):
 
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")
-        destroy_all_buttons(repeatedword)
-        parser = parse()
-        parser.setUp(inp)
+        inter_values.destroy_all_buttons(repeatedword)
+        global PARSER
+        # PARSER = parse()
+        PARSER.setUp(inp)
 
         print("---sentence obj content:", )
-        for i in parser.ug:
+        for i in PARSER.ug:
             for j in i.getSentObj():
                 print("start, end", j, j.start, j.end, j.target, i.gram1)
-        # print("--->XX<----", parser.newline)
-        # for i in parser.doc.sents:
+        # print("--->XX<----", PARSER.newline)
+        # for i in PARSER.doc.sents:
         # print("----S-->", i)
 
-        pp = parser.scantexts()
+        pp = PARSER.scantexts()
 
         print("PP", pp)
         global SCAN_OUTPUT
@@ -114,7 +117,7 @@ def scan_texts(inputtextbox):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
             Button(repeatedword, text=i[0],
-                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, parser))\
+                   command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER)) \
                 .grid(row=idx + 1, column=0)
     return ()
 
@@ -128,8 +131,8 @@ def previous_page(textbox):
 
     if CURRENT_PAGE_IDX in range(1, page_length):  # prev page is available when cur_pg is at idx 1 to last
         inter_values.suggested_words.clear()
-        destroy_all_buttons(repeatedword)
-        destroy_all_buttons(suggestion_wordlist)
+        inter_values.destroy_all_buttons(repeatedword)
+        inter_values.destroy_all_buttons(suggestion_wordlist)
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
@@ -146,9 +149,9 @@ def next_page(textbox):
     page_length = len(INPUT_TEXT)
 
     if CURRENT_PAGE_IDX in range(0, page_length - 1):  # next page is available when cur_pg is at idx 0 to last-1
-        inter_values.suggested_words.clear()
-        destroy_all_buttons(repeatedword)
-        destroy_all_buttons(suggestion_wordlist)
+        inter_values.destroy_all_buttons(repeatedword)
+        inter_values.suggestion_clear(suggestion_wordlist)
+
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX + 1])
@@ -158,11 +161,34 @@ def next_page(textbox):
     return
 
 
-def destroy_all_buttons(frame):
-    for widget in frame.winfo_children():
-        if isinstance(widget, tkinter.Button):
-            widget.destroy()
-    return
+def replace_word(textbox):
+    if inter_values.replacement:
+        textbox.delete(f"{inter_values.replacement[1]}", f"{inter_values.replacement[2]}")
+        textbox.insert(f"{inter_values.replacement[1]}", inter_values.replacement[0])
+        print("Replacement completed")
+
+        # Clear Suggestion list
+        inter_values.suggestion_clear(suggestion_wordlist)
+        inp = textbox.get(1.0, "end-1c")
+        PARSER.setUp(inp)
+    else:
+        print("Replacement list is empty")
+
+
+def clear_inputs():
+    global INPUT_TEXT
+    global SCAN_OUTPUT
+    global CURRENT_PAGE_IDX
+    global PARSER
+
+    text.delete('1.0', 'end')
+    inter_values.destroy_all_buttons(repeatedword)
+    inter_values.suggestion_clear(suggestion_wordlist)
+    inter_values.replacement.clear()
+    INPUT_TEXT.clear()
+    SCAN_OUTPUT = tuple()
+    CURRENT_PAGE_IDX = 0
+    PARSER = parse()
 
 
 def dummy_print():
@@ -181,11 +207,11 @@ def test_delete(textbox):
 # Place default labels
 # # Menubar
 menubar.add_cascade(label="File", menu=menubar_file)
-menubar_file.add_command(label="New")
+menubar_file.add_command(label="New", command=clear_inputs)
 menubar_file.add_command(label="Open", command=select_file)
-menubar_file.add_command(label="Save", command=lambda: test_delete(text))
-menubar_file.add_command(label="Save as")
-menubar_file.add_command(label="Settings")
+# menubar_file.add_command(label="Save", command=lambda: test_delete(text))
+# menubar_file.add_command(label="Save as")
+# menubar_file.add_command(label="Settings")
 
 # # Main frame(The most outside)
 mainframe.pack(expand=True, fill=BOTH)

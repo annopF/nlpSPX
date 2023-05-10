@@ -1,7 +1,6 @@
 from Putil import isStopword
 from tokenizer import selectTokenizer
 from PmainLoop import makeOutput
-import tkinter
 from tkinter import Button, Label
 import inter_values
 
@@ -10,9 +9,7 @@ import inter_values
 def on_highlight_click(suggestionbox, event,parser):
     # destroy all buttons if any
     inter_values.suggested_words.clear()
-    for widget in suggestionbox.winfo_children():
-        if isinstance(widget, tkinter.Button):
-            widget.destroy()
+    inter_values.suggestion_clear(suggestionbox)
 
     # get the index of the mouse click
     index = event.widget.index("@%s,%s" % (event.x, event.y))
@@ -86,7 +83,12 @@ def on_highlight_click(suggestionbox, event,parser):
 
 def selected_word(word, start, end):
     print("Replace ", word, " to position --> ", start, end)
-    # CONTINUE: Actually replaces it
+    inter_values.replacement.clear()
+    inter_values.replacement.append(word)
+    inter_values.replacement.append(start)
+    inter_values.replacement.append(end)
+    print(type(inter_values.replacement))
+    print(inter_values.replacement)
     return
 
 
@@ -103,9 +105,9 @@ def text_split(input_word, start):
 
     for word in words:
         idx = [".".join([line, str(start_idx)])]
-        start_idx += len(word) - 1
+        start_idx += len(word)
         idx.append(".".join([line, str(start_idx)]))
         words_idx.append(idx)
-        start_idx += 2
+        start_idx += 1
 
     return words_idx
