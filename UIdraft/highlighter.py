@@ -1,7 +1,7 @@
 import re
 import suggestor
 import inter_values
-
+import threading
 
 def findtext_inthebox(textbox, suggestionbox, target, parser):
     print("----------------------------------REPEATED WORDS CLICK----------------------------------")
@@ -13,8 +13,7 @@ def findtext_inthebox(textbox, suggestionbox, target, parser):
     # List of inp according to textbox 'lines'
     inp = []
 
-    textbox.tag_bind("highlight", "<Button-1>",
-                     lambda event: (suggestor.on_highlight_click(textbox, suggestionbox, event, parser)))
+    textbox.tag_bind("highlight", "<Button-1>", lambda event: threading.Thread(target = suggestor.on_highlight_click, args=(suggestionbox, event, parser)).start())
     textbox.tag_remove("highlight", 1.0, "end-1c")
 
     textbox.tag_remove("highlight-clicked", 1.0, "end-1c")
@@ -39,7 +38,9 @@ def findtext_inthebox(textbox, suggestionbox, target, parser):
     for idx, line in enumerate(inp):
         for m in pattern.finditer(line.lower()):
             # console
-            if m.start() not in parser.DoNotHighLight:
+            print("m.start()",m.start())
+            if parser.highlightAble(m.start()):
+
                 print(m.group(), f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}', type(m.group()), type(m.start()),
                       type(m.end()))
                 textbox.tag_add('highlight', f'{idx + 1}.{m.start()}', f'{idx + 1}.{m.end()}')

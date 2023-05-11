@@ -8,13 +8,15 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 import time
 
 start = time.time()
-tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
-model = AutoModelForTokenClassification.from_pretrained("xlm-roberta-large-finetuned-conll03-english")
+tokenizer = AutoTokenizer.from_pretrained("dslim/bert-base-NER")
+model = AutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER")
 classifier = pipeline("ner", model=model, tokenizer=tokenizer,grouped_entities=True)
+nlp = spacy.load("en_core_web_lg")
 end = time.time()
-print("elapsed time (AtMForTokenClassification)", end - start)
+print("elapsed time (loading spacy+atm)", end - start)
 
 class parse():
+    
     def __init__(self):
          self.doc = None
          self.entIndex = None
@@ -25,6 +27,7 @@ class parse():
          self.newline = []
 
     def setUp(self,text):
+        startX = time.time()
         def findWord(self):
 
             def getTar(sent,target,count):
@@ -37,7 +40,6 @@ class parse():
                 else:
                     return 1
                 
-            start = time.time()
             for sentId, sentence in enumerate(self.doc.sents):
                     piece = (selectTokenizer("wsp", str(sentence).lower())).returnList()
                     
@@ -47,9 +49,9 @@ class parse():
                         
                             if piece[i].lower() == bg.gram2.lower() and piece[i-1].lower() == bg.gram1.lower():
                                 count+=1
-                                print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "bg ", bg.gram1,bg.gram2, "count ",count)
+                                #print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "bg ", bg.gram1,bg.gram2, "count ",count)
 
-                                print("count:",count)
+                                #print("count:",count)
                                 bg.sentenceObj.append(sentenceX(sentId,i-1, i, None, 
                                                                 sentence.start_char, 
                                                                 sentence.end_char,
@@ -70,15 +72,13 @@ class parse():
 
                             if piece[i].lower() == ug.gram1.lower():
                                 count+=1
-                                print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "ug ", ug.gram1, "count ",count)
+                                #print("---->>>>sentence",sentence, "#POS ",i, "#SentID ",sentId, "ug ", ug.gram1, "count ",count)
                             
                                 ug.sentenceObj.append(sentenceX(sentId,i,None,None, 
                                                                 sentence.start_char, 
                                                                 sentence.end_char,
                                                                 getTar(sentence,ug.concat,count-1)))
-            end = time.time()
-            print("------------------><><><><><<><><><> elapsed time",end-start)
-
+    
         def checkSafe(self):
             for bigram in self.bg:
                 if isStopword(bigram.gram1) or isStopword(bigram.gram2):
@@ -91,44 +91,68 @@ class parse():
             for unigram in self.ug:
                 if isStopword(unigram.gram1):
                     unigram.safe = False
+           
         
-        nlp = spacy.load("en_core_web_sm")
+
+        start = time.time()
         for x,i in enumerate(text):
             if i == "\n":
                 self.newline.append(x+1)
-            
-            
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (find newline)",end-start)
+
+        start = time.time()
         doc = nlp(text.replace("\r", ""))
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (replace /r)",end-start)
 
-        st = time.time()
+
+        start = time.time()
         s = classifier(str(doc))
-        print(s)
-        ed = time.time()
+        #print(s)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (NER)",end-start)
 
+        start = time.time()
         self.entIndex = cleanDup([value for x in s for key, value in x.items() if key == "word"])
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (clean NER)",end-start)
+
+        #print(self.entIndex)
         
-        print(self.entIndex)
-        
-        print("Elapsed time ENTI=",ed-st)
-        self.DoNotHighLight = [i["start"] for i in s]
+        self.DoNotHighLight = [(i["start"],i["end"]) for i in s]
+        #print(self.DoNotHighLight)
         self.doc = doc
         text = str(doc)
+        start = time.time()
         text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (replace parentheses)",end-start)
 
-        st = time.time()
+        start = time.time()
         for i in self.entIndex:
 
             text = re.sub(fr"\b{i}\b", "", text)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (replace entity)",end-start)
 
-        ed = time.time()
-        print("---->>>>>ELAPSED: (clean)=", ed-st)
+
         toks = selectTokenizer("wsp", text.lower()).returnList()
         self.ug = createUnigram(toks, 15)
         self.bg = createBigram(toks, 15)
         self.tg = createTrigram(toks, 15)
+        start = time.time()
         findWord(self)
-        checkSafe(self)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (findword)",end-start)
 
+        start = time.time()
+        checkSafe(self)
+        end = time.time()
+        print("/*/*/*/*/*/ Elapsed time (checksafe)",end-start)
+        endX = time.time()
+        print("<><><><><><><><><><><><><> Elapsed time (setup)",endX-startX)
+            
     def getGram(self, gram):
         if gram == 1:
             return(self.ug)
@@ -147,20 +171,25 @@ class parse():
         return toks, [word for container in topwords for word in container]
     
     def cvtIndex(self,tk,x):
-        print(">>>>LOG -tcl input:", tk)
+        #print(">>>>LOG -tcl input:", tk)
         line = int(str(tk).split(".")[0])
         col = int(str(tk).split(".")[1])
         
         if line != 1:
-            print(">>>> line={}, col={}, x={}, line-(x+2)={}".format(line,col,x, line-(x+2)))
+            #print(">>>> line={}, col={}, x={}, line-(x+2)={}".format(line,col,x, line-(x+2)))
 
             out = col + self.newline[line-(x+2)]
-            print("out=", out)
-            print("newline",self.newline)
+            #print("out=", out)
+            #print("newline",self.newline)
             return(out)
         else:
             return(col)
-    
+    def highlightAble(self, start):
+        for i in self.DoNotHighLight:
+            if start in range(i[0],i[1]):
+                print("HAB:",start,i[0],i[1])
+                return 0
+        return 1
     
 # Test comment sar
 # testunit = scantexts()
