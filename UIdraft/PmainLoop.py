@@ -178,10 +178,11 @@ def makeOutput(fmp):
         print("-"*100)
 
         wordlist = []
-        for n in range(1, 5):
+        for n in range(1, 10):
             wordlist.append(data["rerank"][n][0])
 
         inter_values.suggested_words.append(wordlist)
+        #CONTINUE please clean those button in many cases
 
 
 #makeOutput(generateData(1))

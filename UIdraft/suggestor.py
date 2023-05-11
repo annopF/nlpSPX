@@ -1,7 +1,7 @@
 from Putil import isStopword
 from tokenizer import selectTokenizer
 from PmainLoop import makeOutput
-from tkinter import Button, Label
+from tkinter import Button, Label, Frame
 import inter_values
 from inter_values import replacement
 
@@ -87,33 +87,92 @@ def on_highlight_click(textbox, suggestionbox, event, parser):
                                         xg.getGram(i + 1)])
 
                 if len(out) != 0:
+                    row_count1 = {}
+                    row_count2 = {}
                     print(out)
                     print("calling suggestor makeOutput()")
                     makeOutput(out)
                     Label(suggestionbox, bg="white", text="Word 1", font="18").grid(row=1, column=0, sticky="we")
-                    for idx, suggested_word in enumerate(inter_values.suggested_words[0]):
-                        # May change to idx+1 since there's temp ignore all button placed
-                        Button(suggestionbox, text=suggested_word,
-                               command=lambda w=suggested_word,
-                                              s=word_output.start[0],
-                                              e=word_output.end[0]: selected_word(w, s, e)) \
-                            .grid(row=idx + 2, column=0, sticky="s")
-                        print("Created button for word 1: ", suggested_word)
+                    word1_frame = Frame(suggestionbox, bg="red")
+                    word1_frame.grid_columnconfigure(0, weight=1)
+                    word1_frame.grid(sticky="we")
+                    wrap_btn_place(word1_frame, inter_values.suggested_words, word_output, row_count1, 0)
+                    # for idx, suggested_word in enumerate(inter_values.suggested_words[0]):
+                    #     # May change to idx+1 since there's temp ignore all button placed
+                    #     Button(suggestionbox, text=suggested_word,
+                    #            command=lambda w=suggested_word,
+                    #                           s=word_output.start[0],
+                    #                           e=word_output.end[0]: selected_word(w, s, e)) \
+                    #         .grid(row=2, column=idx, sticky="w")
+                    #     print("Created button for word 1: ", suggested_word)
 
                     if len(inter_values.suggested_words) == 2:
-                        Label(suggestionbox, bg="white", text="Word 2", font="18").grid(row=1, column=1, sticky="we")
-                        for idx, suggested_word in enumerate(inter_values.suggested_words[1]):
-                            # May change to idx+1 since there's temp ignore all button placed
-                            Button(suggestionbox, text=suggested_word,
-                                   command=lambda w=suggested_word,
-                                                  s=word_output.start[1],
-                                                  e=word_output.end[1]: selected_word(w, s, e)) \
-                                .grid(row=idx + 2, column=1, sticky="s")
-                            print("Created button for word 2: ", suggested_word)
+                        Label(suggestionbox, bg="white", text="Word 2", font="18").grid(row=3, column=0, sticky="we")
+                        word2_frame = Frame(suggestionbox, bg="red")
+                        word2_frame.grid_columnconfigure(0, weight=1)
+                        word2_frame.grid(sticky="we")
+                        wrap_btn_place(word2_frame, inter_values.suggested_words, word_output, row_count2, 1)
+                        # for idx, suggested_word in enumerate(inter_values.suggested_words[1]):
+                        #     # May change to idx+1 since there's temp ignore all button placed
+                        #     Button(suggestionbox, text=suggested_word,
+                        #            command=lambda w=suggested_word,
+                        #                           s=word_output.start[1],
+                        #                           e=word_output.end[1]: selected_word(w, s, e)) \
+                        #         .grid(row=4, column=idx, sticky="w")
+                        #     print("Created button for word 2: ", suggested_word)
 
                 else:
                     print("EMPTY!")
                     # inter_values.suggested_words.append([])
+
+
+def clear_last(obj):
+    last = obj.winfo_children()[-1]
+    last.destroy()
+    return
+
+
+def wrap_btn_place(parent, text_list, w_output, d_row, word_n):
+    parent.update()
+    width = parent.winfo_width()
+    current_row = 0
+    current_column = 0
+
+    available_width = width
+    print("Start width : ", available_width)
+
+    d_row["row{0}".format(current_row)] = Frame(parent, bg="green")
+    d_row["row{0}".format(current_row)].grid(row=current_row, column=0, sticky="we")
+    for txt in text_list[word_n]:
+        text_btn = Button(d_row["row{0}".format(current_row)], text=txt,
+                          command=lambda w=txt,
+                                         s=w_output.start[word_n],
+                                         e=w_output.end[word_n]: selected_word(w, s, e))
+        text_btn.grid(row=0, column=current_column)
+        text_btn.update()
+        using_width = text_btn.winfo_width()
+        if available_width < using_width:
+            clear_last(d_row["row{0}".format(current_row)])
+            available_width = width
+            current_row += 1
+            d_row["row{0}".format(current_row)] = Frame(parent, bg="blue")
+            d_row["row{0}".format(current_row)].grid(row=current_row, column=0, sticky="we")
+            text_btn = Button(d_row["row{0}".format(current_row)], text=txt,
+                                   command=lambda w=txt,
+                                                  s=w_output.start[word_n],
+                                                  e=w_output.end[word_n]: selected_word(w, s, e))
+            current_column = 0
+            text_btn.grid(row=0, column=current_column)
+            available_width -= using_width
+            print("placed button at: ", current_row, current_column)
+            print("Available: ", available_width)
+            current_column += 1
+        else:
+            text_btn.grid(row=0, column=current_column)
+            available_width -= using_width
+            print("placed button at: ", current_row, current_column)
+            print("Available: ", available_width)
+            current_column += 1
 
 
 def selected_word(word, start, end):
