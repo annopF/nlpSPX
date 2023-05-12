@@ -48,8 +48,6 @@ def on_highlight_click(textbox, suggestionbox, event, parser):
 
             textbox.tag_add("highlight-clicked", start, end)
 
-            inter_values.original_word = word
-
             word_output = text_split(word, str(start))
             word_output.list_child()
 

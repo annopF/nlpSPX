@@ -21,7 +21,7 @@ class Replace():
 
 
 global original_word
-original_word = None
+original_word = str()
 
 global suggested_words
 suggested_words = []
@@ -29,6 +29,9 @@ suggested_words = []
 global replacement      # word to replace, start point, end point(where to delete)
 # replacement = ["dum", 1.0, 1.2]
 replacement = Replace()
+
+global exception_list
+exception_list = []
 
 
 def destroy_all_buttons(frame):

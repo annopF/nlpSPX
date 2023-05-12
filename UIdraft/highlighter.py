@@ -8,6 +8,9 @@ def findtext_inthebox(textbox, suggestionbox, target, parser):
     # destroy all buttons if any
     inter_values.suggestion_clear(suggestionbox)
 
+    inter_values.original_word = target
+    # print(target)
+
     line_count = int(textbox.index('end').split('.')[0]) - 1  # returns line count(not index)
 
     # List of inp according to textbox 'lines'

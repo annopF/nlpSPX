@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import *
+from tkinter import messagebox
 from tkinter.filedialog import *
 
 import textreader
@@ -78,7 +79,7 @@ suggestion_function.grid_columnconfigure(0, weight=1)
 suggestion_function.grid_columnconfigure(1, weight=1)
 replace_btn = Button(suggestion_function, text="Replace", command=lambda: threading.Thread(target=replace_word,
                                                                                            args=(text,)).start())
-ignore_all_btn = Button(suggestion_function, text="Ignore all", command=lambda: dummy_print())
+ignore_all_btn = Button(suggestion_function, text="Ignore all", command=lambda: ignore_all(inter_values.original_word))
 
 
 # Functions
@@ -200,17 +201,27 @@ def clear_inputs():
     PARSER = parse()
 
 
-def dummy_print():
-    print(type(inter_values.suggested_words))
-    print("Current: ", inter_values.suggested_words)
-    highlighter.list_highlights(text)
-    # Return text, and then what about MULTIPLE WORDS
+def ignore_all(word):   # Insert a word here
+    if word == "":
+        messagebox.showerror("Exception list", "You haven't select any words yet")
+        return
+    else:
+        info_text = "'" + word + "'"
+        answer = messagebox.askyesno("Confirm", f"Add the word {info_text} to the exception list?")
+        if answer:
+            if word in inter_values.exception_list:
+                messagebox.showwarning("Exception list", "The word is already in the exception list.")
+                pass
+            else:
+                splitted_word = word.split()
+                inter_values.exception_list.append(splitted_word)
+                print(inter_values.exception_list)
+                messagebox.showinfo("Exception list", f"Added the word {info_text} to the exception list")
+                threading.Thread(target = scan_texts, args=(text,)).start()
+                inter_values.original_word = str()
     return
-
-
-def test_delete(textbox):
-    textbox.delete('1.0', '2.2')
-    return
+    # Create a Label
+    # Label(root, text=answer, font=('Georgia 20 bold')).pack()
 
 
 # Place default labels
@@ -218,7 +229,7 @@ def test_delete(textbox):
 menubar.add_cascade(label="File", menu=menubar_file)
 menubar_file.add_command(label="New", command=clear_inputs)
 menubar_file.add_command(label="Open", command=select_file)
-# menubar_file.add_command(label="Save", command=lambda: test_delete(text))
+# menubar_file.add_command(label="Save")
 # menubar_file.add_command(label="Save as")
 # menubar_file.add_command(label="Settings")
 
