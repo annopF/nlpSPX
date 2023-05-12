@@ -85,7 +85,7 @@ class parse():
                     bigram.safe = False
 
             for trigram in self.tg:
-                if isStopword(trigram.gram1) and isStopword(trigram.gram2) and isStopword(trigram.gram3):
+                if isStopword(trigram.gram1) or isStopword(trigram.gram2) or isStopword(trigram.gram3):
                     trigram.safe = False
 
             for unigram in self.ug:

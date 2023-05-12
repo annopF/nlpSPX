@@ -133,55 +133,116 @@ def generateData(mode):
 def makeOutput(fmp):
     print("makeOutput started...")
 
-    for item in fmp:
-        sentence = item[0]
-        maskedSentence = item[1]
-        word = item[2]
-    
-        print("getting candidate...")
+    sentence = fmp[0]
+    maskedSentence = fmp[1]
+    word = fmp[2]
 
-        start = time.time()
-        candidate = getCandidate(sentence, maskedSentence, classifier, word)
-        ogLen = len(candidate)
-        #removedMorph = removeMorph(maskedSentence, candidate) 
-        #deepClean = deepCleanX(removedMorph)  
-        cleanedMorph = removeMorph(maskedSentence, candidate)
-        deepCleans = deepCleanX(cleanedMorph)
-        #print("deepclean (s)", deepCleans)
-        deepClean = [x[0] for x in deepCleans]
-        #print("deepclean no s",deepClean)
-        end = time.time()
-        print("(get candidate + clean) elapse time=",end-start)
+    print("getting candidate...")
 
-        #print("DEEPCLEAN X", deepClean)
-        print("verifying...")
+    start = time.time()
+    candidate = getCandidate(sentence, maskedSentence, classifier, word)
+    ogLen = len(candidate)
+    # removedMorph = removeMorph(maskedSentence, candidate)
+    # deepClean = deepCleanX(removedMorph)
+    cleanedMorph = removeMorph(maskedSentence, candidate)
+    deepCleans = deepCleanX(cleanedMorph)
+    # print("deepclean (s)", deepCleans)
+    deepClean = [x[0] for x in deepCleans]
+    # print("deepclean no s",deepClean)
+    end = time.time()
+    print("(get candidate + clean) elapse time=", end - start)
 
-        ST_outputMNLI = sentenceSimilarity(maskedSentence, deepClean, model=mnli,mode=0)
-        ST_outputLMV6 = sentenceSimilarity(maskedSentence, deepClean, model=lmv6,mode=0)
-        entail = entailment(maskedSentence, deepClean, model1=mnli, model2=dbt)
-        rerank = rankAll(deepCleans,ST_outputMNLI,ST_outputLMV6,entail)
-        data = {
-                "OG rank": deepCleans[:limit],
-                "ST MNLI": ST_outputMNLI[:limit],
-                "ST LMV6": ST_outputLMV6[:limit],
-                "Entailment_score": entail[:limit],
-                "rerank": rerank[:limit]}          
-        df = pd.DataFrame(data)
-        print(df) 
-        #print("*****DEEPCLEAN:", candidate)
-        #print("///////REMOVE MORPH:", removedMorph )
-        print(">>>> OG SEN:",sentence)
-        print(">>>> MASKED WORD:",word)
-        print(">>>> MASKED SEN:",maskedSentence)
-        #print("---- PARA SEN:", paraphrase(sentence))
-        print(">>>> OG:Final ratio = {}/{}".format(ogLen,len(rerank)))
-        print("-"*100)
+    # print("DEEPCLEAN X", deepClean)
+    print("verifying...")
 
-        wordlist = []
-        for n in range(1, 10):
-            wordlist.append(data["rerank"][n][0])
+    ST_outputMNLI = sentenceSimilarity(maskedSentence, deepClean, model=mnli, mode=0)
+    ST_outputLMV6 = sentenceSimilarity(maskedSentence, deepClean, model=lmv6, mode=0)
+    entail = entailment(maskedSentence, deepClean, model1=mnli, model2=dbt)
+    rerank = rankAll(deepCleans, ST_outputMNLI, ST_outputLMV6, entail)
+    data = {
+        "OG rank": deepCleans[:limit],
+        "ST MNLI": ST_outputMNLI[:limit],
+        "ST LMV6": ST_outputLMV6[:limit],
+        "Entailment_score": entail[:limit],
+        "rerank": rerank[:limit]}
+    df = pd.DataFrame(data)
+    print(df)
+    # print("*****DEEPCLEAN:", candidate)
+    # print("///////REMOVE MORPH:", removedMorph )
+    print(">>>> OG SEN:", sentence)
+    print(">>>> MASKED WORD:", word)
+    print(">>>> MASKED SEN:", maskedSentence)
+    # print("---- PARA SEN:", paraphrase(sentence))
+    print(">>>> OG:Final ratio = {}/{}".format(ogLen, len(rerank)))
+    print("-" * 100)
 
-        inter_values.suggested_words.append(wordlist)
+    wordlist = []
+    # for n in range(1, 10):
+    #     wordlist.append(data["rerank"][n][0])
+    for word_out in data["rerank"]:
+        if word_out[1] <= 10:
+            if word_out[0] == word:
+                continue
+            wordlist.append(word_out[0])
+        else:
+            break
+
+    inter_values.suggested_words.append(wordlist)
+
+    # for item in fmp:
+    #     sentence = item[0]
+    #     maskedSentence = item[1]
+    #     word = item[2]
+    #
+    #     print("getting candidate...")
+    #
+    #     start = time.time()
+    #     candidate = getCandidate(sentence, maskedSentence, classifier, word)
+    #     ogLen = len(candidate)
+    #     #removedMorph = removeMorph(maskedSentence, candidate)
+    #     #deepClean = deepCleanX(removedMorph)
+    #     cleanedMorph = removeMorph(maskedSentence, candidate)
+    #     deepCleans = deepCleanX(cleanedMorph)
+    #     #print("deepclean (s)", deepCleans)
+    #     deepClean = [x[0] for x in deepCleans]
+    #     #print("deepclean no s",deepClean)
+    #     end = time.time()
+    #     print("(get candidate + clean) elapse time=",end-start)
+    #
+    #     #print("DEEPCLEAN X", deepClean)
+    #     print("verifying...")
+    #
+    #     ST_outputMNLI = sentenceSimilarity(maskedSentence, deepClean, model=mnli,mode=0)
+    #     ST_outputLMV6 = sentenceSimilarity(maskedSentence, deepClean, model=lmv6,mode=0)
+    #     entail = entailment(maskedSentence, deepClean, model1=mnli, model2=dbt)
+    #     rerank = rankAll(deepCleans,ST_outputMNLI,ST_outputLMV6,entail)
+    #     data = {
+    #             "OG rank": deepCleans[:limit],
+    #             "ST MNLI": ST_outputMNLI[:limit],
+    #             "ST LMV6": ST_outputLMV6[:limit],
+    #             "Entailment_score": entail[:limit],
+    #             "rerank": rerank[:limit]}
+    #     df = pd.DataFrame(data)
+    #     print(df)
+    #     #print("*****DEEPCLEAN:", candidate)
+    #     #print("///////REMOVE MORPH:", removedMorph )
+    #     print(">>>> OG SEN:",sentence)
+    #     print(">>>> MASKED WORD:",word)
+    #     print(">>>> MASKED SEN:",maskedSentence)
+    #     #print("---- PARA SEN:", paraphrase(sentence))
+    #     print(">>>> OG:Final ratio = {}/{}".format(ogLen,len(rerank)))
+    #     print("-"*100)
+    #
+    #     wordlist = []
+    #     # for n in range(1, 10):
+    #     #     wordlist.append(data["rerank"][n][0])
+    #     for word in data["rerank"]:
+    #         if word[1] <= 10:
+    #             wordlist.append(word[0])
+    #         else:
+    #             break
+    #
+    #     inter_values.suggested_words.append(wordlist)
         #CONTINUE please clean those button in many cases
 
 

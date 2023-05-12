@@ -13,6 +13,12 @@ class Replace():
         self.end = end
         return
 
+    def is_not_empty(self):
+        if self.word is None or self.start is None or self.end is None:
+            return False
+        else:
+            return True
+
 
 global original_word
 original_word = None
@@ -35,4 +41,6 @@ def destroy_all_buttons(frame):
 def suggestion_clear(suggestionbox):
     suggested_words.clear()
     replacement.__init__()
-    destroy_all_buttons(suggestionbox)
+    for widget in suggestionbox.winfo_children():
+        widget.destroy()
+    return

@@ -76,7 +76,8 @@ suggestion_wordlist.grid_columnconfigure(0, weight=1)
 suggestion_function = Frame(sidebar, bg="white")
 suggestion_function.grid_columnconfigure(0, weight=1)
 suggestion_function.grid_columnconfigure(1, weight=1)
-replace_btn = Button(suggestion_function, text="Replace", command=lambda: replace_word(text))
+replace_btn = Button(suggestion_function, text="Replace", command=lambda: threading.Thread(target=replace_word,
+                                                                                           args=(text,)).start())
 ignore_all_btn = Button(suggestion_function, text="Ignore all", command=lambda: dummy_print())
 
 
@@ -149,6 +150,7 @@ def next_page(textbox):
     page_length = len(INPUT_TEXT)
 
     if CURRENT_PAGE_IDX in range(0, page_length - 1):  # next page is available when cur_pg is at idx 0 to last-1
+        inter_values.suggested_words.clear()
         inter_values.destroy_all_buttons(repeatedword)
         inter_values.suggestion_clear(suggestion_wordlist)
 
@@ -163,7 +165,7 @@ def next_page(textbox):
 
 def replace_word(textbox):
     print("----------------------------------REPLACE----------------------------------")
-    if replacement:
+    if replacement.is_not_empty():
         textbox.delete(f"{replacement.start}", f"{replacement.end}")
         textbox.insert(f"{replacement.start}", replacement.word)
         print("Replacement completed")
@@ -171,7 +173,10 @@ def replace_word(textbox):
         # inp = textbox.get(1.0, "end-1c")
         # PARSER.setUp(inp)
         scan_texts(text)
-        highlighter.findtext_inthebox(text, suggestion_wordlist, inter_values.original_word, PARSER)
+        for i in SCAN_OUTPUT[1]:
+            if inter_values.original_word == i[0]:
+                highlighter.findtext_inthebox(text, suggestion_wordlist, inter_values.original_word, PARSER)
+                break
 
         # Clear Suggestion list
         inter_values.suggestion_clear(suggestion_wordlist)
