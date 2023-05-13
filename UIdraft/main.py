@@ -89,11 +89,24 @@ def select_file():
         return
 
     global INPUT_TEXT
-    clear_inputs()
-    INPUT_TEXT = textreader.readtext(selectedfile)
-    # INPUT_TEXT = textreader.nopreadtext(selectedfile)
-    text.insert(INSERT, INPUT_TEXT[0])  # INSERT, END defines direction to insert text
-    update_page_label()
+
+    if selectedfile.endswith(".pdf"):
+        clear_inputs()
+        INPUT_TEXT = textreader.readtext(selectedfile)
+        # INPUT_TEXT = textreader.nopreadtext(selectedfile)
+        text.insert(INSERT, INPUT_TEXT[0])  # INSERT, END defines direction to insert text
+        update_page_label()
+        # CONTINUE: .txt file
+    elif selectedfile.endswith(".txt"):
+        clear_inputs()
+        tf = open(selectedfile, 'r')
+        INPUT_TEXT.append(tf.read())
+        print(INPUT_TEXT)
+        text.insert(INSERT, INPUT_TEXT[0])
+        update_page_label()
+    else:
+        messagebox.showerror("Open file", "Not supported file format.")
+        return
 
 
 def scan_texts(inputtextbox):
@@ -152,7 +165,7 @@ def previous_page(textbox):
     if CURRENT_PAGE_IDX in range(1, page_length):  # prev page is available when cur_pg is at idx 1 to last
         inter_values.suggested_words.clear()
         inter_values.destroy_all_buttons(repeatedword)
-        inter_values.destroy_all_buttons(suggestion_wordlist)
+        inter_values.suggestion_clear(suggestion_wordlist)
         INPUT_TEXT[CURRENT_PAGE_IDX] = textbox.get('1.0', 'end-1c')
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
@@ -199,7 +212,7 @@ def insert_page_before():
 
     inter_values.suggested_words.clear()
     inter_values.destroy_all_buttons(repeatedword)
-    inter_values.destroy_all_buttons(suggestion_wordlist)
+    inter_values.suggestion_clear(suggestion_wordlist)
 
     INPUT_TEXT[CURRENT_PAGE_IDX] = text.get('1.0', 'end-1c')
     INPUT_TEXT.insert(CURRENT_PAGE_IDX, [])
@@ -214,7 +227,7 @@ def delete_page():
 
     inter_values.suggested_words.clear()
     inter_values.destroy_all_buttons(repeatedword)
-    inter_values.destroy_all_buttons(suggestion_wordlist)
+    inter_values.suggestion_clear(suggestion_wordlist)
 
     if CURRENT_PAGE_IDX > 0:
         previous_page(text)
@@ -254,7 +267,7 @@ def replace_word(textbox):
         # Clear Suggestion list
         inter_values.suggestion_clear(suggestion_wordlist)
     else:
-        messagebox.showerror("Replacing word", "You haven't select any words yet")
+        messagebox.showwarning("Replacing word", "You haven't select any words yet")
         return
 
 
@@ -263,6 +276,7 @@ def clear_inputs():
     global SCAN_OUTPUT
     global CURRENT_PAGE_IDX
     global PARSER
+    global page_label
 
     text.delete('1.0', 'end')
     inter_values.destroy_all_buttons(repeatedword)
@@ -272,11 +286,13 @@ def clear_inputs():
     SCAN_OUTPUT = tuple()
     CURRENT_PAGE_IDX = 0
     PARSER = parse()
+    page_label = Label(navbar, text="Page 1/1")
+    page_label.grid(row=0, column=2, sticky="nsew")
 
 
 def ignore_all(word):   # Insert a word here
     if word == "":
-        messagebox.showerror("Exception list", "You haven't select any words yet")
+        messagebox.showwarning("Exception list", "You haven't select any words yet")
         return
     else:
         info_text = "'" + word + "'"
