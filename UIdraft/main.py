@@ -89,6 +89,7 @@ def select_file():
         return
 
     global INPUT_TEXT
+    clear_inputs()
     INPUT_TEXT = textreader.readtext(selectedfile)
     # INPUT_TEXT = textreader.nopreadtext(selectedfile)
     text.insert(INSERT, INPUT_TEXT[0])  # INSERT, END defines direction to insert text
@@ -128,11 +129,10 @@ def scan_texts(inputtextbox):
 
 def page_init():
     global INPUT_TEXT
-    print("page init")
+    print("PAGE INIT")
     if len(INPUT_TEXT) == 0:
         INPUT_TEXT.insert(0, [])
     update_page_label()
-
 
 
 def update_page_label():
@@ -157,7 +157,7 @@ def previous_page(textbox):
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
         CURRENT_PAGE_IDX -= 1
-        print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
+        # print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
         update_page_label()
 
     return
@@ -178,17 +178,62 @@ def next_page(textbox):
         textbox.delete('1.0', 'end')
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX + 1])
         CURRENT_PAGE_IDX += 1
-        print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
+        # print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
         update_page_label()
 
     return
 
 
-def insert_page():
+def insert_page_after():
+    global CURRENT_PAGE_IDX
     global INPUT_TEXT
+
     INPUT_TEXT.insert(CURRENT_PAGE_IDX+1, [])
     update_page_label()
     next_page(text)
+
+
+def insert_page_before():
+    global CURRENT_PAGE_IDX
+    global INPUT_TEXT
+
+    inter_values.suggested_words.clear()
+    inter_values.destroy_all_buttons(repeatedword)
+    inter_values.destroy_all_buttons(suggestion_wordlist)
+
+    INPUT_TEXT[CURRENT_PAGE_IDX] = text.get('1.0', 'end-1c')
+    INPUT_TEXT.insert(CURRENT_PAGE_IDX, [])
+    text.delete('1.0', 'end')
+    INPUT_TEXT[CURRENT_PAGE_IDX].clear()
+    update_page_label()
+
+
+def delete_page():
+    global CURRENT_PAGE_IDX
+    global INPUT_TEXT
+
+    inter_values.suggested_words.clear()
+    inter_values.destroy_all_buttons(repeatedword)
+    inter_values.destroy_all_buttons(suggestion_wordlist)
+
+    if CURRENT_PAGE_IDX > 0:
+        previous_page(text)
+        # print(CURRENT_PAGE_IDX+1)
+        del INPUT_TEXT[CURRENT_PAGE_IDX+1]
+        update_page_label()
+    else:
+        # print(CURRENT_PAGE_IDX)
+        if len(INPUT_TEXT) > 1:
+            next_page(text)
+            del INPUT_TEXT[CURRENT_PAGE_IDX-1]
+            CURRENT_PAGE_IDX -= 1
+            update_page_label()
+            # print(INPUT_TEXT)
+        else:
+            del INPUT_TEXT[CURRENT_PAGE_IDX]
+            text.delete('1.0', 'end')
+            # print(INPUT_TEXT)
+
 
 
 def replace_word(textbox):
@@ -209,7 +254,8 @@ def replace_word(textbox):
         # Clear Suggestion list
         inter_values.suggestion_clear(suggestion_wordlist)
     else:
-        print("Replacement list is empty")
+        messagebox.showerror("Replacing word", "You haven't select any words yet")
+        return
 
 
 def clear_inputs():
@@ -261,8 +307,9 @@ menubar_file.add_command(label="Open", command=select_file)
 # menubar_file.add_command(label="Settings")
 
 menubar.add_cascade(label="Edit", menu=menubar_edit)
-menubar_edit.add_command(label="Insert page", command=lambda: insert_page())
-menubar_edit.add_command(label="Delete page")
+menubar_edit.add_command(label="Insert page before", command=lambda: insert_page_before())
+menubar_edit.add_command(label="Insert page after", command=lambda: insert_page_after())
+menubar_edit.add_command(label="Delete page", command=lambda: delete_page())
 
 # # Main frame(The most outside)
 mainframe.pack(expand=True, fill=BOTH)
