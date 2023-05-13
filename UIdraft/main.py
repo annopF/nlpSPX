@@ -41,7 +41,7 @@ navbar.grid_columnconfigure(3, weight=6)
 navbar.grid_columnconfigure(4, weight=7)
 scan_btn = Button(navbar, text="Scan", bg="#b5ffc1", padx=15, relief=RIDGE, command=lambda: threading.Thread(target = scan_texts, args=(text,)).start())
 prev_pg_btn = Button(navbar, text="Previous", command=lambda: previous_page(text))
-page_label = Label(navbar, text="Page x / y")
+page_label = Label(navbar, text=f"Page 1/1")
 next_pg_btn = Button(navbar, text="Next", command=lambda: next_page(text))
 navbar_border = Canvas(mainframe, height=0, highlightbackground="#d8d8d8",
                        highlightthickness="0.5")  # fake bottom border
@@ -92,6 +92,7 @@ def select_file():
     INPUT_TEXT = textreader.readtext(selectedfile)
     # INPUT_TEXT = textreader.nopreadtext(selectedfile)
     text.insert(INSERT, INPUT_TEXT[0])  # INSERT, END defines direction to insert text
+    update_page_label()
 
 
 def scan_texts(inputtextbox):
@@ -124,7 +125,24 @@ def scan_texts(inputtextbox):
                 .grid(row=idx + 1, column=0)
     return ()
 
-# Need more? condition check
+
+def page_init():
+    global INPUT_TEXT
+    print("page init")
+    if len(INPUT_TEXT) == 0:
+        INPUT_TEXT.insert(0, [])
+    update_page_label()
+
+
+
+def update_page_label():
+    global page_label
+    global INPUT_TEXT
+    page_length = len(INPUT_TEXT)
+    page_label = Label(navbar, text=f"Page {CURRENT_PAGE_IDX + 1}/{page_length}")
+    page_label.grid(row=0, column=2, sticky="nsew")
+
+
 def previous_page(textbox):
     global INPUT_TEXT
     global CURRENT_PAGE_IDX
@@ -140,6 +158,7 @@ def previous_page(textbox):
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX - 1])
         CURRENT_PAGE_IDX -= 1
         print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
+        update_page_label()
 
     return
 
@@ -160,8 +179,16 @@ def next_page(textbox):
         textbox.insert(INSERT, INPUT_TEXT[CURRENT_PAGE_IDX + 1])
         CURRENT_PAGE_IDX += 1
         print("Showed page ", CURRENT_PAGE_IDX + 1, ' / ', page_length)
+        update_page_label()
 
     return
+
+
+def insert_page():
+    global INPUT_TEXT
+    INPUT_TEXT.insert(CURRENT_PAGE_IDX+1, [])
+    update_page_label()
+    next_page(text)
 
 
 def replace_word(textbox):
@@ -233,6 +260,10 @@ menubar_file.add_command(label="Open", command=select_file)
 # menubar_file.add_command(label="Save as")
 # menubar_file.add_command(label="Settings")
 
+menubar.add_cascade(label="Edit", menu=menubar_edit)
+menubar_edit.add_command(label="Insert page", command=lambda: insert_page())
+menubar_edit.add_command(label="Delete page")
+
 # # Main frame(The most outside)
 mainframe.pack(expand=True, fill=BOTH)
 
@@ -268,6 +299,8 @@ ignore_all_btn.grid(row=0, column=1, sticky="we", padx=10, pady=10)  # PUT comma
 
 # Configure scrollbar
 text_scroll.config(command=text.yview)
+
+page_init()
 
 # Launch GUI(last)
 root.mainloop()
