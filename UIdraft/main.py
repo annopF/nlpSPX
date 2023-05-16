@@ -18,7 +18,7 @@ PARSER = parse()
 
 # Generate window
 root = Tk()
-root.title("Draft GUI")
+root.title("UniAid - Unique word suggestor")
 root.geometry("1280x720")
 root.resizable(width=False, height=False)
 

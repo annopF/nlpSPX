@@ -22,8 +22,12 @@ def readtext(filepath):
 # textract method(ERR: returns )
 def nopreadtext(filepath):
     text = tt.process(filepath)
+    print("Text: ", text)
     texts = text.decode("utf8")
+    print("Texts: ", texts)
     pattern = '\n'
     result = re.sub(pattern, " ", texts)
-    print(result)
+    print("Result", result)
     return result
+
+# https://stackoverflow.com/questions/67724826/analyzing-a-specific-page-of-a-pdf-with-amazon-textract
