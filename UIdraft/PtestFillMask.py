@@ -1,11 +1,6 @@
-import time
 from transformers import logging
-from transformers import pipeline
 from Pcanclean import cleanDup
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-# from parrot import Parrot
 import warnings
-import torch
 warnings.filterwarnings("ignore")
 
 
