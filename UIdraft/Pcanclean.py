@@ -1,4 +1,4 @@
-from Putil import levDistance, cleanDup
+from Putil import cleanDup
 from PgetMorph import *
 from Levenshtein import ratio
 from itertools import combinations
@@ -27,30 +27,22 @@ def removeMorph(maskedSentence, candidateList):
       
   #print(show)
   return (out)
-def checkLevRatio(wordList):
-  out = {}
-  
-  all = combinations(wordList,2)
-  
 
-  print(list(all))
-
-def levRatCheck(input):
-    
-    wordList = [x[0] for x in input]
-    dix = {}
-    for i in wordList:
+def checkLev(inputList):
+  aa = inputList.copy()
+  
+  out = []
+  while len(inputList) != 0:
+    ref = inputList.pop(0)
+    for i in inputList:
+      rat = ratio(ref[0],i[0])
+      if rat > 0.78:
         
-        related = getRelatedForm(i)
-        derived = getInflect(i)
-        #print(i,related,len(related))
+  
+        out.append(i)
         
-        if len(related) > 0:
-            a= [x for x in related+derived if ratio(i,x) > 0.78 and x in wordList] 
-            if len(a) != 0:
-                dix[i] = a
-    print("word with similar root (in progress)", dix)
-    return dix
+  
+  return [x for x in aa if x not in out]
 
 def deepCleanX(wordList):
     from PgetMorph import getAntonym, getRelatedForm
@@ -75,7 +67,6 @@ def deepCleanX(wordList):
    
     out.insert(0,wordList[0])
 
-    levRatCheck(wordList)
 
     return (cleanDup(out))
    

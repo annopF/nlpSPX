@@ -26,7 +26,7 @@ class parse():
         self.ug = None
         self.bg = None
         self.tg = None
-        self.newline = []
+        #self.newline = []
 
     def setUp(self, text):
         startX = time.time()
@@ -128,15 +128,16 @@ class parse():
                 if isStopword(unigram.gram1) or is_exception(unigram.gram1, 1, 0):
                     unigram.safe = False
 
-        start = time.time()
+        """ start = time.time()
         for x, i in enumerate(text):
             if i == "\n":
                 self.newline.append(x + 1)
         end = time.time()
-        print("/*/*/*/*/*/ Elapsed time (find newline)", end - start)
+        print("/*/*/*/*/*/ Elapsed time (find newline)", end - start)"""
 
-        start = time.time()
-        doc = nlp(text.replace("\r", ""))
+        start = time.time() 
+
+        doc = nlp(text.replace("\r", "").replace("\n", ""))
         end = time.time()
         print("/*/*/*/*/*/ Elapsed time (replace /r)", end - start)
 
@@ -158,7 +159,7 @@ class parse():
         self.doc = doc
         text = str(doc)
         start = time.time()
-        text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}", "", text)
+        text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}|\d+", "", text)
         end = time.time()
         print("/*/*/*/*/*/ Elapsed time (replace parentheses)", end - start)
 
@@ -168,6 +169,7 @@ class parse():
         end = time.time()
         print("/*/*/*/*/*/ Elapsed time (replace entity)", end - start)
 
+
         toks = selectTokenizer("wsp", text.lower()).returnList()
         self.ug = createUnigram(toks, 15)
         self.bg = createBigram(toks, 15)
@@ -176,7 +178,6 @@ class parse():
         findWord(self)
         end = time.time()
         print("/*/*/*/*/*/ Elapsed time (findword)", end - start)
-
         start = time.time()
         checkSafe(self)
         end = time.time()
@@ -201,7 +202,7 @@ class parse():
 
         return toks, [word for container in topwords for word in container]
 
-    def cvtIndex(self, tk, x):
+    """ def cvtIndex(self, tk, x):
         # print(">>>>LOG -tcl input:", tk)
         line = int(str(tk).split(".")[0])
         col = int(str(tk).split(".")[1])
@@ -214,7 +215,7 @@ class parse():
             # print("newline",self.newline)
             return (out)
         else:
-            return (col)
+            return (col) """
 
     def highlightAble(self, start):
         for i in self.DoNotHighLight:

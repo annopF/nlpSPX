@@ -2,7 +2,6 @@ import spacy
 from nltk.corpus import wordnet
 from Putil import cleanDup 
 from lemminflect import getAllInflections
-from nltk import word_tokenize, pos_tag
 
 nlp = spacy.load('en_core_web_lg') # just keep tagger for lemmatization
 

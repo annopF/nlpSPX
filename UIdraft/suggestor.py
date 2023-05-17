@@ -54,17 +54,7 @@ def on_highlight_click(textbox, suggestionbox, event, parser):
             def tclToInt(tcl):
                 return int(str(tcl)[slice(2, len(str(tcl)))])
 
-            def getPrevious(start, i):
-                tcl = int(str(start).split(".")[0])
-                previous = event.widget.get(f"{tcl - 1}.0", f"{tcl - 1}.0 lineend")
-                count = i
-                if previous != "":
-                    return (count)
-                else:
-                    count += 1
-                    return (getPrevious(tcl - 1, count))
-
-            count = getPrevious(start, 0)
+            
 
             def whatGram(input):
                 return (parser.getGram(len(str(input).split(" "))))
@@ -73,7 +63,7 @@ def on_highlight_click(textbox, suggestionbox, event, parser):
             out = []
             for xg in whatGram(word):
 
-                a = xg.getParentSentence(parser.cvtIndex(start, count), str(word).lower().strip(), count)
+                a = xg.getParentSentence(tclToInt(start), str(word).lower().strip())
                 if a:
 
                     print("!!---> a.sentID, start, end", a.sentId, a.start, a.end)
