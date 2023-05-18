@@ -3,6 +3,7 @@
 %%%%%% for a few times to generate the output pdf file
 \documentclass[12pt,oneside,openright,a4paper]{cpe-english-project}
 
+
 \usepackage{polyglossia}
  \setdefaultlanguage{english}
  \setotherlanguage{thai}
@@ -693,9 +694,14 @@ In case that user don’t want to replace a particular repeated word. The user c
 
 \section{Application's backend changes}
 At the end of midterm, we had a working front-end UI with clickable buttons and a suggesting engine in place. However, both modules were still working on dummy data and did not exchange anything with each other. When combining both sides, we encountered some challenges related to the compatibility between Spacy and Tkinter. As a result, we needed to change a lot of execution orders in the final implementation.
-
+\begin{figure}[!h]\centering
+\setlength{\fboxrule}{0.2mm} % can define this in the preamble
+\setlength{\fboxsep}{1cm}
+\fbox{\includegraphics[width=15cm]{./img/chp4/pren.png}}
+\caption{Updated pipeline}\label{fig:updated pipeline}
+\end{figure}
 \subsection{Added Preprocessor}
-Referring to figure 3.7, core engine pipeline in chapter 3, we have added a preprocessing step to the Reader component. This stage takes place after the input has been read either from a file or from the input text field. During this process, the following items will be removed from the input text.
+From the core engine pipeline in chapter 3, we have added a preprocessing step to the Reader component. This stage takes place after the input has been read either from a file or from the input text field. During this process, the following items will be removed from the input text.
 \subsubsection{Parentheses}
 All the parentheses including square brackets and curly brackets are removed during the input processing which will utilize the Regular Expression to match and replace all the given conditions. The following expression is employed:
 
@@ -716,7 +722,12 @@ After experimenting with Embedding Dropout method, we could not reproduce the re
 
 \section{Create class objects}
 In the revised codebase, some of the backend code has been rewritten to reduce fragmented data and improve readability. With the help of object-oriented, a large number of functions have been grouped under a new class called Parse to simplify the calling process and data passing between the UI and the backend. Note that not all aspects of the project are written using an object-oriented paradigm, most of the code still exists as a function that does not belong to a class. 
-
+\begin{figure}[!h]\centering
+\setlength{\fboxrule}{0.2mm} % can define this in the preamble
+\setlength{\fboxsep}{1cm}
+\fbox{\includegraphics[width=15cm]{./img/chp4/clas.png}}
+\caption{Class diagram}\label{fig:class diagram}
+\end{figure}
 \subsection{ Parse class}
 This class contains all the methods for setting up the data. It is responsible for creating and initializing all the necessary data objects as well as providing methods for accessing n-gram and document stored in the class. There are publicly available methods which can be called by another modules and private inner methods which is accessible only within the class.
 \subsubsection{Spacy Doc object }
@@ -937,10 +948,11 @@ In this project, intrinsic evaluation is used to assess the quality of generated
 The table below illustrates the top 15 rankings from the final output which has been reranked using consensus ranking and raw output which is the raw ranking from the model without any operation applied including all the cleaning procedure and consensus ranking.
 \\
 According to the table, some candidates with wrong part of speech are still present in the list this is due to the POS tagger misclassified the word. The issue arises because the tagger can only handle grammatically correct sentences, however, the predicted output from the model is not always in the right part of speech. As a consequence, when substituting those words in the <mask> position, the tagger will give an incorrect result. 
+\\\\
 
 
 
-\begin{table}[htp]
+
 \begin{tabular}{ll}
 \hline
 \textbf{Final output (rerank)} &
@@ -954,8 +966,8 @@ According to the table, some candidates with wrong part of speech are still pres
 \begin{tabular}[c]{@{}l@{}}{[}'manages', 'handles', 'processes', 'addresses', \\ 'tackles', 'controls', 'treats', 'covers',\\ 'oversees',  'uses', 'supports', 'carries',\\ 'deals', 'governs', 'contains'{]}\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}{[}'handles', 'processes', 'manages', 'treats',\\ 'handle',  'deals', 'performs', 'handling',\\ 'considers', 'conducts', 'handled',\\ 'approaches', 'uses', 'supports', 'addresses'{]}\end{tabular} \\ \hline
 \end{tabular}
-\caption{\label{final vs raw}Comparing final and raw ranking}
-\end{table}
+
+
 
 \subsection{The effect of consensus ranking}
 
@@ -964,6 +976,13 @@ Considers the above table to see the effect of consensus ranking. The first colu
 The context is “Samsung Galaxy watch is the best Android Wearable on the market right now” where the word market is replaced with <mask>. 
 
 According to the given sentence, none of the stated words should be ranked at the current position because they are totally irrelevant and do not preserve the meaning of the original sentence at all.
+
+\begin{figure}[!h]\centering
+\setlength{\fboxrule}{0.2mm} % can define this in the preamble
+\setlength{\fboxsep}{1cm}
+\fbox{\includegraphics[width=15cm]{./img/chp4/ccr.png}}
+\caption{consensus ranking}\label{fig:consensus ranking}
+\end{figure}
 
 In consensus ranking, each judge (model) ranks the candidates independently, except the \verb/Entailment_score/ which uses the score from ST MNLI as a base. Those low-quality words have been pushed down the rank (2nd-4th column) because they received a lower score. Thus when aggregated (last column), the final output represents a better overall ranking quality. Despite averaging the position across all rankings, in some contexts, the judges may fail to capture the potential candidates which leads to some appropriate substitutions being ranked lower.
 
@@ -983,7 +1002,7 @@ The only difference between the original sentence and the rest is the target wor
 \subsection{Out-of-the-box model vs finetuned model}
 Overall, the finetuned model shows no significant improvement over the original, most of the predicted candidates are comparable, but with less variety and correctness. 
 
-\begin{table}[htp]
+
 \begin{tabular}{lll}
 \hline
 \textbf{sentence} &
@@ -999,8 +1018,8 @@ Overall, the finetuned model shows no significant improvement over the original,
   \begin{tabular}[c]{@{}l@{}}prestigious, foremost, prominent, \\ reputable, respectable, crucial, \\ elite, esteemed, important, \\ fashionable, distinguished\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}prestigious, top, foremost, \\ prominent, major, premier, \\ main, classical, elite, small, \\ popular\end{tabular} \\ \hline
 \end{tabular}
-\caption{\label{base vs custom}Comparing base model and finetuned model}
-\end{table}
+
+
 
 
 \subsection{Human judgment}
@@ -1015,40 +1034,94 @@ INSTRUCTION:
 The candidates will replace <mask> position in the given sentence and it should preserve the semantics of the original sentence. Thanks”
 \\\\
 Both annotators are our colleagues with an English proficiency level of C1 (advanced level) according to the Common European Framework of Reference for Languages (CEFR). 
-\\\\
 The Council of Europe describes C1 fluency as follows:
 “Can understand a wide range of demanding, longer texts, and recognize implicit meaning. Can express him/herself fluently and spontaneously without much obvious searching for expressions. Can use language flexibly and effectively for social, academic and professional purposes. Can produce clear, well-structured, detailed text on complex subjects, showing controlled use of organisational patterns, connectors and cohesive devices.” [cite: Global scale - Table 1 (CEFR 3.3): Common Reference levels]
-\\\\
+\\
 The result is represented as follows:
-OG SEN: original sentence without mask
-MASKED WORD: target word to mask
-MASKED SEN: sentence replaced the target word with <mask> token
-\\\\
-Final: the aggregated final ranking using consensus scheme
-Anotator Overlap: words that both annotators selected as appropriate substitutions. This indicates 100% agreement between 2 judges.
-%Usable: proportion of words that appear in Annotator Overlap that are also in Final.
-Assuming an ideal candidate is the one appears in Annotator Overlap. %Usable metric indicates how many words in the top 15 are considered a good substitution based on human judgment. 
+\begin{itemize}
 
-\begin{verbatim}
->>>> OG SEN: The punishment given to the rich people is unsatisfactory to the victim's family.
->>>> MASKED WORD: people
->>>> MASKED SEN: The punishment given to the rich <mask> is unsatisfactory to the victim's family.
-\end{verbatim}
-\begin{table}[htp]
+\item OG SEN: original sentence without mask
+\item MASKED WORD: target word to mask
+\item MASKED SEN: sentence replaced the target word with <mask> token
+
+
+\item Final: the aggregated final ranking using consensus scheme
+\item Anotator Overlap: words that both annotators selected as appropriate substitutions. This indicates 100 percent agreement between 2 judges.
+\item Percent Usable: proportion of words that appear in Annotator Overlap that are also in Final. Assuming an ideal candidate is the one appears in Annotator Overlap percent 
+\item Usable metric indicates how many words in the top 15 are considered a good substitution based on human judgment. 
+\end{itemize}
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+
 \begin{tabular}{lllll}
+\hline
+
+\multicolumn{5}{l}{\begin{tabular}[c]{@{}l@{}}\textgreater{}\textgreater{}\textgreater{}\textgreater OG SEN: The punishment given to the rich people is unsatisfactory to the victim's family.\\ \textgreater{}\textgreater{}\textgreater{}\textgreater MASKED WORD: people\\ \textgreater{}\textgreater{}\textgreater{}\textgreater MASKED SEN: The punishment given to the rich \textless{}mask\textgreater is unsatisfactory to the victim's family.\end{tabular}} \\ \hline
 Final &
   Annotator 1 &
   Annotator 2 &
   Annotator Overlap &
-  \% Usable \\
+  \% Usable \\ \hline
 
-{[}'people', 'folks', 'ones', 'persons', 'individuals', 'classes', 'men', 'citizens', 'things', 'criminals', 'subjects', 'groups', 'leaders', 'masses', 'guys'{]} &
-  {[}'people', 'folks', 'ones', 'persons', 'individuals', 'classes', 'men', 'citizens','criminals', 'subjects', 'leaders', 'guys'{]} &
-  {[}'people', 'folks', 'ones', 'individuals', 'classes', 'men', 'citizens', 'criminals', 'subjects'{]} &
-  \{'subjects', 'individuals', 'folks', 'criminals', 'classes', 'men', 'citizens', 'ones', 'people'\} &
-  60
+\begin{tabular}[c]{@{}l@{}}{[}'people', 'folks',\\ 'ones',  'persons',\\ 'individuals',  'classes',\\ 'men', 'citizens', \\ 'things', 'criminals',\\ 'subjects', 'groups',\\ 'leaders', 'masses', \\'guys'{]}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}{[}'people', 'folks',\\ 'ones',  'persons',\\ 'individuals',  'classes', \\'men', 'citizens',\\ 'criminals', 'subjects', \\ 'leaders', 'guys'{]}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}{[}'people', 'folks',\\ 'ones',  'individuals', \\'classes',  'men',\\ 'citizens', 'criminals',\\  'subjects'{]}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}\{'subjects', \\'individuals', \\ 'folks', 'criminals',\\ 'classes',  'men', \\'citizens', 'ones',\\  'people'\}\end{tabular} &
+  60 \\ \hline
+
+\multicolumn{5}{l}{\begin{tabular}[c]{@{}l@{}}\textgreater{}\textgreater{}\textgreater{}\textgreater OG SEN: During the lecture, the professor explained the concept with clarity.\\ \textgreater{}\textgreater{}\textgreater{}\textgreater MASKED WORD: concept\\ \textgreater{}\textgreater{}\textgreater{}\textgreater MASKED SEN: During the lecture, the professor explained the \textless{}mask\textgreater with clarity.\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}{[}'concept', 'idea', \\'notion', 'premise',\\ 'topic', 'principle', \\ 'thing', 'point', \\'subject','proposition', \\'process', \\ 'information',\\ 'phenomenon', \\ 'thought', 'term'{]}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}{[}'concept', 'idea', \\'notion', \\ 'premise', 'topic', \\'principle', \\ 'point', 'subject', \\'process',\\  'information', \\ 'phenomenon', 'term'{]}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}{[}'concept', 'idea',\\ 'notion',  'topic',\\ 'point', 'subject',\\  'term'{]}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}\{'idea', 'point', 'topic',\\  'notion', 'term',\\ 'subject', 'concept'\}\end{tabular} &
+  46.66 \\ \hline
 \end{tabular}
-\end{table}
+
+
+\section{Comparing to the existing product}
+Our approach is able to uncover hidden synonyms that are otherwise missed by Grammarly, for instance, the word “strong” in “The study findings indicate a strong correlation between two key variables.”, candidates like “high” and “close” are a good replacement in the sentence “The study findings indicate a strong correlation between two key variables.”, but may not be counted as a synonym without taking into account the surrounding context. This is also true for “criminals” as it is not a synonym of the word “people” if we do not consider its contextual information. However, “criminal” is a fairly suitable substitution for “The punishment given to the rich people is unsatisfactory to the victim's family”
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+
+\begin{tabular}{lll}
+\hline
+\textbf{sentence} &
+  \textbf{Our work} &
+  \textbf{Grammarly} \\ \hline
+\begin{tabular}[c]{@{}l@{}}The punishment given to the rich people \\ is unsatisfactory to the victim's family. \\(people)\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}people, persons, ones, things, \\ men, folks, criminals, families, \\ guys, individuals, citizens\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}individuals, somebody, \\someones\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}During the lecture, the professor explained \\ the concept with clarity.\\ (concept)\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}{[}'concept', 'idea', 'notion', \\'premise',  'topic', 'principle',\\ 'thing', 'point', \\ 'subject','proposition', 'process',\\  'information', 'phenomenon', \\ 'thought', 'term'{]}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}idea, picture, image, \\notion, vision \end{tabular}\\ \hline
+\begin{tabular}[c]{@{}l@{}}The study findings indicate a strong \\ correlation between two key variables.\\ (strong)\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}strong, strongly, robust, powerful, \\ substantial, high, large, vigorious,\\  close, good, strict\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}robust, healthy, vital, \\vigorious, \\ substantial, firm, decisive\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Cutting-edge research in the field is published \\ by the prestigious academic journal.\\ (prestigious)\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}prestigious, foremost, prominent, \\ reputable, respectable, crucial, \\ elite, esteemed, important, \\ fashionable, distinguished\end{tabular} &
+  N/A \\ \hline
+\end{tabular}
+
+
+\chapter{Conclusion}
+In conclusion, our senior project aimed to develop a program that addresses the common challenge of repetitive usage of words often found in non-native writers. Through natural language processing knowledge, we were able to detect and highligh relevant repetitions presented in the document. By leveraging the Transformer Fill Mask approach, our program was able to produce a wide variety of substitutions based on context including suitable words that may be missed by the existing solutions.
+\\\\
+While our program successfully captures a wide range of indirect synonyms and achieves a greater coverage in vocabulary options comparing to other non contextual methods, it is important to acknowledge the accuracy issue present in the output. Due to the nature of the machine learning-based approach, the program often generate incorrect word substitutions, words with incorrect parts of speech, or suggest irrelevant words. These inaccuracies can impact the overall quality and effectiveness of the suggestions. To mitigate these accuracy issues, we have implemented multiple sanitization policies that filter out incorrect substitutions based on their linguistic attributes. Additionally, a consensus ranking mechanism has been employed to adjust the ranking of the final suggestions, prioritizing high quality candidates that are better suited for a given sentence over those with lower relevance.
+\\\\
+In addition to detecting overused words and suggesting alternatives, our program offers a visual representation by identifying and highlighting repetitive words within the text. This feature allows writers to easily identify areas that need improvement, enhancing their ability to address repetitive word usage effectively.
+\\\\
+It is worth noting that, like any language processing tool, our program may still exhibit certain limitations. The nature of machine learning-based approaches can result in gender biases, reflecting the biases inherent in real-world language usage. Furthermore, limitations such as inability for the end-user to continue working due to the lack of saving feature, occasional connectivity issues with the Huggingface Hub API, and high resource utilization due to the characteristic of Transformer-based technique may affect the overall usability of the program in the real-world.
+\\\\
+Moving forward, further exploration and refinement are needed to improve the accuracy of the program's output. Incorporating a new technology such as a generative AI and large language model could potentially enhance the relevance and precision of the suggested alternatives.
+\\\\
+In summary, our project provides a practical tool for writers to enhance the quality of their written work by detecting overused words and offering contextually appropriate alternative suggestions. By considering surrounding context, our program offers a broader coverage and uncovers hidden synonyms that otherwise missed by other tools. While limitations exist, we have implemented measures to improve accuracy, prioritizing more suitable alternatives and refining the output. With its visual highlighting feature, our program assists writers in identifying and addressing repetitive word usage effectively.
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Conclusions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

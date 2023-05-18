@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.17)  30 MAR 2023 12:25
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.10) (preloaded format=xelatex 2022.11.17)  18 MAY 2023 16:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -21,15 +21,15 @@ Document Class: report 2021/10/04 v1.4n Standard LaTeX document class
 (D:\Programs\latex\tex/latex/base\size10.clo
 File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count185
-\c@chapter=\count186
-\c@section=\count187
-\c@subsection=\count188
-\c@subsubsection=\count189
-\c@paragraph=\count190
-\c@subparagraph=\count191
-\c@figure=\count192
-\c@table=\count193
+\c@part=\count181
+\c@chapter=\count182
+\c@section=\count183
+\c@subsection=\count184
+\c@subsubsection=\count185
+\c@paragraph=\count186
+\c@subparagraph=\count187
+\c@figure=\count188
+\c@table=\count189
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
@@ -48,9 +48,9 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 (D:\Programs\latex\tex/generic/iftex\iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 ))
-\Gm@cnth=\count194
-\Gm@cntv=\count195
-\c@Gm@tempcnt=\count196
+\Gm@cnth=\count190
+\Gm@cntv=\count191
+\c@Gm@tempcnt=\count192
 \Gm@bindingoffset=\dimen139
 \Gm@wd@mp=\dimen140
 \Gm@odd@mp=\dimen141
@@ -74,10 +74,10 @@ Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 (D:\Programs\latex\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 107.
+Package graphics Info: Driver file: xetex.def on input line 107.
 
-(D:\Programs\latex\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+(D:\Programs\latex\tex/latex/graphics-def\xetex.def
+File: xetex.def 2022/09/22 v5.0n Graphics/color driver for xetex
 \stockwidth=\dimen147
 \stockheight=\dimen148
 ))
@@ -123,14 +123,14 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (D:\Programs\latex\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count197
+\inf@bad=\count193
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count198
-\leftroot@=\count199
+\uproot@=\count194
+\leftroot@=\count195
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count266
-\DOTSCASE@=\count267
+\classnum@=\count196
+\DOTSCASE@=\count197
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -143,20 +143,20 @@ LaTeX Info: Redefining \Bigg on input line 725.
 \big@size=\dimen155
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count268
+\macc@depth=\count198
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count269
+\c@MaxMatrixCols=\count199
 \dotsspace@=\muskip16
-\c@parentequation=\count270
-\dspbrk@lvl=\count271
+\c@parentequation=\count266
+\dspbrk@lvl=\count267
 \tag@help=\toks21
-\row@=\count272
-\column@=\count273
-\maxfields@=\count274
+\row@=\count268
+\column@=\count269
+\maxfields@=\count270
 \andhelp@=\toks22
 \eqnshift@=\dimen156
 \alignsep@=\dimen157
@@ -177,31 +177,1057 @@ r XeLaTeX)
 
 (D:\Programs\latex\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count275
+\etb@tempcnta=\count271
 )
 (D:\Programs\latex\tex/generic/iftex\ifxetex.sty
 Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
 )
+(D:\Programs\latex\tex/latex/fontspec\fontspec.sty
+(D:\Programs\latex\tex/latex/l3packages/xparse\xparse.sty
+(D:\Programs\latex\tex/latex/l3kernel\expl3.sty
+Package: expl3 2022-09-28 L3 programming layer (loader) 
 
- ********************************************
- * XeTeX is required to compile this document.
- * Sorry!
- ********************************************
+(D:\Programs\latex\tex/latex/l3backend\l3backend-xetex.def
+File: l3backend-xetex.def 2022-09-28 L3 backend support: XeTeX
+\g__graphics_track_int=\count272
+\l__pdf_internal_box=\box55
+\g__pdf_backend_object_int=\count273
+\g__pdf_backend_annotation_int=\count274
+\g__pdf_backend_link_int=\count275
+))
+Package: xparse 2022-06-22 L3 Experimental document command parser
+)
+Package: fontspec 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTeX
 
-! Emergency stop.
-<read *> 
-         
-l.10 \RequireXeTeX
-                  
-*** (cannot \read from terminal in nonstop modes)
+(D:\Programs\latex\tex/latex/fontspec\fontspec-xetex.sty
+Package: fontspec-xetex 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTe
+X
+\l__fontspec_script_int=\count276
+\l__fontspec_language_int=\count277
+\l__fontspec_strnum_int=\count278
+\l__fontspec_tmp_int=\count279
+\l__fontspec_tmpa_int=\count280
+\l__fontspec_tmpb_int=\count281
+\l__fontspec_tmpc_int=\count282
+\l__fontspec_em_int=\count283
+\l__fontspec_emdef_int=\count284
+\l__fontspec_strong_int=\count285
+\l__fontspec_strongdef_int=\count286
+\l__fontspec_tmpa_dim=\dimen162
+\l__fontspec_tmpb_dim=\dimen163
+\l__fontspec_tmpc_dim=\dimen164
 
- 
+(D:\Programs\latex\tex/latex/base\fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(D:\Programs\latex\tex/latex/fontspec\fontspec.cfg)))
+(D:\Programs\latex\tex/latex/xkeyval\xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(D:\Programs\latex\tex/generic/xkeyval\xkeyval.tex
+(D:\Programs\latex\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks25
+\XKV@tempa@toks=\toks26
+)
+\XKV@depth=\count287
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+\c@eu@=\count288
+\c@eu@i=\count289
+\c@mkern=\count290
+)
+(D:\Programs\latex\tex/xelatex/xunicode\xunicode.sty
+File: xunicode.sty 2011/09/09 v0.981 provides access to latin accents and many 
+other characters in Unicode lower plane
+
+(D:\Programs\latex\tex/latex/tipa\t3enc.def
+File: t3enc.def 2001/12/31 T3 encoding
+)
+\tipaTiiicode=\count291
+\tipasavetokens=\toks27
+\tipachecktokens=\toks28
+)
+(D:\Programs\latex\tex/latex/xltxtra\xltxtra.sty
+Package: xltxtra 2018/12/31 v0.7 Improvements for the "XeLaTeX" format
+
+(D:\Programs\latex\tex/generic/iftex\ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+)
+(D:\Programs\latex\tex/latex/realscripts\realscripts.sty
+Package: realscripts 2016/02/13 v0.3d Access OpenType subscripts and superscrip
+ts
+\subsupersep=\dimen165
+)
+(D:\Programs\latex\tex/latex/metalogo\metalogo.sty
+Package: metalogo 2010/05/29 v0.12 Extended TeX logo macros
+\xl@everylogo=\toks29
+\xl@@everylogo=\toks30
+LaTeX Info: Redefining \TeX on input line 193.
+LaTeX Info: Redefining \LaTeX on input line 202.
+LaTeX Info: Redefining \LaTeXe on input line 219.
+)
+\l__xetex_show_hyphens_wrapping_box=\box56
+\l__xetex_show_hyphens_temp_box=\box57
+\l__xetex_show_hyphens_final_box=\box58
+\g__xetex_show_hyphens_word_box=\box59
+)
+(D:\Programs\latex\tex/latex/url\url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(D:\Programs\latex\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2022-09-22 v7.00t Hypertext links for LaTeX
+
+(D:\Programs\latex\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(D:\Programs\latex\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(D:\Programs\latex\tex/generic/infwarerr\infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode not found.
+)
+(D:\Programs\latex\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(D:\Programs\latex\tex/generic/kvdefinekeys\kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(D:\Programs\latex\tex/generic/pdfescape\pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(D:\Programs\latex\tex/latex/hycolor\hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(D:\Programs\latex\tex/latex/letltxmacro\letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(D:\Programs\latex\tex/latex/auxhook\auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(D:\Programs\latex\tex/latex/hyperref\nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+
+(D:\Programs\latex\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(D:\Programs\latex\tex/generic/gettitlestring\gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+
+(D:\Programs\latex\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count292
+)
+\@linkdim=\dimen166
+\Hy@linkcounter=\count293
+\Hy@pagecounter=\count294
+
+(D:\Programs\latex\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2022-09-22 v7.00t Hyperref: PDFDocEncoding definition (HO)
+)
+(D:\Programs\latex\tex/generic/intcalc\intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(D:\Programs\latex\tex/generic/etexcmds\etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count295
+
+(D:\Programs\latex\tex/latex/hyperref\puenc.def
+File: puenc.def 2022-09-22 v7.00t Hyperref: PDF Unicode definition (HO)
+
+(D:\Programs\latex\tex/latex/hyperref\puenc-greekbasic.def
+File: puenc-greekbasic.def 2022-09-22 v7.00t Hyperref: PDF Unicode definition (
+greek block) (HO)
+))
+Package hyperref Info: Hyper figures OFF on input line 4162.
+Package hyperref Info: Link nesting OFF on input line 4167.
+Package hyperref Info: Hyper index ON on input line 4170.
+Package hyperref Info: Plain pages OFF on input line 4177.
+Package hyperref Info: Backreferencing OFF on input line 4182.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4410.
+\c@Hy@tempcnt=\count296
+LaTeX Info: Redefining \url on input line 4748.
+\XeTeXLinkMargin=\dimen167
+
+(D:\Programs\latex\tex/generic/bitset\bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(D:\Programs\latex\tex/generic/bigintcalc\bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count297
+\Field@Width=\dimen168
+\Fld@charsize=\dimen169
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+
+(D:\Programs\latex\tex/latex/base\atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count298
+\c@Item=\count299
+\c@Hfootnote=\count300
+)
+Package hyperref Info: Driver (autodetected): hxetex.
+
+(D:\Programs\latex\tex/latex/hyperref\hxetex.def
+File: hxetex.def 2022-09-22 v7.00t Hyperref driver for XeTeX
+
+(D:\Programs\latex\tex/generic/stringenc\stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\pdfm@box=\box60
+\c@Hy@AnnotLevel=\count301
+\HyField@AnnotCount=\count302
+\Fld@listcount=\count303
+\c@bookmark@seq@number=\count304
+
+(D:\Programs\latex\tex/latex/rerunfilecheck\rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(D:\Programs\latex\tex/latex/base\atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+(D:\Programs\latex\tex/generic/uniquecounter\uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip54
+)
+Package hyperref Info: Option `linktocpage' set `true' on input line 49.
+Package hyperref Info: Option `colorlinks' set `true' on input line 49.
+\bibindent=\dimen170
+
+(D:\Programs\latex\tex/latex/base\latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+)
+\c@definition=\count305
+)
+(D:\Programs\latex\tex/latex/polyglossia\polyglossia.sty
+Package: polyglossia 2022/10/26 v1.58 Modern multilingual typesetting with XeLa
+TeX and LuaLaTeX
+
+(D:\Programs\latex\tex/latex/makecmds\makecmds.sty
+Package: makecmds 2009/09/03 v1.0a extra command making commands
+)
+(D:\Programs\latex\tex/latex/l3packages/l3keys2e\l3keys2e.sty
+Package: l3keys2e 2022-06-22 LaTeX2e option processing using LaTeX3 keys
+)
+\xpg@normalclass=\XeTeXcharclass1
+
+(D:\Programs\latex\tex/latex/polyglossia\gloss-latex.lde
+Package: gloss-latex 2022/10/26 vv1.58 polyglossia: module for default language
+
+The property list \polyglossia@langsetup contains the pairs (without outer
+braces):
+>  {latex/script}  =>  {latin}
+>  {latex/lcscript}  =>  {latin}
+>  {latex/scripttag}  =>  {}
+>  {latex/language}  =>  {Latex}
+>  {latex/langtag}  =>  {ENG}
+>  {latex/bcp47}  =>  {}
+>  {latex/hyphennames}  =>  {english}
+>  {latex/direction}  =>  {LR}
+>  {latex/hyphenmins}  =>  {2,3}
+>  {latex/frenchspacing}  =>  {false}
+>  {latex/indentfirst}  =>  {false}
+>  {latex/fontsetup}  =>  {true}
+>  {latex/envname}  =>  {latex}
+>  {latex/babelname}  =>  {latex}
+>  {latex/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/DefineCommandsCmd}  =>  {use_none:n}.
+)
+Package polyglossia Info: Default language is latex.
+)
+(D:\Programs\latex\tex/latex/polyglossia\gloss-english.ldf
+File: gloss-english.ldf polyglossia: module for English
+The property list \polyglossia@langsetup contains the pairs (without outer
+braces):
+>  {latex/script}  =>  {latin}
+>  {latex/lcscript}  =>  {latin}
+>  {latex/scripttag}  =>  {}
+>  {latex/language}  =>  {Latex}
+>  {latex/langtag}  =>  {ENG}
+>  {latex/bcp47}  =>  {}
+>  {latex/hyphennames}  =>  {english}
+>  {latex/direction}  =>  {LR}
+>  {latex/hyphenmins}  =>  {2,3}
+>  {latex/frenchspacing}  =>  {false}
+>  {latex/indentfirst}  =>  {false}
+>  {latex/fontsetup}  =>  {true}
+>  {latex/envname}  =>  {latex}
+>  {latex/babelname}  =>  {latex}
+>  {latex/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/DefineCommandsCmd}  =>  {use_none:n}
+>  {english/script}  =>  {latin}
+>  {english/lcscript}  =>  {latin}
+>  {english/scripttag}  =>  {}
+>  {english/language}  =>  {English}
+>  {english/langtag}  =>  {ENG}
+>  {english/bcp47}  =>  {en-US}
+>  {english/hyphennames}  =>  {english,american,usenglish,USenglish}
+>  {english/direction}  =>  {LR}
+>  {english/hyphenmins}  =>  {2,3}
+>  {english/frenchspacing}  =>  {false}
+>  {english/indentfirst}  =>  {false}
+>  {english/fontsetup}  =>  {true}
+>  {english/envname}  =>  {english}
+>  {english/babelname}  =>  {english}
+>  {english/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {english/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {english/DefineCommandsCmd}  =>  {xpg_define_language_commands:e}.
+Package polyglossia Info: Option: English, variant=american.
+)
+Package polyglossia Info: Default language is english.
+
+(D:\Programs\latex\tex/latex/polyglossia\gloss-thai.ldf
+File: gloss-thai.ldf polyglossia: module for Thai
+The property list \polyglossia@langsetup contains the pairs (without outer
+braces):
+>  {latex/script}  =>  {latin}
+>  {latex/lcscript}  =>  {latin}
+>  {latex/scripttag}  =>  {}
+>  {latex/language}  =>  {Latex}
+>  {latex/langtag}  =>  {ENG}
+>  {latex/bcp47}  =>  {}
+>  {latex/hyphennames}  =>  {english}
+>  {latex/direction}  =>  {LR}
+>  {latex/hyphenmins}  =>  {2,3}
+>  {latex/frenchspacing}  =>  {false}
+>  {latex/indentfirst}  =>  {false}
+>  {latex/fontsetup}  =>  {true}
+>  {latex/envname}  =>  {latex}
+>  {latex/babelname}  =>  {latex}
+>  {latex/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/DefineCommandsCmd}  =>  {use_none:n}
+>  {english/script}  =>  {latin}
+>  {english/lcscript}  =>  {latin}
+>  {english/scripttag}  =>  {}
+>  {english/language}  =>  {English}
+>  {english/langtag}  =>  {ENG}
+>  {english/bcp47}  =>  {en-US}
+>  {english/hyphennames}  =>  {english,american,usenglish,USenglish}
+>  {english/direction}  =>  {LR}
+>  {english/hyphenmins}  =>  {2,3}
+>  {english/frenchspacing}  =>  {false}
+>  {english/indentfirst}  =>  {false}
+>  {english/fontsetup}  =>  {true}
+>  {english/envname}  =>  {english}
+>  {english/babelname}  =>  {american}
+>  {english/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {english/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {english/DefineCommandsCmd}  =>  {xpg_define_language_commands:e}
+>  {thai/script}  =>  {Thai}
+>  {thai/lcscript}  =>  {thai}
+>  {thai/scripttag}  =>  {thai}
+>  {thai/language}  =>  {Thai}
+>  {thai/langtag}  =>  {THA}
+>  {thai/bcp47}  =>  {th}
+>  {thai/hyphennames}  =>  {nohyphenation}
+>  {thai/direction}  =>  {LR}
+>  {thai/hyphenmins}  =>  {2,3}
+>  {thai/frenchspacing}  =>  {false}
+>  {thai/indentfirst}  =>  {false}
+>  {thai/fontsetup}  =>  {true}
+>  {thai/envname}  =>  {thai}
+>  {thai/babelname}  =>  {thai}
+>  {thai/localnumeral}  =>  {thainumerals}
+>  {thai/Localnumeral}  =>  {thainumerals}
+>  {thai/DefineCommandsCmd}  =>  {xpg_define_language_commands:e}.
+)
+
+Package fontspec Info: Font family 'THSarabunNew(0)' created for font 'TH
+(fontspec)             Sarabun New' with options [Script=Thai,Scale=1.23].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->s*[1.23]"TH
+(fontspec)             Sarabun New/OT:script=thai;language=dflt;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->s*[1.23]"TH Sarabun
+(fontspec)             New/B/OT:script=thai;language=dflt;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->s*[1.23]"TH
+(fontspec)             Sarabun New/I/OT:script=thai;language=dflt;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.: 
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->s*[1.23]"TH
+(fontspec)             Sarabun New/BI/OT:script=thai;language=dflt;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
+
+
+Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
+(fontspec)             New Roman' with options
+(fontspec)             [Mapping=tex-text,Scale=1.0,LetterSpace=0.0,Ligatures=Te
+X,Scale=1.0,LetterSpace=0,WordSpace=1.0,FakeStretch=1.0].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->s*[1.0]"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;letterspace=0.0;lette
+rspace=0;extend=1.0;mapping=tex-text;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
+(fontspec)             <->s*[1.0]"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;letterspace=0.0;lette
+rspace=0;extend=1.0;+smcp;mapping=tex-text;"
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1.0\fontdimen 2\font \fontdimen
+(fontspec)             3\font =1.0\fontdimen 3\font \fontdimen 4\font
+(fontspec)             =1.0\fontdimen 4\font 
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->s*[1.0]"Times New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;letterspace=0.0;let
+terspace=0;extend=1.0;mapping=tex-text;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
+(fontspec)             <->s*[1.0]"Times New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;letterspace=0.0;let
+terspace=0;extend=1.0;+smcp;mapping=tex-text;"
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1.0\fontdimen 2\font \fontdimen
+(fontspec)             3\font =1.0\fontdimen 3\font \fontdimen 4\font
+(fontspec)             =1.0\fontdimen 4\font 
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->s*[1.0]"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;letterspace=0.0;let
+terspace=0;extend=1.0;mapping=tex-text;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->s*[1.0]"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;letterspace=0.0;let
+terspace=0;extend=1.0;+smcp;mapping=tex-text;"
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1.0\fontdimen 2\font \fontdimen
+(fontspec)             3\font =1.0\fontdimen 3\font \fontdimen 4\font
+(fontspec)             =1.0\fontdimen 4\font 
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[1.0]"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;letterspace=0.0;le
+tterspace=0;extend=1.0;mapping=tex-text;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->s*[1.0]"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;letterspace=0.0;le
+tterspace=0;extend=1.0;+smcp;mapping=tex-text;"
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1.0\fontdimen 2\font \fontdimen
+(fontspec)             3\font =1.0\fontdimen 3\font \fontdimen 4\font
+(fontspec)             =1.0\fontdimen 4\font 
+
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 10.0pt on input line 12.
+\c@theorem=\count306
+\c@lemma=\count307
+\c@corollary=\count308
+
+(F:/Work Folder/KMUTT/SeniorProject/nlpSPX/latex/Report Format Latex\undergrad-
+sample-english.aux
+LaTeX Info: Redefining \rmfamily on input line 16.
+LaTeX Info: Redefining \sffamily on input line 16.
+LaTeX Info: Redefining \ttfamily on input line 16.
+)
+\openout1 = `undergrad-sample-english.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 115.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
+15.
+ (D:\Programs\latex\tex/latex/base\ts1cmr.fd
+File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 115.
+LaTeX Font Info:    Trying to load font information for T3+cmr on input line 11
+5.
+
+(D:\Programs\latex\tex/latex/tipa\t3cmr.fd
+File: t3cmr.fd 2001/12/31 TIPA font definitions
+)
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+*geometry* verbose mode - [ preamble ] result:
+* driver: xetex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(113.81102pt, 426.79135pt, 56.9055pt)
+* v-part:(T,H,B)=(85.35826pt, 702.78308pt, 56.9055pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=433.62pt
+* \textheight=712.49861pt
+* \oddsidemargin=36.135pt
+* \evensidemargin=41.54103pt
+* \topmargin=-22.76228pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(D:\Programs\latex\tex/latex/graphics\color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+
+(D:\Programs\latex\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: xetex.def on input line 149.
+
+(D:\Programs\latex\tex/latex/graphics\mathcolor.ltx))
+Package hyperref Info: Link coloring ON on input line 115.
+
+(F:/Work Folder/KMUTT/SeniorProject/nlpSPX/latex/Report Format Latex\undergrad-
+sample-english.out)
+(F:/Work Folder/KMUTT/SeniorProject/nlpSPX/latex/Report Format Latex\undergrad-
+sample-english.out)
+\@outlinefile=\write3
+\openout3 = `undergrad-sample-english.out'.
+
+The property list \__xpg_alias contains the pairs (without outer braces):
+>  {latex/target}  =>  {latex}
+>  {english/target}  =>  {english}
+>  {en/target}  =>  {english}
+>  {en-AU/target}  =>  {english}
+>  {en-AU/variant}  =>  {australian}
+>  {en-AU/options}  =>  {variant=australian}
+>  {en-CA/target}  =>  {english}
+>  {en-CA/variant}  =>  {canadian}
+>  {en-CA/options}  =>  {variant=canadian}
+>  {en-GB/target}  =>  {english}
+>  {en-GB/variant}  =>  {british}
+>  {en-GB/options}  =>  {variant=british}
+>  {en-NZ/target}  =>  {english}
+>  {en-NZ/variant}  =>  {newzealand}
+>  {en-NZ/options}  =>  {variant=newzealand}
+>  {en-US/target}  =>  {english}
+>  {en-US/variant}  =>  {us}
+>  {en-US/options}  =>  {variant=us}
+>  {american/target}  =>  {english}
+>  {american/variant}  =>  {us}
+>  {american/options}  =>  {variant=us}
+>  {australian/target}  =>  {english}
+>  {australian/variant}  =>  {australian}
+>  {australian/options}  =>  {variant=australian}
+>  {british/target}  =>  {english}
+>  {british/variant}  =>  {british}
+>  {british/options}  =>  {variant=british}
+>  {canadian/target}  =>  {english}
+>  {canadian/variant}  =>  {canadian}
+>  {canadian/options}  =>  {variant=canadian}
+>  {newzealand/target}  =>  {english}
+>  {newzealand/variant}  =>  {newzealand}
+>  {newzealand/options}  =>  {variant=newzealand}
+>  {thai/target}  =>  {thai}
+>  {th/target}  =>  {thai}.
+LaTeX Info: Redefining \rmfamily on input line 115.
+LaTeX Info: Redefining \sffamily on input line 115.
+LaTeX Info: Redefining \ttfamily on input line 115.
+File: logo02.jpg Graphic file (type bmp)
+<logo02.jpg>
+ [1
+
+
+]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 125
+.
+ (D:\Programs\latex\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 125
+.
+
+(D:\Programs\latex\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 12
+5.
+
+(D:\Programs\latex\tex/latex/base\ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+Underfull \hbox (badness 10000) in alignment at lines 125--125
+[] [] 
+ []
+
+[2]
+
+Package hyperref Warning: bookmark level for unknown chapterx defaults to 0.
+
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 10.0pt on input line 130.
+
+Underfull \hbox (badness 10000) in alignment at lines 135--137
+[][] 
+ []
+
+[2]
+LaTeX Font Info:    Font shape `TU/THSarabunNew(0)/m/n' will be
+(Font)              scaled to size 12.29996pt on input line 148.
+\thai@year=\count309
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count310
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count311
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count312
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count313
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count314
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count315
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count316
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count317
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count318
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count319
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+\thai@year=\count320
+LaTeX Info: Redefining \rmfamily on input line 149.
+LaTeX Info: Redefining \sffamily on input line 149.
+LaTeX Info: Redefining \ttfamily on input line 149.
+LaTeX Font Info:    Font shape `TU/THSarabunNew(0)/b/n' will be
+(Font)              scaled to size 12.29996pt on input line 157.
+
+Underfull \hbox (badness 10000) in alignment at lines 154--158
+[][] 
+ []
+
+[3]
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 12.0pt on input line 177.
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 12.0pt on input line 177.
+
+(F:/Work Folder/KMUTT/SeniorProject/nlpSPX/latex/Report Format Latex\undergrad-
+sample-english.toc
+LaTeX Info: Redefining \rmfamily on input line 1.
+LaTeX Info: Redefining \sffamily on input line 1.
+LaTeX Info: Redefining \ttfamily on input line 1.
+)
+\tf@toc=\write4
+\openout4 = `undergrad-sample-english.toc'.
+
+ [4
+
+]
+(F:/Work Folder/KMUTT/SeniorProject/nlpSPX/latex/Report Format Latex\undergrad-
+sample-english.lof
+LaTeX Info: Redefining \rmfamily on input line 2.
+LaTeX Info: Redefining \sffamily on input line 2.
+LaTeX Info: Redefining \ttfamily on input line 2.
+LaTeX Info: Redefining \rmfamily on input line 5.
+LaTeX Info: Redefining \sffamily on input line 5.
+LaTeX Info: Redefining \ttfamily on input line 5.
+LaTeX Info: Redefining \rmfamily on input line 6.
+LaTeX Info: Redefining \sffamily on input line 6.
+LaTeX Info: Redefining \ttfamily on input line 6.
+LaTeX Info: Redefining \rmfamily on input line 9.
+LaTeX Info: Redefining \sffamily on input line 9.
+LaTeX Info: Redefining \ttfamily on input line 9.
+)
+\tf@lof=\write5
+\openout5 = `undergrad-sample-english.lof'.
+
+ [5
+
+]
+Chapter 1.
+
+Package hyperref Warning: bookmark level for unknown chapterxx defaults to 0.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern -5.0pt
+(hyperref)                removed on input line 213.
+
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 14.0pt on input line 215.
+
+LaTeX Warning: Citation `a' on page 1 undefined on input line 217.
+
+File: ./img/chp1/schedule1.png Graphic file (type bmp)
+<./img/chp1/schedule1.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 231--233
+
+ []
+
+File: ./img/chp1/schedule2.png Graphic file (type bmp)
+<./img/chp1/schedule2.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 234--236
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 234--236
+
+ []
+
+[1
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 257--258
+
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
+
+ []
+
+[3]
+Chapter 2.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern -5.0pt
+(hyperref)                removed on input line 313.
+
+
+LaTeX Warning: Citation `a' on page 4 undefined on input line 317.
+
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 13.0pt on input line 321.
+
+LaTeX Warning: Citation `c' on page 4 undefined on input line 322.
+
+[4
+
+]
+
+LaTeX Warning: Citation `f' on page 5 undefined on input line 340.
+
+
+LaTeX Warning: Citation `e' on page 5 undefined on input line 343.
+
+[5]
+
+LaTeX Warning: Citation `p' on page 6 undefined on input line 358.
+
+
+LaTeX Warning: Citation `m' on page 6 undefined on input line 361.
+
+
+LaTeX Warning: Citation `n' on page 6 undefined on input line 361.
+
+[6] [7] [8]
+
+LaTeX Warning: Citation `k' on page 9 undefined on input line 442.
+
+
+LaTeX Warning: Citation `o' on page 9 undefined on input line 442.
+
+[9]
+
+LaTeX Warning: Citation `h' on page 10 undefined on input line 454.
+
+
+LaTeX Warning: Citation `g' on page 10 undefined on input line 455.
+
+[10]
+
+LaTeX Warning: Citation `i' on page 11 undefined on input line 457.
+
+File: ./img/chp2/transformerLables.png Graphic file (type bmp)
+<./img/chp2/transformerLables.png>
+
+Overfull \hbox (51.21492pt too wide) in paragraph at lines 463--464
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[11] [12]
+Chapter 3.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern -5.0pt
+(hyperref)                removed on input line 468.
+
+File: ./img/chp3/SysArch.png Graphic file (type bmp)
+<./img/chp3/SysArch.png>
+
+LaTeX Warning: Reference `fig:sysarch' on page 13 undefined on input line 477.
+
+[13
+
+]
+File: ./img/chp3/Usecase.png Graphic file (type bmp)
+<./img/chp3/Usecase.png>
+
+
+LaTeX Warning: Reference `fig:usecase' on page 14 undefined on input line 500.
+
+File: ./img/chp3/Sequence1.png Graphic file (type bmp)
+<./img/chp3/Sequence1.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: Reference `fig:seq1' on page 14 undefined on input line 519.
+
+[14]
+File: ./img/chp3/Sequence2.png Graphic file (type bmp)
+<./img/chp3/Sequence2.png>
+
+
+LaTeX Warning: Reference `fig:seq2' on page 15 undefined on input line 527.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 527--528
+
+ []
+
+[15]
+File: ./img/chp3/Sequence3.png Graphic file (type bmp)
+<./img/chp3/Sequence3.png>
+
+
+LaTeX Warning: Reference `fig:seq3' on page 16 undefined on input line 535.
+
+File: ./img/chp3/Sequence4.png Graphic file (type bmp)
+<./img/chp3/Sequence4.png>
+
+LaTeX Warning: Reference `fig:seq4' on page 16 undefined on input line 543.
+
+[16]
+File: ./img/chp3/processsingPipe.png Graphic file (type bmp)
+<./img/chp3/processsingPipe.png>
+ [17]
+File: ./img/chp3/Frame 13.png Graphic file (type bmp)
+<./img/chp3/Frame 13.png>
+ [18] [19]
+File: ./img/chp3/Package.png Graphic file (type bmp)
+<./img/chp3/Package.png>
+ [20] [21]
+Chapter 4.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern -5.0pt
+(hyperref)                removed on input line 658.
+
+[22
+
+] [23] [24] [25] [26] [27] [28] [29] [30]
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 943.
+
+! Undefined control sequence.
+<recently read> \rowcolor 
+                          
+l.947 \rowcolor
+               [HTML]{FFFFFF}
+? 
+! Undefined control sequence.
+<recently read> \rowcolor 
+                          
+l.952 \rowcolor
+               [HTML]{FFFFFF}
+? 
+
+Overfull \hbox (1220.54117pt too wide) in paragraph at lines 944--956
+[][] 
+ []
+
+No file undergrad-sample-english.bbl.
+The property list \polyglossia@langsetup contains the pairs (without outer
+braces):
+>  {latex/script}  =>  {latin}
+>  {latex/lcscript}  =>  {latin}
+>  {latex/scripttag}  =>  {}
+>  {latex/language}  =>  {Latex}
+>  {latex/langtag}  =>  {ENG}
+>  {latex/bcp47}  =>  {}
+>  {latex/hyphennames}  =>  {english}
+>  {latex/direction}  =>  {LR}
+>  {latex/hyphenmins}  =>  {2,3}
+>  {latex/frenchspacing}  =>  {false}
+>  {latex/indentfirst}  =>  {false}
+>  {latex/fontsetup}  =>  {true}
+>  {latex/envname}  =>  {latex}
+>  {latex/babelname}  =>  {latex}
+>  {latex/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/DefineCommandsCmd}  =>  {use_none:n}
+>  {english/script}  =>  {latin}
+>  {english/lcscript}  =>  {latin}
+>  {english/scripttag}  =>  {}
+>  {english/language}  =>  {English}
+>  {english/langtag}  =>  {ENG}
+>  {english/bcp47}  =>  {en-US}
+>  {english/hyphennames}  =>  {english,american,usenglish,USenglish}
+>  {english/direction}  =>  {LR}
+>  {english/hyphenmins}  =>  {2,3}
+>  {english/frenchspacing}  =>  {false}
+>  {english/indentfirst}  =>  {false}
+>  {english/fontsetup}  =>  {true}
+>  {english/envname}  =>  {english}
+>  {english/babelname}  =>  {american}
+>  {english/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {english/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {english/DefineCommandsCmd}  =>  {xpg_define_language_commands:e}
+>  {thai/script}  =>  {Thai}
+>  {thai/lcscript}  =>  {thai}
+>  {thai/scripttag}  =>  {thai}
+>  {thai/language}  =>  {Thai}
+>  {thai/langtag}  =>  {THA}
+>  {thai/bcp47}  =>  {th}
+>  {thai/hyphennames}  =>  {nohyphenation}
+>  {thai/direction}  =>  {LR}
+>  {thai/hyphenmins}  =>  {2,3}
+>  {thai/frenchspacing}  =>  {false}
+>  {thai/indentfirst}  =>  {false}
+>  {thai/fontsetup}  =>  {true}
+>  {thai/envname}  =>  {thai}
+>  {thai/babelname}  =>  {thai}
+>  {thai/localnumeral}  =>  {thainumerals}
+>  {thai/Localnumeral}  =>  {thainumerals}
+>  {thai/DefineCommandsCmd}  =>  {xpg_define_language_commands:e}.
+The property list \__xpg_alias contains the pairs (without outer braces):
+>  {latex/target}  =>  {latex}
+>  {english/target}  =>  {english}
+>  {en/target}  =>  {english}
+>  {en-AU/target}  =>  {english}
+>  {en-AU/variant}  =>  {australian}
+>  {en-AU/options}  =>  {variant=australian}
+>  {en-CA/target}  =>  {english}
+>  {en-CA/variant}  =>  {canadian}
+>  {en-CA/options}  =>  {variant=canadian}
+>  {en-GB/target}  =>  {english}
+>  {en-GB/variant}  =>  {british}
+>  {en-GB/options}  =>  {variant=british}
+>  {en-NZ/target}  =>  {english}
+>  {en-NZ/variant}  =>  {newzealand}
+>  {en-NZ/options}  =>  {variant=newzealand}
+>  {en-US/target}  =>  {english}
+>  {en-US/variant}  =>  {us}
+>  {en-US/options}  =>  {variant=us}
+>  {american/target}  =>  {english}
+>  {american/variant}  =>  {us}
+>  {american/options}  =>  {variant=us}
+>  {australian/target}  =>  {english}
+>  {australian/variant}  =>  {australian}
+>  {australian/options}  =>  {variant=australian}
+>  {british/target}  =>  {english}
+>  {british/variant}  =>  {british}
+>  {british/options}  =>  {variant=british}
+>  {canadian/target}  =>  {english}
+>  {canadian/variant}  =>  {canadian}
+>  {canadian/options}  =>  {variant=canadian}
+>  {newzealand/target}  =>  {english}
+>  {newzealand/variant}  =>  {newzealand}
+>  {newzealand/options}  =>  {variant=newzealand}
+>  {thai/target}  =>  {thai}
+>  {th/target}  =>  {thai}.
+[31] (undergrad-sample-english.aux
+LaTeX Info: Redefining \rmfamily on input line 16.
+LaTeX Info: Redefining \sffamily on input line 16.
+LaTeX Info: Redefining \ttfamily on input line 16.
+)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `undergrad-sample-english.out' has changed
+.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `undergrad-sample-english.out':
+(rerunfilecheck)             Before: 81C59A7D93B25DC5DB481B4AF570148B;5693
+(rerunfilecheck)             After:  141FD5A5E973C9AF1C5497D36342FA38;23119.
+ ) 
 Here is how much of TeX's memory you used:
- 2501 strings out of 475385
- 36156 string characters out of 2789561
- 384513 words of memory out of 3000000
- 23903 multiletter control sequences out of 15000+600000
- 469259 words of font info for 28 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 70i,0n,76p,291b,36s stack positions out of 10000i,1000n,20000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 17305 strings out of 410532
+ 327434 string characters out of 2818779
+ 735355 words of memory out of 3000000
+ 38225 multiletter control sequences out of 15000+600000
+ 471916 words of font info for 75 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 101i,9n,105p,1484b,450s stack positions out of 10000i,1000n,20000p,200000b,80000s
+
+Output written on undergrad-sample-english.pdf (37 pages).
