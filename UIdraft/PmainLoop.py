@@ -2,9 +2,9 @@ import time
 import pandas as pd
 import ranky as rk
 import inter_values
-import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from transformers import RobertaTokenizer,RobertaForMaskedLM
+from sentence_transformers import SentenceTransformer
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
@@ -53,8 +53,8 @@ def rankAll(a,b,c,d):
     df = pd.DataFrame.from_dict(dick, orient="index")
     out = rk.borda(df, reverse=True, axis=1)
     out.to_dict()
-
-    return(sorted([[key, value] for key, value in out.items()], key=lambda x: x[1], reverse=False)) # !REVERSE MUST BE FALSE!
+    res = sorted([[key, value] for key, value in out.items()], key=lambda x: x[1], reverse=False)
+    return(checkLev(res)) # !REVERSE MUST BE FALSE!
 
 def loadClassifier(MAX):
 
@@ -69,34 +69,9 @@ classifier = loadClassifier(classifierLimit)
 print("(Classifier) Elapsed time: ", end - start, "DELTA T=", 15-(end-start))
 
 
-def paraphrase(input_sentence):
-    model = AutoModelForSeq2SeqLM.from_pretrained('ramsrigouthamg/t5_sentence_paraphraser')
-    tokenizer = AutoTokenizer.from_pretrained('ramsrigouthamg/t5_sentence_paraphraser')
-    device = torch.device('cpu')
-    
-    # Prepare the input
-    input_ids = tokenizer.encode(input_sentence, return_tensors='pt').to(device)
- 
-    # Generate the paraphrased sentence
-    output_ids = model.generate(input_ids=input_ids,
-                                do_sample = True,
-                                max_length = len(input_sentence),
-                                num_beams = 10,
-                                no_repeat_ngram_size = 2,
-                                early_stopping = True,
-                                encoder_no_repeat_ngram_size = 2,
-                                repetition_penalty = 10.0
-                                )
-    
-    # Decode the output
-    output_sentence = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-    
-    return output_sentence
 
 
-
-def generateData(mode):
-    testData = [
+testData = [
                 ["Steve Jobs likes White color, so everything in the factory is White.","Steve Jobs likes White color, so everything in the <mask> is White.","factory"],
                 ["Samsung Galaxy watch is the best Android Wearable on the marketright now","Samsung Galaxy watch is the best Android Wearable on the <mask> right now","market"],
                 ["I drive MG car to London", "I <mask> MG car to London","drive"],
@@ -123,11 +98,6 @@ def generateData(mode):
                 ["HP Omen is a gaming laptop with external cooling pipe to keep the laptop cool","HP Omen is a gaming laptop with external cooling pipe to keep the <mask> cool","laptop"],
                 ["x"]
                 ]
-    if mode == 1:
-        return(testData)
-    else:
-        return
-        # return(makeFMP(parseMode))
 
 
 
@@ -189,5 +159,4 @@ def makeOutput(fmp):
             break
 
     inter_values.suggested_words.append(wordlist)
-
-# makeOutput(generateData(1))
+#makeOutput(testData[0])
