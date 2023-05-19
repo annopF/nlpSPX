@@ -134,7 +134,7 @@ def scan_texts(inputtextbox):
         for idx, i in enumerate(SCAN_OUTPUT[1]):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
-            Button(repeatedword, text=i[0],
+            Button(repeatedword, text=f"{i[0]}  :\t{i[1]} found",
                 command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER)) \
                 .grid(row=idx + 1, column=0)
     return ()
@@ -306,6 +306,9 @@ def ignore_all(word):   # Insert a word here
                 inter_values.exception_list.append(splitted_word)
                 print(inter_values.exception_list)
                 messagebox.showinfo("Exception list", f"Added the word {info_text} to the exception list")
+                inter_values.destroy_all_buttons(repeatedword)
+                inter_values.suggestion_clear(suggestion_wordlist)
+                replacement.__init__()
                 threading.Thread(target = scan_texts, args=(text,)).start()
                 inter_values.original_word = str()
     return
