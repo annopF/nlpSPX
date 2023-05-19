@@ -661,7 +661,15 @@ This chapter will be discussing the detail and actual implementation, changes, a
 
 \section{User Interface}
 \subsection{initialize}
-<Figure 4.x Application’s starting screen>  shows the program’s blank screen after it’s launched. Showing some basic labels and workspaces including.
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Init.png}
+\caption{Application’s starting screen}\label{fig:init}
+\end{figure}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Bar.png}
+\caption{‘File’ button dropdown in the menu bar}\label{fig:bar}
+\end{figure}
+Figure  \ref{fig:init} shows the program’s blank screen after it’s launched. Showing some basic labels and workspaces including.
 \begin{itemize}
 \item Menubar: At the top of the window, there’s a bar that contains basic functions such as opening documents, inserting and delete pages.
 \item Text workspace: A white blank textbox in the middle of the window, consume most of the window’s area for editing text.
@@ -671,25 +679,62 @@ else.
 \end{itemize}
 
 \subsection{Opening file}
-After the user chooses to import the document into the text workspace by going to ‘File’ –> ’Open’ from the menubar shown in <Figure 4.x Choose file window>. A File Explorer window will appear to choose .pdf or .txt file. And the application will read the text in the file, then show it in the text workspace page by page, with the page number defined on the navigation bar in <Figure 4.x Application screen after importing the document>.
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Open.png}
+\caption{Choosing file window}\label{fig:openfile}
+\end{figure}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/AfterImport.png}
+\caption{Application screen after importing the document}\label{fig:afterimport}
+\end{figure}
+After the user chooses to import the document into the text workspace by going to ‘File’ –> ’Open’ from the menubar shown in figure \ref{fig:openfile}. A File Explorer window will appear to choose .pdf or .txt file. And the application will read the text in the file, then show it in the text workspace page by page, with the page number defined on the navigation bar in figure \ref{fig:afterimport}.
 
 \subsection{Scan function}
-After the user has imported the text or scanned the amount of text in the workspace. If they click the green ‘scan’ on the leftmost of navigation bar. The application will scan the text and show most repeated word and each’s current count on the page in the upper side of the sidebar as <Figure 4.x Repeated word are showing after scanned> shows. The repeated word scanned is up to Trigram and without stopwords in any gram.
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Repeatedword.png}
+\caption{Repeated word are showing after scanned}\label{fig:repeatshow}
+\end{figure}
+After the user has imported the text or scanned the amount of text in the workspace. If they click the green ‘scan’ on the leftmost of navigation bar. The application will scan the text and show most repeated word and each’s current count on the page in the upper side of the sidebar as figure \ref{fig:repeatshow} shows. The repeated word scanned is up to Trigram and without stopwords in any gram.
 
 \subsection{Text highlighting}
-The method of text highlighting has been changed from what it should be in section 3.2.2. As figure <Figure 4.x Text of the selected word are highlighted> and <Figure 4.x Different word selecting changes the position of highlight> shows, after the user clicks on any most repeated word shown in the sidebar. That word in the text will be highlighted light green by using Regex method, captures the exact word as the selected repeated word. Also, The highlight will only show for a single selected word at once.
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Highlight1.png}
+\caption{Text of the selected word are highlighted}\label{fig:high1}
+\end{figure}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Highlight2.png}
+\caption{Different word selecting changes the position of highlight}\label{fig:high2}
+\end{figure}
+The method of text highlighting has been changed from what it should be in section 3.2.2. As figure \ref{fig:high1} and \ref{fig:high2} shows, after the user clicks on any most repeated word shown in the sidebar. That word in the text will be highlighted light green by using Regex method, captures the exact word as the selected repeated word. Also, The highlight will only show for a single selected word at once.
 
 \subsection{Suggestion}
-After the user has selected which word they want a suggestion. And they see that they want a suggestion on a word at a particular sentence. User can click on the highlight on that sentence to make the application starts suggesting. And the selected word are highlighted in red, so the user knows which one they are try to replace. This process takes a moment of time. But after the process is done, on the lower part of sidebar will show list of candidate words as <Figure 4.x Suggestion words shown for the selected word on sentence> shows. Those words has related meaning to the target repeated word, and mostly matches with the context on that sentence which the word is in.
 
-	In case that selected word has multiple grams like in <Figure 4.x Suggestion result of multiple grams word selected>. More rows are created at the suggestion tab. Each has a header label which defines its original word that may be replaced. 
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Suggestion1.png}
+\caption{Suggestion words shown for the selected word on sentence}\label{fig:suggest1}
+\end{figure}
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/Suggestion2.png}
+\caption{Suggestion result of multiple grams word selected}\label{fig:suggest2}
+\end{figure}
+After the user has selected which word they want a suggestion. And they see that they want a suggestion on a word at a particular sentence. User can click on the highlight on that sentence to make the application starts suggesting. And the selected word are highlighted in red, so the user knows which one they are try to replace. This process takes a moment of time. But after the process is done, on the lower part of sidebar will show list of candidate words as figure \ref{fig:suggest1} shows. Those words has related meaning to the target repeated word, and mostly matches with the context on that sentence which the word is in.
+
+	In case that selected word has multiple grams like in figure \ref{fig:suggest2}. More rows are created at the suggestion tab. Each has a header label which defines its original word that may be replaced. 
 
 
 \subsection{Replacement}
-If user decided to replace a suggestion word to the repeated word selected. User has to. 1.) Click on the suggested word. 2.) Click on “Replace” button on the leftside of most-bottom of sidebar. And the word is replace, and also rescan the page and highlight the same word selected if it still has too many occurrence. In case that there’re multiple grams. As <Figure 4.x Replacing word on multiple grams> shows. Users can only select one word to be replaced on the selected gram only.
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/ReplaceMul.png}
+\caption{Replacing word on multiple grams}\label{fig:replace}
+\end{figure}
+If user decided to replace a suggestion word to the repeated word selected. User has to. 1.) Click on the suggested word. 2.) Click on “Replace” button on the leftside of most-bottom of sidebar. And the word is replace, and also rescan the page and highlight the same word selected if it still has too many occurrence. In case that there’re multiple grams. As figure \ref{fig:replace} shows. Users can only select one word to be replaced on the selected gram only.
 
 \subsection{Ignoring words}
-In case that user don’t want to replace a particular repeated word. The user can click on that repeated word and select ‘Ignore’ button on the lower right corner or the screen. And after user accepts the prompt shown as on <Figure 4.x A prompt to add a word to exclusion list>. The application will add that repeated word or grams to the exclusion list which are separately to each other. Which means, adding the word ‘rich people’ to the list, the application won’t ignore the single word ‘people’ or ‘rich’ out of the scanning process and vice versa. 
+\begin{figure}[!h]\centering
+\includegraphics[width=15cm]{./img/chp4/IgnorePrompt.png}
+\caption{A prompt to add a word to exclusion list}\label{fig:ignore}
+\end{figure}
+In case that user don’t want to replace a particular repeated word. The user can click on that repeated word and select ‘Ignore’ button on the lower right corner or the screen. And after user accepts the prompt shown as on figure \ref{fig:ignore}. The application will add that repeated word or grams to the exclusion list which are separately to each other. Which means, adding the word ‘rich people’ to the list, the application won’t ignore the single word ‘people’ or ‘rich’ out of the scanning process and vice versa. 
 
 
 \section{Application's backend changes}
