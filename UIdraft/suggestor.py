@@ -1,7 +1,7 @@
 from Putil import isStopword
 from tokenizer import selectTokenizer
 from PmainLoop import makeOutput
-from tkinter import Button, Label, Frame, FLAT
+from tkinter import Button, Label, Frame, FLAT, messagebox
 import inter_values
 from inter_values import replacement
 
@@ -91,6 +91,18 @@ def on_highlight_click(textbox, suggestionbox, event, parser):
                 row_count3 = {}
                 print(len(inter_values.suggested_words))
                 print("SUGGESTED WORD LIST", inter_values.suggested_words)
+                for w in inter_values.suggested_words:
+                    if w:
+                        print("list is not empty")
+                        break
+                    else:
+                        if w == inter_values.suggested_words[-1]:
+                            print("list is empty")
+                            messagebox.showinfo("Suggestion module", "There's no good replacement on this sentence.")
+                            return
+                        else:
+                            pass
+
                 if len(inter_values.suggested_words[0]) != 0:
                     Label(suggestionbox, bg="white", text=f"{word_output.word[0]}", font="12").grid(row=1, column=0,
                                                                                     padx=10, sticky="w")
