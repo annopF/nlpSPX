@@ -151,7 +151,7 @@ def makeOutput(fmp):
     # for n in range(1, 10):
     #     wordlist.append(data["rerank"][n][0])
     for word_out in data["rerank"]:
-        if word_out[1] <= 10:
+        if word_out[1] <= 12:
             if word_out[0] == word:
                 continue
             wordlist.append(word_out[0])
