@@ -134,9 +134,9 @@ def scan_texts(inputtextbox):
         for idx, i in enumerate(SCAN_OUTPUT[1]):
             # pack(fill='x', side=TOP)
             print(f"text[{idx}]", i[0])
-            Button(repeatedword, text=f"{i[0]}  :\t{i[1]} found",
+            Button(repeatedword, text=f"{i[0]}  :  {i[1]} found", relief=FLAT, padx=3, bg="#e7d5fa",
                 command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER)) \
-                .grid(row=idx + 1, column=0)
+                .grid(row=idx + 1, column=0, pady=2)
     return ()
 
 
