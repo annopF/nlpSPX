@@ -132,6 +132,17 @@ def scan_texts(inputtextbox):
         pp = PARSER.scantexts()
 
         print("PP", pp)
+        for p in pp:
+            if p:
+                print("list is not empty")
+                break
+            else:
+                if p == pp[-1]:
+                    print("list is empty")
+                    messagebox.showinfo("Detector module", "There's no overused word in this page.")
+                    return 0
+                else:
+                    pass
         global SCAN_OUTPUT
         SCAN_OUTPUT = pp
         # create buttons for most repeated word
@@ -141,7 +152,10 @@ def scan_texts(inputtextbox):
             Button(repeatedword, text=f"{i[0]}  :  {i[1]} found", relief=FLAT, padx=3, bg="#e7d5fa",
                 command=lambda x=i[0]: highlighter.findtext_inthebox(text, suggestion_wordlist, x, PARSER)) \
                 .grid(row=idx + 1, column=0, pady=2)
-    return ()
+        return 1
+    else:
+        messagebox.showinfo("Detector module", "There's no text in the page.")
+        return 0
 
 
 def page_init():
@@ -262,11 +276,12 @@ def replace_word(textbox):
 
         # inp = textbox.get(1.0, "end-1c")
         # PARSER.setUp(inp)
-        scan_texts(text)
-        for i in SCAN_OUTPUT[1]:
-            if inter_values.original_word == i[0]:
-                highlighter.findtext_inthebox(text, suggestion_wordlist, inter_values.original_word, PARSER)
-                break
+        scan = scan_texts(text)
+        if scan:
+            for i in SCAN_OUTPUT[1]:
+                if inter_values.original_word == i[0]:
+                    highlighter.findtext_inthebox(text, suggestion_wordlist, inter_values.original_word, PARSER)
+                    break
 
         # Clear Suggestion list
         inter_values.suggestion_clear(suggestion_wordlist)
