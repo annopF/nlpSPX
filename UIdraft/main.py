@@ -106,7 +106,7 @@ def select_file():
         tf = open(selectedfile, 'r')
         INPUT_TEXT.append(tf.read())
         print(INPUT_TEXT)
-        text.insert(INSERT, INPUT_TEXT[0])
+        text.insert(INSERT, INPUT_TEXT[0].replace('\n', '').replace('\r', ''))
         update_page_label()
     else:
         messagebox.showerror("Open file", "Not supported file format.")

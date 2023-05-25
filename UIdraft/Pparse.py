@@ -143,7 +143,8 @@ class parse():
 
         start = time.time()
         s = classifier(str(doc))
-        # print(s)
+
+        print(s)
         end = time.time()
         print("/*/*/*/*/*/ Elapsed time (NER)", end - start)
 
@@ -155,11 +156,11 @@ class parse():
         # print(self.entIndex)
 
         self.DoNotHighLight = [(i["start"], i["end"]) for i in s]
-        # print(self.DoNotHighLight)
+        print(self.DoNotHighLight)
         self.doc = doc
         text = str(doc)
         start = time.time()
-        text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}|\d+", "", text)
+        text = re.sub("\(.*?\)|\[.*?\]|\{.*?\}|\d+|'s", "", text)
         end = time.time()
         print("/*/*/*/*/*/ Elapsed time (replace parentheses)", end - start)
 
@@ -167,6 +168,7 @@ class parse():
         for i in self.entIndex:
             text = re.sub(fr"\b{i}\b", "", text)
         end = time.time()
+        print("text", text)
         print("/*/*/*/*/*/ Elapsed time (replace entity)", end - start)
 
 
@@ -196,9 +198,9 @@ class parse():
     def scantexts(self):
         toks = []
         topwords = []
-        topwords.append([(ug.concat, ug.count) for ug in self.ug if ug.safe][:5])
-        topwords.append([(bg.concat, bg.count) for bg in self.bg if bg.safe][:5])
-        topwords.append([(tg.concat, tg.count) for tg in self.tg if tg.safe][:5])
+        topwords.append([(ug.concat, ug.count) for ug in self.ug if ug.safe and ug.count > 3][:5])
+        topwords.append([(bg.concat, bg.count) for bg in self.bg if bg.safe and bg.count > 3 ][:5])
+        topwords.append([(tg.concat, tg.count) for tg in self.tg if tg.safe and tg.count > 3][:5])
 
         return toks, [word for container in topwords for word in container]
 

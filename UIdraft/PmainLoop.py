@@ -33,11 +33,11 @@ classifierLimit = 60 #recommened = 60
 def rankAll(a,b,c,d):
 
     #print(a)
-    dick = dict.fromkeys([x[0] for x in a])
+    dic_k = dict.fromkeys([x[0] for x in a])
 
     #print(dick)
     temp = []
-    for word in dick:
+    for word in dic_k:
         #for i,(a,b,c) in enumerate(zip(roberta,mnli,distil)):
         temp.append([word, [[x[0] for x in a].index(word), 
                             [x[0] for x in b].index(word), 
@@ -45,12 +45,12 @@ def rankAll(a,b,c,d):
                             [x[0] for x in d].index(word)]])
 
     #print(temp)
-    for word in dick:
+    for word in dic_k:
         for item in temp:
             if item[0] == word:
-                dick[word] = item[1]
+                dic_k[word] = item[1]
 
-    df = pd.DataFrame.from_dict(dick, orient="index")
+    df = pd.DataFrame.from_dict(dic_k, orient="index")
     out = rk.borda(df, reverse=True, axis=1)
     out.to_dict()
     res = sorted([[key, value] for key, value in out.items()], key=lambda x: x[1], reverse=False)
@@ -130,12 +130,13 @@ def makeOutput(fmp):
     ST_outputLMV6 = sentenceSimilarity(maskedSentence, deepClean, model=lmv6, mode=0)
     entail = entailment(maskedSentence, deepClean, model1=mnli, model2=dbt)
     rerank = rankAll(deepCleans, ST_outputMNLI, ST_outputLMV6, entail)
+    s = min(len(ST_outputLMV6),len(ST_outputMNLI),len(entail),len(rerank))
     data = {
-        "OG rank": deepCleans[:limit],
-        "ST MNLI": ST_outputMNLI[:limit],
-        "ST LMV6": ST_outputLMV6[:limit],
-        "Entailment_score": entail[:limit],
-        "rerank": rerank[:limit]}
+        "OG rank": deepCleans[:s],
+        "ST MNLI": ST_outputMNLI[:s],
+        "ST LMV6": ST_outputLMV6[:s],
+        "Entailment_score": entail[:s],
+        "rerank": rerank[:s]}
     df = pd.DataFrame(data)
     print(df)
     # print("*****DEEPCLEAN:", candidate)
