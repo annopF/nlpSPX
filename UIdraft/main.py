@@ -92,7 +92,11 @@ def select_file():
 
     if selectedfile.endswith(".pdf"):
         clear_inputs()
-        INPUT_TEXT = textreader.readtext(selectedfile)
+        INPUT_TEXT = textreader.textract_readtext(selectedfile)
+        # for idx, page in enumerate(INPUT_TEXT):
+        #     # page = re.sub(r"\r\n", " ", page)
+        #     print("PAGE ", idx + 1)
+        #     print(page)
         # INPUT_TEXT = textreader.nopreadtext(selectedfile)
         text.insert(INSERT, INPUT_TEXT[0])  # INSERT, END defines direction to insert text
         update_page_label()
