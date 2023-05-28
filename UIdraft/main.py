@@ -116,6 +116,9 @@ def select_file():
 def scan_texts(inputtextbox):
     print("----------------------------------SCAN TEXTS----------------------------------")
     inp = inputtextbox.get(1.0, "end-1c")
+    inp = inp.replace("\n", " ")
+    inputtextbox.delete('1.0', 'end')
+    inputtextbox.insert(INSERT, inp)
 
     if inp != "":
         inputtextbox.tag_remove("highlight", 1.0, "end-1c")

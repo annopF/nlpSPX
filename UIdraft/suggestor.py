@@ -52,7 +52,7 @@ def on_highlight_click(textbox, suggestionbox, event, parser):
             word_output.list_child()
 
             def tclToInt(tcl):
-                return int(str(tcl)[slice(2, len(str(tcl)))])
+                return float(str(tcl)[slice(2, len(str(tcl)))])
 
             def whatGram(input):
                 return (parser.getGram(len(str(input).split(" "))))
