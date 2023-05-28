@@ -115,15 +115,17 @@ def select_file():
 
 def scan_texts(inputtextbox):
     print("----------------------------------SCAN TEXTS----------------------------------")
+    inputtextbox.tag_remove("highlight", 1.0, "end-1c")
+    inputtextbox.tag_remove("highlight-clicked", 1.0, "end-1c")
+    inter_values.destroy_all_buttons(repeatedword)
+    inter_values.suggestion_clear(suggestion_wordlist)
+
     inp = inputtextbox.get(1.0, "end-1c")
     inp = inp.replace("\n", " ")
     inputtextbox.delete('1.0', 'end')
     inputtextbox.insert(INSERT, inp)
 
     if inp != "":
-        inputtextbox.tag_remove("highlight", 1.0, "end-1c")
-        inputtextbox.tag_remove("highlight-clicked", 1.0, "end-1c")
-        inter_values.destroy_all_buttons(repeatedword)
         global PARSER
         # PARSER = parse()
         PARSER.setUp(inp)

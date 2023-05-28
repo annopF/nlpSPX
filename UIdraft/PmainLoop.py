@@ -148,7 +148,7 @@ def makeOutput(fmp):
     print(">>>> OG:Final ratio = {}/{}".format(ogLen, len(rerank)))
     print("-" * 100)
 
-    wordlist = [x[0] for x in rerank[:10] if x[0] != word]
+    wordlist = [x[0] for x in rerank[:8] if x[0] != word]
     
     inter_values.suggested_words.append(wordlist)
 #makeOutput(testData[0])
