@@ -504,7 +504,6 @@ Figure \ref{fig:usecase} displays all use cases and actors who interact with the
 \item Detecting overused words or phrases in the text given.
 \item Giving suggestions of a replacement word to the user.
 \item Accepting the suggestion, so the suggestion word can be used to replace in the text.
-\item Rejecting the suggestion, so that overused words will be ignored.
 \item Add overused words to the exception list which will not be suggested later on the document.
 \item Replacing the suggestion word to where overused words are.
 \end{enumerate}
@@ -521,26 +520,18 @@ Figure \ref{fig:seq1} displays of a normal scenario. when the user inputs texts 
 \noindent{\large\bf  Scenario 2: User accepts the suggestion}
 \begin{figure}[!h]\centering
 \includegraphics[width=15cm]{./img/chp3/Sequence2.png}
-\caption{Rejecting word suggestion sequence diagram}\label{fig:seq2}
+\caption{Accepting word suggestion sequence diagram}\label{fig:seq2}
 \end{figure}
 
 Figure \ref{fig:seq2} shows the process in case the user is satisfied with the suggestion and clicks the accept suggestion button. UI will send this request to the replacer's part, and the replacer will replace the suggestion word into those overused parts throughout the UI. And shows the finalized text.\\
 
-\noindent{\large\bf  Scenario 3: User rejects the suggestion}
+\noindent{\large\bf  Scenario 3: User Add the overused word to exception list}
 \begin{figure}[!h]\centering
-\includegraphics[width=8cm]{./img/chp3/Sequence3.png}
-\caption{Accepting word suggestion sequence diagram}\label{fig:seq3}
+\includegraphics[width=15cm]{./img/chp3/Sequence3.png}
+\caption{Adding word to exception list sequence diagram}\label{fig:seq3}
 \end{figure}
 
-Figure \ref{fig:seq3} shows the process in case the user doesn’t want to change this overused word. After they clicked the reject suggestion button. The program will simply hide those suggested word lists for users not to be notified.
-
-\noindent{\large\bf  Scenario 4: User Add the overused word to exception list}
-\begin{figure}[!h]\centering
-\includegraphics[width=15cm]{./img/chp3/Sequence4.png}
-\caption{Adding word to exception list sequence diagram}\label{fig:seq4}
-\end{figure}
-
-Figure \ref{fig:seq4} shows the process when the user doesn’t want this overused word to not be scanned at all in the document. So, after they click to add this word to the exception list. The program will send the exception word information to the detector to include it in. And also hide the suggestion list in the UI itself.
+Figure \ref{fig:seq3} shows the process when the user doesn’t want this overused word to not be scanned at all in the document. So, after they click to add this word to the exception list. The program will send the exception word information to the detector to include it in. And also hide the suggestion list in the UI itself.
 
 \section{User Interface}
 \subsection{Input area}
@@ -1188,7 +1179,7 @@ Our approach is able to uncover hidden synonyms that are otherwise missed by Gra
 \end{tabular}
 
 \section{User testing result}
-Excluding a basic testing strategy, in order to see an actual response of the application’s performance and if it accomplished users need. We have given a chance to a total of 14 representatives to do hands-on testing of our application. By letting them test how to use the program with some advice from us as developers. And giving them a user survey of our application using Google Form, to collect responses if they like the features or not. \\
+Beside our basic testing strategy, in order to see an actual response of the application’s performance and if it accomplished users need. We have given a chance to a total of 14 representatives to do hands-on testing of our application. By letting them test how to use the program with some advice from us as developers. And giving them a user survey of our application using Google Form, to collect responses if they like the features or not. \\
 
 \includegraphics[width=15cm]{./img/chp4/q-info.png}\\
 
