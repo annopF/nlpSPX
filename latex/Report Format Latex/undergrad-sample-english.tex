@@ -458,8 +458,6 @@ A writing assistant powered by Artificial Intelligence based in San Francisco, C
 
  
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp2/transformerLables.png}}
 \caption{The network model of Transformer architecture}\label{fig:model2}
 \end{figure}
@@ -730,8 +728,6 @@ In case that user don’t want to replace a particular repeated word. The user c
 \section{Application's backend changes}
 At the end of midterm, we had a working front-end UI with clickable buttons and a suggesting engine in place. However, both modules were still working on dummy data and did not exchange anything with each other. When combining both sides, we encountered some challenges related to the compatibility between Spacy and Tkinter. As a result, we needed to change a lot of execution orders in the final implementation.
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/pren.png}}
 \caption{Updated pipeline}\label{fig:updated pipeline}
 \end{figure}
@@ -758,8 +754,6 @@ After experimenting with Embedding Dropout method, we could not reproduce the re
 \section{Create class objects}
 In the revised codebase, some of the backend code has been rewritten to reduce fragmented data and improve readability. With the help of object-oriented, a large number of functions have been grouped under a new class called Parse to simplify the calling process and data passing between the UI and the backend. Note that not all aspects of the project are written using an object-oriented paradigm, most of the code still exists as a function that does not belong to a class. 
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/clas.png}}
 \caption{Class diagram}\label{fig:class diagram}
 \end{figure}
@@ -797,24 +791,18 @@ Performs various operations sequentially in order to build the objects including
 \subsubsection{ findWord()} 
 An inner, private method, for obtaining the context sentences that the repeated word is a part of. It will be called by setUp() method. First, it loops through the sentence in the Spacy doc object which stores all the sentence information the document has including start and end index. From there, the modified whitespace tokenizer is used to tokenize the sentence into individual tokens. Next, the code loops through the n-gram object and compare individual gram to each token in the sentence. If the token matched the target gram, it appends that sentence information such as start, end, replacement targets, and sentence id to the sentence object (sentenceX).
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/findword.png}}
 \caption{findWord() method}\label{fig:findWord() method}
 \end{figure}
 \subsubsection{getTar() }
 An inner, private method that computes the offset of the target word in a given sentence, the output will be stored in the sentenceX target attribute. This method will be called by findWord(), it solves the issue when multiple instances of the same words occur in the same sentence.
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/gettar.png}}
 \caption{getTar() method}\label{fig:getTar() method}
 \end{figure}
 \subsubsection{checkSafe}
 Checks each gram to make sure it contains no stopword. If any gram of the n-gram is a stopword, the safe flag inside the n-gram object will be set to False, otherwise True. It will be called by setUp().
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/checksafe.png}}
 \caption{checkSafe() method}\label{fig:checkSafe() method}
 \end{figure}
@@ -880,8 +868,6 @@ After getting the raw candidate list the cleaning is performed.
 \subsubsection{getMorph()}
 First we obtain the POS of every candidates in the list with this function 
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/getmorph.png}}
 \caption{getMorph() method}\label{fig:getMorph() method}
 \end{figure}
@@ -889,8 +875,6 @@ First we obtain the POS of every candidates in the list with this function
 Then run the following function to remove all incorrect candidates
 The original word is set as a reference, the rest of the candidates will be compared against it.
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/removemor.png}}
 \caption{removeMorph() method}\label{fig:removeMorph() method}
 \end{figure}
@@ -919,8 +903,6 @@ roberta-base (raw score obtained from fill-mask probability output)
 \subsubsection{Sentence similarity }
 The task this function performs is to calculate sentence similarity score using cosine similarity. Only the first 2 models will be passed to the sentenceSimilarity(), one at a time. The new sentence is generated by replacing the <mask> with candidates, it will be compared against the original sentence. The output will be sorted by score in descending order.
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/sentencesim.png}}
 \caption{sentenceSimilarity() function}\label{fig:sentenceSimilarity() function}
 \end{figure}
@@ -930,8 +912,6 @@ The task this function performs is to calculate sentence similarity score using 
 The third model will be used to perform token classification in entailment(), the purpose of it is to categorize 2 sentences into entail, contradict, or neutral. 
 This function first obtain the base score from sentenceSimilarity() the output score will be summed with the entailment score and the newly calculated score will be sorted and return. The intention of this is to suppress the antonym and low-quality candidates by giving them a negative score, so those words will be ranked lower in the final aggregated list.
 \begin{figure}[!h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/ential.png}}
 \caption{entailment() function}\label{fig:entailment() function}
 \end{figure}
@@ -1025,7 +1005,7 @@ According to the table, some candidates with wrong part of speech are still pres
 
 
 
-\begin{tabular}{ll}
+\resizebox{\textwidth}{!}{\begin{tabular}{ ll }
 \hline
 \textbf{Final output (rerank)} &
 \textbf{Raw output} \\ \hline
@@ -1037,14 +1017,12 @@ According to the table, some candidates with wrong part of speech are still pres
 
 \begin{tabular}[c]{@{}l@{}}{[}'manages', 'handles', 'processes', 'addresses', \\ 'tackles', 'controls', 'treats', 'covers',\\ 'oversees',  'uses', 'supports', 'carries',\\ 'deals', 'governs', 'contains'{]}\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}{[}'handles', 'processes', 'manages', 'treats',\\ 'handle',  'deals', 'performs', 'handling',\\ 'considers', 'conducts', 'handled',\\ 'approaches', 'uses', 'supports', 'addresses'{]}\end{tabular} \\ \hline
-\end{tabular}
+\end{tabular}}
 
 
 
 \subsection{The effect of consensus ranking}
 \begin{figure}[h]\centering
-\setlength{\fboxrule}{0.2mm} % can define this in the preamble
-\setlength{\fboxsep}{1cm}
 \fbox{\includegraphics[width=15cm]{./img/chp4/ccr.png}}
 \caption{consensus ranking}\label{fig:consensus ranking}
 \end{figure}
@@ -1074,8 +1052,7 @@ The only difference between the original sentence and the rest is the target wor
 \subsection{Out-of-the-box model vs finetuned model}
 Overall, the finetuned model shows no significant improvement over the original, most of the predicted candidates are comparable, but with less variety and correctness. 
 
-
-\begin{tabular}{lll}
+\resizebox{\textwidth}{!}{\begin{tabular}{lll}
 \hline
 \textbf{sentence} &
   \textbf{base model (rerank)} &
@@ -1089,8 +1066,7 @@ Overall, the finetuned model shows no significant improvement over the original,
 \begin{tabular}[c]{@{}l@{}}Cutting-edge research in the field is published \\ by the prestigious academic journal. (prestigious)\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}prestigious, foremost, prominent, \\ reputable, respectable, crucial, \\ elite, esteemed, important, \\ fashionable, distinguished\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}prestigious, top, foremost, \\ prominent, major, premier, \\ main, classical, elite, small, \\ popular\end{tabular} \\ \hline
-\end{tabular}
-
+\end{tabular}}
 
 
 
@@ -1126,7 +1102,7 @@ The result is represented as follows:
 % \usepackage[table,xcdraw]{xcolor}
 % If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 
-\begin{tabular}{lllll}
+\resizebox{\textwidth}{!}{\begin{tabular}{lllll}
 \hline
 
 \multicolumn{5}{l}{\begin{tabular}[c]{@{}l@{}}\textgreater{}\textgreater{}\textgreater{}\textgreater OG SEN: The punishment given to the rich people is unsatisfactory to the victim's family.\\ \textgreater{}\textgreater{}\textgreater{}\textgreater MASKED WORD: people\\ \textgreater{}\textgreater{}\textgreater{}\textgreater MASKED SEN: The punishment given to the rich \textless{}mask\textgreater is unsatisfactory to the victim's family.\end{tabular}} \\ \hline
@@ -1148,7 +1124,7 @@ Final &
   \begin{tabular}[c]{@{}l@{}}{[}'concept', 'idea',\\ 'notion',  'topic',\\ 'point', 'subject',\\  'term'{]}\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}\{'idea', 'point', 'topic',\\  'notion', 'term',\\ 'subject', 'concept'\}\end{tabular} &
   46.66 \\ \hline
-\end{tabular}\\\\
+\end{tabular}}\\\\
 The full data contain 25 sentences with the percent usable ranging from 13.33 percent (2/15 overlap) up to 73.33 percent (11/15 overlap), with an average overlap of 39.46 percent
 
 
@@ -1159,7 +1135,7 @@ Our approach is able to uncover hidden synonyms that are otherwise missed by Gra
 % \usepackage[table,xcdraw]{xcolor}
 % If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 
-\begin{tabular}{lll}
+\resizebox{\textwidth}{!}{\begin{tabular}{lll}
 \hline
 \textbf{sentence} &
   \textbf{Our work} &
@@ -1176,7 +1152,7 @@ Our approach is able to uncover hidden synonyms that are otherwise missed by Gra
 \begin{tabular}[c]{@{}l@{}}Cutting-edge research in the field is published \\ by the prestigious academic journal.\\ (prestigious)\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}prestigious, foremost, prominent, \\ reputable, respectable, crucial, \\ elite, esteemed, important, \\ fashionable, distinguished\end{tabular} &
   N/A \\ \hline
-\end{tabular}
+\end{tabular}}
 
 \section{User testing result}
 Beside our basic testing strategy, in order to see an actual response of the application’s performance and if it accomplished users need. We have given a chance to a total of 14 representatives to do hands-on testing of our application. By letting them test how to use the program with some advice from us as developers. And giving them a user survey of our application using Google Form, to collect responses if they like the features or not. \\
@@ -1258,13 +1234,13 @@ In summary, our project provides a practical tool for writers to enhance the qua
 \appendix{Appendix}
 \section{Final output vs Rerank}
 \begin{figure}[!h]\centering
-\includegraphics{./img/Appendix/FinalvsRerank.png}
+\includegraphics[width=15cm]{./img/Appendix/FinalvsRerank.png}
 \end{figure}
 
 \newpage
 \section{Base model vs custom model}
 \begin{figure}[!h]\centering
-\includegraphics{./img/Appendix/BasevsCustom.png}
+\includegraphics[width=15cm]{./img/Appendix/BasevsCustom.png}
 \end{figure}
 
 \newpage
